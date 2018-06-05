@@ -1,0 +1,35 @@
+<div class="index-block">
+  <div class="quote white-text">
+    <div class="container">
+      <div class="row">
+        <div class="col m8 s12">
+          <h1>{{"Автотуризм без границ" | translate }}</h1>
+          <p class="flow-text">{{"Только о двух вещах мы будем жалеть на смертном одре — что мало любили и мало путешествовали." | translate }}</p>
+          <p class="flow-text right">{{"Марк Твен" | translate }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row" *ngIf="!isLoaded">
+  <autotourism-loader></autotourism-loader>
+</div>
+<div *ngIf="isLoaded">
+  <autotourism-welcome-message></autotourism-welcome-message>
+  <autotourism-plans  [trips]="trips"></autotourism-plans>
+  <autotourism-current-trip [trips]="trips"></autotourism-current-trip>
+  <autotourism-trips [trips]="trips"></autotourism-trips>
+</div>
+<div class="block white">
+  <div class="container">
+    <div class="row">
+      <div class="col m12">
+        <h4>{{"Хотите присоединиться?" | translate }}</h4>
+        <p class="center">
+          <a class="waves-effect waves-light btn"><i class="material-icons left">group_add</i> {{"Наш форум" | translate }}</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+

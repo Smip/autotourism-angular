@@ -1,9 +1,9 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {NavigationEnd, NavigationStart, Router} from "@angular/router";
-import {AuthService} from "./shared/services/auth.service";
-import {UsersService} from "./shared/services/users.service";
-import {Subscription} from "rxjs/Rx";
-import {TranslateService} from "@ngx-translate/core";
+import {NavigationEnd, NavigationStart, Router} from '@angular/router';
+import {AuthService} from './shared/services/auth.service';
+import {UsersService} from './shared/services/users.service';
+import {Subscription} from 'rxjs/Rx';
+import {TranslateService} from '@ngx-translate/core';
 
 
 @Component({

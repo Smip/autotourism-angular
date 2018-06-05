@@ -1,0 +1,162 @@
+<div class="col l10 offset-l2 s12 header">
+  <h1>Редактирование организатора</h1>
+</div>
+<div class="row">
+  <button
+    class="waves-effect waves-teal btn-flat btn "
+    (click)="goBack()"
+  >
+    <i class="material-icons left">arrow_back</i>
+    Назад
+  </button>
+</div>
+<div class="col s12">
+  <div class="card">
+    <div class="card-content">
+      <div class="row" *ngIf="!isLoaded">
+        <autotourism-loader></autotourism-loader>
+      </div>
+      <div *ngIf="isLoaded">
+        <form #form="ngForm" (ngSubmit)="onSubmit(form)">
+          <div class="row">
+            <div class="input-field col s4">
+              <input
+                id="name"
+                type="text"
+                class="validate"
+                required
+                #name="ngModel"
+                name="name"
+                [(ngModel)]="org.name"
+                ngModel
+              >
+              <label for="name" class="active">Имя</label>
+              <span
+                class="helper-text red-text"
+                *ngIf="name.invalid && name.touched"
+              >
+                <span
+                  *ngIf="name.errors['required']"
+                >
+                  Имя обязательное поле
+                </span>
+              </span>
+            </div>
+            <div class="input-field col s4">
+              <input
+                id="nick"
+                type="text"
+                class="validate"
+                #name="ngModel"
+                name="nick"
+                [(ngModel)]="org.nick"
+                ngModel
+              >
+              <label
+                for="nick"
+                class="active"
+              >Ник</label>
+            </div>
+            <div class="input-field file-field col s4">
+              <input
+                type="text"
+                class="hide"
+                name="photo"
+                [(ngModel)]="org.photo"
+              >
+              <div class="row">
+                <div class="col s3">
+                  <img [src]="org.photo" class="responsive-img">
+                </div>
+                <div class="col s6">
+                  <div class="btn">
+                    <span>Фотография</span>
+                    <input
+                      type="file"
+                      (change)="onUpload($event)"
+                    >
+                  </div>
+                  <div class="file-path-wrapper hide">
+                    <input class="file-path validate" type="text">
+                  </div>
+                </div>
+                <div class="col s3">
+                  <div class="preloader-wrapper small active" *ngIf="photoIsLoading">
+                    <div class="spinner-layer spinner-green-only">
+                      <div class="circle-clipper left">
+                        <div class="circle"></div>
+                      </div>
+                      <div class="gap-patch">
+                        <div class="circle"></div>
+                      </div>
+                      <div class="circle-clipper right">
+                        <div class="circle"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col l12">
+              <quill-editor
+                [(ngModel)]="org.description"
+                name="description"
+                [modules]="modules"
+                #description="ngModel"
+                placeholder="Введите текст..."
+                required
+              ></quill-editor>
+              <span
+                class="helper-text red-text"
+                *ngIf="description.invalid && description.touched"
+              >
+                <span
+                  *ngIf="description.errors['required']"
+                >
+                  Описание обязательное поле
+                </span>
+              </span>
+            </div>
+            <div class="col l12">
+              <div
+                @fade
+                class="card light-green accent-3"
+                *ngIf="message"
+              >
+                <div class="card-content">
+                  <p>{{message}}</p>
+                </div>
+              </div>
+            </div>
+            <div class="col l12">
+              <button
+                class="waves-effect waves-green btn right"
+                type="submit"
+                [disabled]="!form.valid"
+              ><i class="material-icons left">save</i>
+                Сохранить
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="col s12">
+  <h2>Предпросмотр</h2>
+  <div class="card">
+    <div class="row">
+      <div *ngIf="isLoaded">
+        <div class="col s3 card-image">
+          <img [src]="org.photo">
+        </div>
+        <div class="col s9">
+          <h3>{{org.name}} / {{org.nick}}</h3>
+          <span class="black-text" [innerHTML]="org.description"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

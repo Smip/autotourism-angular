@@ -1,0 +1,98 @@
+<div class="block white" *ngIf="trip">
+  <div class="container">
+    <div class="row">
+      <div class="col m12" *ngIf="dateHappened(trip.date_until, 1) ">
+        <h2 class="center">{{"Наш последний пробег" | translate}}</h2>
+      </div>
+      <div class="col m12" *ngIf="!dateHappened(trip.date_from, 1)">
+      <h2 class="center">{{"Наш ближайший пробег" | translate}}</h2>
+    </div>
+      <div class="col m12" *ngIf="dateHappened(trip.date_from, 1) && !dateHappened(trip.date_until, 1) ">
+        <h2 class="center">{{"Сейчас проходит пробег" | translate}}</h2>
+      </div>
+      <div class="col m12">
+        <h3>{{"Автопробег" | translate}} №{{trip.number}} {{trip.name}}</h3>
+      </div>
+      <div class="col m5 s12">
+        <autotourism-time-line [route]="trip.route"></autotourism-time-line>
+      </div>
+      <div class="col m7 s12">
+        <div class="card-panel grey lighten-5 z-depth-1">
+          <div class="row valign-wrapper">
+            <div class="col s2">
+              <i class="material-icons dp48 medium">access_time</i>
+            </div>
+            <div class="col s10">
+                <span class="black-text">
+                  Пробег {{!dateHappened(trip.date_from)?'начнётся':!dateHappened(trip.date_until, 1)?'начался':'закончился'}} {{time_to_trip}}
+                </span>
+            </div>
+          </div>
+        </div>
+        <div class="card-panel grey lighten-5 z-depth-1">
+          <div class="row valign-wrapper">
+            <div class="col s2">
+              <i class="material-icons dp48 medium">directions_car</i>
+            </div>
+            <div class="col s10">
+                <span class="black-text"  *ngIf="dateHappened(trip.registration_open_from) && !dateHappened(trip.registration_open_to)">
+                  В пробеге зарегистрировалось {{trip.members_number}} экипаж(а)
+                </span>
+                <span class="black-text"  *ngIf="dateHappened(trip.registration_open_to)  && !dateHappened(trip.date_from)">
+                  В пробеге будет учавствовать {{trip.members_number}} экипаж(а)
+                </span>
+                <span class="black-text"  *ngIf="dateHappened(trip.date_from) && !dateHappened(trip.date_until, 1) ">
+                  В пробеге участвуют {{trip.members_number}} экипаж(а)
+                </span>
+                <span class="black-text"  *ngIf="dateHappened(trip.date_until, 1) ">
+                  В пробеге участвовало {{trip.members_number}} экипаж(а)
+                </span>
+                <span class="black-text"  *ngIf="!dateHappened(trip.registration_open_from)">
+                  Регистрация в пробег откроется в {{trip.registration_open_from | autoMoment:'YYYY-MM-DD':'MMM YYYY'}}
+                </span>
+              <a [routerLink]="['trips', trip.id, 'members']" *ngIf="dateHappened(trip.registration_open_from)" class="secondary-content">Список</a>
+            </div>
+          </div>
+        </div>
+        <div class="card-panel grey lighten-5 z-depth-1" *ngIf="dateHappened(trip.registration_open_from) && !dateHappened(trip.registration_open_to)">
+          <div class="row valign-wrapper">
+            <div class="col s2">
+              <i class="material-icons dp48 medium green-text">album</i>
+            </div>
+            <div class="col s10">
+                <span class="black-text">
+                  Регистрация открыта
+                </span>
+              <a href="{{trip.link_to_registration}}" *ngIf="trip.link_to_registration" class="secondary-content">Присоеденится</a>
+            </div>
+          </div>
+        </div>
+        <div class="card-panel grey lighten-5 z-depth-1" *ngIf="trip.registration_open_from && !dateHappened(trip.registration_open_from)">
+          <div class="row valign-wrapper">
+            <div class="col s2">
+              <i class="material-icons dp48 medium yellow-text">album</i>
+            </div>
+            <div class="col s10">
+                <span class="black-text">
+                  Регистрация откроется {{trip.registration_open_from | autoMoment: 'YYYY-MM-DD'}}
+                </span>
+              <a href="{{trip.link_to_registration}}" *ngIf="trip.link_to_registration" class="secondary-content">Присоеденится</a>
+            </div>
+          </div>
+        </div>
+        <div class="card-panel grey lighten-5 z-depth-1" *ngIf="dateHappened(trip.registration_open_to)">
+          <div class="row valign-wrapper">
+            <div class="col s2">
+              <i class="material-icons dp48 medium red-text">album</i>
+            </div>
+            <div class="col s10">
+                <span class="black-text">
+                  Регистрация в пробег завершена
+                </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

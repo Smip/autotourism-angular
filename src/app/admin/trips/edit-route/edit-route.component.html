@@ -1,0 +1,153 @@
+<div class="col l10 offset-l2 s12 header">
+  <h1>Маршрут пробега <span *ngIf="isLoaded">№{{trip.number}}</span></h1>
+</div>
+<div class="row">
+  <button
+    class="waves-effect waves-teal btn-flat btn "
+    (click)="goBack()"
+  >
+    <i class="material-icons left">arrow_back</i>
+    Назад
+  </button>
+</div>
+<div class="col s4">
+  <div *ngIf="isLoaded">
+    <autotourism-time-line [route]="trip.route"></autotourism-time-line>
+  </div>
+</div>
+<div class="col s8">
+  <div class="card">
+    <div class="card-content">
+      <div class="row" *ngIf="!isLoaded">
+        <autotourism-loader></autotourism-loader>
+      </div>
+      <div *ngIf="isLoaded">
+        <form
+          [formGroup]="form"
+          (ngSubmit)="onSubmit(form)"
+        >
+          <div formArrayName="route" *ngIf="form">
+            <div *ngFor="let items of form.controls.route.controls; let i = index;">
+              <div [formGroupName]="i" class="row">
+                <div class="input-field col s3">
+                  <input
+                    [id]="'date_from_'+i"
+                    type="text"
+                    formControlName="date_from"
+                    [autotourismDatepicker]="{'defaultDate':items.value.date_from?items.value.date_from:trip.date_from}"
+                  >
+                  <label
+                    [for]="'date_from_'+i"
+                    [ngClass]="{'active':items.value.date_from}"
+                  >
+                    Начало
+                  </label>
+                </div>
+                <div class="input-field col s3">
+                  <input
+                    [id]="'date_until_'+i"
+                    type="text"
+                    formControlName="date_until"
+                    [autotourismDatepicker]="{'defaultDate':(items.value.date_until?items.value.date_until:trip.date_from)}"
+                  >
+                  <label
+                    [for]="'date_until_'+i"
+                    [ngClass]="{'active':items.value.date_until}"
+                  >
+                    Окончание
+                  </label>
+                </div>
+                <div class="input-field col s4">
+                  <input
+                    [id]="'destination_'+i"
+                    type="text"
+                    formControlName="destination"
+                    [autotourismAutocomplete]="{'data':countries}"
+                    autocomplete="off"
+                  >
+                    <label
+                      [for]="'description_'+i"
+                      [ngClass]="{'active':items.value.destination}"
+                    >
+                      Страна
+                    </label>
+                </div>
+                <div class="input-field col s2 center">
+                  <button
+                    type="button"
+                    class="btn-floating waves-effect waves-light red"
+                    (click)="removeRow(i)"
+                  >
+                    <i class="material-icons">delete_forever</i>
+                  </button>
+
+                </div>
+                <div
+                  class="col s12 error-block"
+                  *ngIf="items.invalid && items.touched && items.length > 0"
+                >
+                  <span *ngIf="items.errors && items.errors['validateDateMore']">
+                    <i class="material-icons">arrow_upward</i>
+                    Дата окончания не может быть меньше даты начала<i class="material-icons">arrow_upward</i>
+                  </span>
+                  <span *ngIf="items.get('date_until').touched && items.get('date_until').invalid && items.get('date_until').errors['required']">
+                    Дата окончания обязательна для заполнения.
+                    <i class="material-icons">arrow_upward</i>
+                  </span>
+                  <span *ngIf="items.get('date_from').touched && items.get('date_from').invalid && items.get('date_from').errors['required']">
+                    <i class="material-icons">arrow_upward</i>
+                    Дата начала обязательна для заполнения.
+                  </span>
+                  <span *ngIf="items.get('description').touched && items.get('description').invalid && items.get('description').errors['required']">
+                    Страна обязательна для заполнения.
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col l12">
+            <div
+              @fade
+              class="card light-green accent-3"
+              *ngIf="message"
+            >
+              <div class="card-content">
+                <p>{{message}}</p>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col s12">
+              <button
+                class="btn waves-effect waves-light left"
+                type="button"
+                (click)="newRow()"
+                name="action"
+                [disabled]="form.invalid"
+              >Добавить
+                <i class="material-icons left">add</i>
+              </button>
+              <button
+                class="btn waves-effect waves-light green right"
+                type="submit"
+                name="action"
+                [disabled]="form.invalid"
+              >Сохранить
+                <i class="material-icons right">send</i>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="fixed-action-btn">
+<button
+  class="btn-floating btn-large blue"
+  *ngIf="deletedPoint"
+  (click)="restoreLastDeleted()"
+>
+  <i class="large material-icons">undo</i>
+</button>
+</div>

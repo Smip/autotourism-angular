@@ -1,0 +1,70 @@
+<div class="col l10 offset-l2 s12 header">
+  <h1>Организаторы</h1>
+</div>
+<div class="col s12">
+  <div class="card">
+    <div class="row" *ngIf="!isLoaded">
+      <autotourism-loader></autotourism-loader>
+    </div>
+    <div class="card-content" *ngIf="isLoaded">
+
+      <div class="row">
+        <a
+          routerLink="new"
+          class="waves-effect waves-light btn right blue"
+        >
+          <i class="material-icons left">add</i>Добавить нового
+        </a>
+      </div>
+      <table class="striped">
+        <thead>
+        <tr>
+          <th>Имя</th>
+          <th>Ник</th>
+          <th>Последнее изменение</th>
+          <th></th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr
+          *ngFor="let org of orgs"
+        >
+          <td>{{org.name}}</td>
+          <td>{{org.nick}}</td>
+          <td>{{org.lastUpdate | autoMoment: 'YYYY-MM-DD hh:mm:ss':'LLL'}}</td>
+          <td>
+            <a class="waves-effect waves-light btn-floating" [routerLink]="org.id"><i class="material-icons left">edit</i></a>
+            <button
+              type="button"
+              class="waves-effect waves-light btn-floating red modal-trigger"
+              data-target="deleteConfirmModal"
+              (click)="onDeleteOrg(org)"
+            ><i class="material-icons left">delete_forever</i></button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+<div
+  id="deleteConfirmModal"
+  class="modal"
+  autotourismModal
+>
+    <div class="modal-content">
+      <h4>Удалить {{candidateToDelete.name}} из списка организаторов?</h4>
+      <div class="row">
+        <div class="col s12">
+          <p>После удаления, организатора нельзя будет восстановить. Для подтверждения, нажмите удалить.</p>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="modal-close waves-effect waves-green btn-flat">Отмена</button>
+      <button type="button" class="modal-close waves-effect waves-light red btn" (click)="confirmDeleteOrg(candidateToDelete)">Удалить</button>
+    </div>
+</div>

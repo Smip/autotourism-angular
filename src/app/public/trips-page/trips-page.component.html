@@ -1,0 +1,65 @@
+  <div class="container">
+    <div class="row">
+      <div class="col l8 offset-l2 s12 header">
+        <h1>Наши пробеги</h1>
+      </div>
+      <div class="row" *ngIf="!isLoaded">
+        <autotourism-loader></autotourism-loader>
+      </div>
+      <div class="col s12" *ngIf="isLoaded">
+        <div class="card-panel z-depth-1" *ngFor="let trip of trips | autoPaginator:currentPage:itemsOnPage">
+          <div class="row valign-wrapper">
+            <div class="col s2">
+              <i
+                class="material-icons dp48 medium"
+                [ngClass]="{
+                'green-text':dateHappened(trip.date_until),
+                'yellow-text':dateHappened(trip.date_start),
+                'red-text':dateHappened(trip.registration_open_from) && !dateHappened(trip.registration_open_to)
+                }"
+              >directions_car</i>
+            </div>
+            <div class="col s10">
+              <span class="new badge red left" *ngIf="dateHappened(trip.registration_open_from) && !dateHappened(trip.registration_open_to)" data-badge-caption="Открыта регистрация"></span>
+              <h3>№{{trip.number}}. {{trip.name}}</h3>
+              <span class="black-text">
+                Пробег {{!dateHappened(trip.date_from)?'состоится':!dateHappened(trip.date_until, 1)?'проходит':'состоялся'}} c {{trip.date_from | autoMoment: 'YYYY-MM-DD'}} по {{trip.date_until | autoMoment: 'YYYY-MM-DD'}}
+              </span>
+
+              <p class="secondary-content">
+
+                <a [routerLink]="[trip.id, 'members']" *ngIf="trip.members_number > 0"><i class="material-icons tiny">people</i> Список участников</a>
+                <a [routerLink]="[trip.id, 'info']"><i class="material-icons tiny">info_outline</i> Информация о пробеге</a>
+                <a [routerLink]="['/report', trip.id]" *ngIf="trip.report"><i class="material-icons tiny">description</i> Отчёт о пробеге</a>
+              </p>
+            </div>
+          </div>
+        </div>
+        <ul class="pagination center">
+          <li
+          >
+            <button
+              class="waves-effect btn-flat btn"
+              *ngIf="!(currentPage >= maxPage)"
+              (click)="nextPage()"
+            >
+              Предыдущие
+              <i class="material-icons left">chevron_left</i>
+            </button>
+          </li>
+          <li>
+            <button
+              class="btn btn-flat waves-effect waves-light  "
+              *ngIf="!(currentPage <= 1)"
+              (click)="prevPage()"
+            >
+              Следующие
+              <i class="material-icons right">chevron_right</i>
+            </button>
+          </li>
+
+        </ul>
+      </div>
+    </div>
+  </div>
+

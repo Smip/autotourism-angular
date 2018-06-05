@@ -1,0 +1,295 @@
+<div class="col l10 offset-l2 s12 header">
+  <h1>Редактирование пробега</h1>
+</div>
+<div class="row">
+  <button
+    class="waves-effect waves-teal btn-flat btn "
+    (click)="goBack()"
+  >
+    <i class="material-icons left">arrow_back</i>
+    Назад
+  </button>
+</div>
+<div class="col s6">
+  <div class="card">
+    <div class="card-content">
+      <div class="row" *ngIf="!isLoaded">
+        <autotourism-loader></autotourism-loader>
+      </div>
+      <div *ngIf="isLoaded">
+        <form
+          #form="ngForm"
+          (ngSubmit)="onSubmit(form)"
+        >
+          <div class="row">
+            <div class="input-field col s4">
+              <input
+                id="number"
+                type="text"
+                class="validate"
+                #number="ngModel"
+                name="number"
+                [(ngModel)]="trip.number"
+              >
+              <label for="number" class="active">Номер пробега</label>
+            </div>
+            <div class="input-field col s8">
+              <input
+                id="name"
+                type="text"
+                class="validate"
+                required
+                #name="ngModel"
+                name="name"
+                [(ngModel)]="trip.name"
+              >
+              <label for="name" class="active">Название</label>
+              <span
+                class="helper-text red-text"
+                *ngIf="name.invalid && name.touched"
+              >
+                Название обязательное поле
+              </span>
+            </div>
+            <div class="input-field col s6">
+              <input
+                id="date_from"
+                type="text"
+                class="validate"
+                required
+                #date_from="ngModel"
+                name="date_from"
+                [(ngModel)]="trip.date_from"
+                ngModel
+                autotourismDatepicker
+                validateDateMore="date_until"
+                reverse="true"
+              >
+              <label for="date_from" class="active">Начало пробега</label>
+              <span
+                class="helper-text red-text"
+                *ngIf="date_from.invalid && date_from.touched"
+              >
+                <span
+                  *ngIf="date_from.errors['required']"
+                >
+                  Начало пробега обязательное поле
+                </span>
+              </span>
+            </div>
+            <div class="input-field col s6">
+              <input
+                id="date_until"
+                type="text"
+                class="validate"
+                required
+                #date_until="ngModel"
+                name="date_until"
+                [(ngModel)]="trip.date_until"
+                ngModel
+                [autotourismDatepicker]="{'defaultDate':(trip.date_until?trip.date_until:trip.date_from)}"
+                validateDateMore="date_from"
+              >
+              <label for="date_until" class="active">Окончание пробега</label>
+              <span
+                class="helper-text red-text"
+                *ngIf="date_until.invalid"
+              >
+                <span
+                *ngIf="date_until.errors['required']"
+              >
+                  Окончание пробега обязательное поле
+                </span>
+                <span
+                  *ngIf="date_until.errors['validateDateMore']"
+                >
+                  Окончание пробега не может быть раньше начала
+                </span>
+              </span>
+            </div>
+            <div class="input-field col s6">
+              <input
+                id="registration_open_from"
+                type="text"
+                class="validate"
+                #registration_open_from="ngModel"
+                name="registration_open_from"
+                [(ngModel)]="trip.registration_open_from"
+                ngModel
+                autotourismDatepicker
+                validateDateMore="registration_open_to"
+                reverse="true"
+              >
+              <label for="registration_open_from" class="active">Начало регистрации</label>
+            </div>
+            <div class="input-field col s6">
+              <input
+                id="registration_open_to"
+                type="text"
+                class="validate"
+                #registration_open_to="ngModel"
+                name="registration_open_to"
+                [(ngModel)]="trip.registration_open_to"
+                ngModel
+                autotourismDatepicker
+                validateDateMore="registration_open_from"
+              >
+              <label for="registration_open_to" class="active">Окончание регистрации</label>
+              <span
+                class="helper-text red-text"
+                *ngIf="registration_open_to.invalid"
+              >
+                <span
+                  *ngIf="registration_open_to.errors['validateDateMore']"
+                >
+                  Окончание регистрации не может быть раньше начала
+                </span>
+              </span>
+            </div>
+            <div class="input-field col s12">
+              <p *ngFor="let item of tripTypes">
+                <label>
+                  <input
+                    name="type"
+                    type="radio"
+                    required
+                    [value]="item.value"
+                    [(ngModel)]="trip.type" />
+                  <span>
+                    {{item.label}}
+                    <i class="material-icons red-text tiny" *ngIf="item.value === 'draft'">border_color</i>
+                    <i class="material-icons accent-3-text light-blue-text tiny" *ngIf="item.value === 'plan'">book</i>
+                    <i class="material-icons green-text tiny" *ngIf="item.value === 'real'">assignment_turned_in</i>
+                  </span>
+                </label>
+              </p>
+            </div>
+            <div class="input-field col s12">
+              <input
+                id="link_to_registration"
+                type="text"
+                class="validate"
+                #link_to_registration="ngModel"
+                name="link_to_registration"
+                [(ngModel)]="trip.link_to_registration"
+                ngModel
+              >
+              <label for="link_to_registration" class="active">Ссылка на тему регистрации</label>
+            </div>
+            <div class="col l12">
+              <div
+                @fade
+                class="card light-green accent-3"
+                *ngIf="message"
+              >
+                <div class="card-content">
+                  <p>{{message}}</p>
+                </div>
+              </div>
+            </div>
+            <div class="col s12">
+              <button
+                class="btn waves-effect waves-light right"
+                type="submit"
+                [disabled]="!form.valid"
+              >Сохранить
+                <i class="material-icons right">send</i>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="col s6">
+  <div class="row" *ngIf="!isLoaded">
+    <autotourism-loader></autotourism-loader>
+  </div>
+  <div *ngIf="isLoaded">
+    <h4>Автопробег {{trip.number?'№'+trip.number+'.':''}} {{trip.name}}</h4>
+    <div class="card-panel red lighten-4" *ngIf="trip.type === 'draft'">
+    <span class="black-text">
+      Пробег будет виден только в административной панеле до того как Вы не измените тип на план или пробег.
+    </span>
+    </div>
+    <div class="card-panel grey lighten-5 z-depth-1">
+      <div class="row valign-wrapper" *ngIf="isValidDate(trip.date_from) && isValidDate(trip.date_until)">
+        <div class="col s2">
+          <i class="material-icons dp48 medium">event</i>
+        </div>
+        <div class="col s10">
+        <span class="black-text">
+          Пробег {{!dateHappened(trip.date_from)?'состоится':!dateHappened(trip.date_until, 1)?'проходит':'состоялся'}} c {{trip.date_from | autoMoment: 'YYYY-MM-DD'}} по {{trip.date_until | autoMoment: 'YYYY-MM-DD'}}
+        </span>
+        </div>
+      </div>
+      <div class="row valign-wrapper" *ngIf="!isValidDate(trip.date_from) || !isValidDate(trip.date_until)">
+        Укажите дату начала и окончания пробега
+      </div>
+    </div>
+    <div class="card-panel grey lighten-5 z-depth-1" *ngIf="dateHappened(trip.registration_open_from) && !dateHappened(trip.registration_open_to, 1) && trip.type === 'real'">
+      <div class="row valign-wrapper">
+        <div class="col s2">
+          <i class="material-icons dp48 medium green-text">album</i>
+        </div>
+        <div class="col s10">
+        <span class="black-text">
+          Регистрация открыта
+        </span>
+        </div>
+      </div>
+    </div>
+    <div class="card-panel grey lighten-5 z-depth-1" *ngIf="trip.registration_open_from && !dateHappened(trip.registration_open_from) && trip.type === 'real'">
+      <div class="row valign-wrapper">
+        <div class="col s2">
+          <i class="material-icons dp48 medium yellow-text">album</i>
+        </div>
+        <div class="col s10">
+            <span class="black-text">
+              Регистрация в пробег откроется {{trip.registration_open_from | autoMoment:'YYYY-MM-DD':'LL'}}
+            </span>
+        </div>
+      </div>
+    </div>
+    <div class="card-panel grey lighten-5 z-depth-1" *ngIf="dateHappened(trip.registration_open_to, 1) && (trip.type === 'plan' || trip.type === 'real')">
+      <div class="row valign-wrapper">
+        <div class="col s2">
+          <i class="material-icons dp48 medium red-text">album</i>
+        </div>
+        <div class="col s10">
+            <span class="black-text">
+              Регистрация в пробег завершена
+            </span>
+        </div>
+      </div>
+    </div>
+    <h6>Раздел планов</h6>
+    <div class="card-panel grey lighten-5 z-depth-1">
+      <div class="row valign-wrapper" *ngIf="(!this.dateHappened(trip.registration_open_to, 1) || !trip.registration_open_to) && (trip.type === 'plan' || trip.type === 'real')">
+        <div class="col s2 avatar">
+          <i
+            class="material-icons circle medium"
+            [ngClass]="{
+          'green':numberInArray(trip.date_from | autoMoment: 'YYYY-MM-DD':'M', [3,4,5]),
+          'red':numberInArray(trip.date_from | autoMoment: 'YYYY-MM-DD':'M', [6,7,8]),
+          'orange':numberInArray(trip.date_from | autoMoment: 'YYYY-MM-DD':'M', [9,10,11])
+          }"
+          >explore</i>
+        </div>
+        <div class="col s10">
+          <h5>C {{isValidDate(trip.date_from)?(trip.date_from | autoMoment: 'YYYY-MM-DD'):"?"}} по {{isValidDate(trip.date_until)?(trip.date_until | autoMoment: 'YYYY-MM-DD'):"?"}}</h5>
+          <span  class="black-text">
+          {{trip.name}}
+        </span>
+        </div>
+      </div>
+      <div class="row valign-wrapper" *ngIf="dateHappened(trip.registration_open_to, 1) || trip.type === 'draft'">
+        <div class="col s12">
+          Пробег будет отсутствовать в разделе планы
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

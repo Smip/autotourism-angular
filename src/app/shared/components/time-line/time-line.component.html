@@ -1,0 +1,12 @@
+<div
+  *ngFor="let point of route | orderRoute"
+  class="timeline-item"
+  [ngClass]="{'active':isValidDate(point.date_from) && isValidDate(point.date_until) && dateBetween(point.date_from, point.date_until)}"
+>
+  <p class="timeline-date">
+    {{isValidDate(point.date_from)?(point.date_from | autoMoment: 'YYYY-MM-DD'):'?'}} {{point.date_from !== point.date_until && isValidDate(point.date_until) ? ' - '+(point.date_until | autoMoment: 'YYYY-MM-DD'):''}}
+  </p>
+  <h5>
+    {{point.destination?point.destination:'?'}}
+  </h5>
+</div>

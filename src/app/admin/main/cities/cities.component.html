@@ -1,0 +1,12 @@
+<div class="row" *ngIf="!isLoaded">
+  <autotourism-loader></autotourism-loader>
+</div>
+<div *ngIf="isLoaded">
+  <canvas baseChart
+          [data]="doughnutChartData"
+          [labels]="doughnutChartLabels"
+          [legend]="doughnutChartLegend"
+          [chartType]="doughnutChartType">
+
+  </canvas>
+</div>

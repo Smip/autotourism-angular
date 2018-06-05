@@ -1,0 +1,53 @@
+<h3>{{trip.name}}</h3>
+<div class="card-panel grey lighten-5 z-depth-1">
+  <div class="row valign-wrapper">
+    <div class="col s2">
+        <i class="material-icons dp48 medium">description</i>
+    </div>
+    <div class="col s10">
+      <a [routerLink]="['/report',trip.id]" *ngIf="trip.report">
+        Отчёт о пробеге
+      </a>
+      <span *ngIf="!trip.report">
+        Отчёт о пробеге находится в процессе написания
+      </span>
+    </div>
+  </div>
+</div>
+<div class="card-panel grey lighten-5 z-depth-1">
+  <div class="row valign-wrapper">
+    <div class="col s2">
+      <i class="material-icons dp48 medium">event</i>
+    </div>
+    <div class="col s10">
+      <span class="black-text">
+        Пробег {{!dateHappened(trip.date_from)?'состоится':!dateHappened(trip.date_until, 1)?'проходит':'состоялся'}} c {{trip.date_from | autoMoment: 'YYYY-MM-DD'}} по {{trip.date_until | autoMoment: 'YYYY-MM-DD'}}
+      </span>
+    </div>
+  </div>
+</div>
+<div class="card-panel grey lighten-5 z-depth-1">
+  <div class="row valign-wrapper">
+    <div class="col s2">
+      <i class="material-icons dp48 medium">directions_car</i>
+    </div>
+    <div class="col s10">
+      <span class="black-text"  *ngIf="dateHappened(trip.registration_open_from) && !dateHappened(trip.registration_open_to)">
+        В пробеге зарегистрировалось {{trip.members_number}} экипаж(а)
+      </span>
+      <span class="black-text"  *ngIf="dateHappened(trip.date_from) && !dateHappened(trip.date_until, 1) ">
+        В пробеге участвуют {{trip.members_number}} экипаж(а)
+      </span>
+      <span class="black-text"  *ngIf="dateHappened(trip.date_until, 1) ">
+        В пробеге участвовало {{trip.members_number}} экипаж(а)
+      </span>
+      <span class="black-text"  *ngIf="dateHappened(trip.registration_open_to)  && !dateHappened(trip.date_from)">
+        В пробеге будет учавствовать {{trip.members_number}} экипаж(а)
+      </span>
+      <span class="black-text"  *ngIf="!dateHappened(trip.registration_open_from)">
+        Регистрация в пробег откроется в {{trip.registration_open_from | autoMoment:'YYYY-MM-DD':'MMM YYYY'}}
+      </span>
+      <a [routerLink]="['trips', trip.id, 'members']" class="secondary-content">Список</a>
+    </div>
+  </div>
+</div>

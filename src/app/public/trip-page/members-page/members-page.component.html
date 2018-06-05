@@ -1,0 +1,25 @@
+<div class="card-panel lighten-5 z-depth-1">
+  <div class="row" *ngIf="!isLoaded">
+    <autotourism-loader></autotourism-loader>
+  </div>
+  <div *ngIf="isLoaded">
+    <table class="striped responsive-table">
+      <thead>
+        <tr>
+          <th>Экипаж №</th>
+          <th>Ник</th>
+          <th>Авто</th>
+          <th>Город</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let member of members.members">
+          <td>{{member.number}}</td>
+          <td>{{member.nick}}</td>
+          <td>{{member.auto}}</td>
+          <td>{{member.city}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

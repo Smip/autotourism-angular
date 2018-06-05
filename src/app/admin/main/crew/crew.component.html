@@ -1,0 +1,13 @@
+<div class="row" *ngIf="!isLoaded">
+  <autotourism-loader></autotourism-loader>
+</div>
+<div *ngIf="isLoaded">
+  <canvas baseChart
+          [datasets]="barChartData"
+          [labels]="barChartLabels"
+          [options]="barChartOptions"
+          [legend]="barChartLegend"
+          [chartType]="barChartType"
+          (chartClick)="chartClicked($event)">
+  </canvas>
+</div>

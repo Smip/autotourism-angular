@@ -1,0 +1,34 @@
+<div class="block">
+<div class="container">
+  <div class="row">
+    <div class="col m12">
+      <h2 class="center">{{"Наши планы" | translate}}</h2>
+    </div>
+    <div class="col s12 m10 offset-m1 xl8 offset-xl2">
+      <ul class="collection">
+        <li class="collection-item avatar" *ngFor="let trip of trips">
+          <i
+            class="material-icons circle"
+            [ngClass]="{
+            'green':numberInArray(trip.date_from | autoMoment: 'YYYY-MM-DD':'M', [3,4,5]),
+            'red':numberInArray(trip.date_from | autoMoment: 'YYYY-MM-DD':'M', [6,7,8]),
+            'orange':numberInArray(trip.date_from | autoMoment: 'YYYY-MM-DD':'M', [9,10,11])
+            }"
+          >explore</i>
+          <h5>C {{trip.date_from | autoMoment: 'YYYY-MM-DD'}} по {{trip.date_until | autoMoment: 'YYYY-MM-DD'}}</h5>
+          <p>
+            {{trip.name}}
+            <span class="new badge right blue" *ngIf="dateHappened(trip.registration_open_from)" [attr.data-badge-caption]="'Открыта регистрация' | translate"></span>
+          </p>
+          <div class="clearfix"></div>
+        </li>
+        <li class="collection-item avatar" *ngIf="trips.length === 0">
+          <i class="material-icons circle">book</i>
+          <p>{{"На данный момент планы находятся в разработке и совсем скоро появятся на нашем сайте." | translate}}</p>
+          <div class="clearfix"></div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+</div>
