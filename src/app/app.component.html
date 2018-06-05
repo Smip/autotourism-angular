@@ -1,20 +1,307 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
+<nav class="transparent">
+  <div class="nav-wrapper">
+    <div class="container">
+      <a routerLink="/" class="brand-logo"><img src="../assets/logo.png" alt=""></a>
+      <a href="#" class="sidenav-trigger black-text" data-target="slide"><i class="material-icons">menu</i></a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{exact: true}"
+        >
+          <a routerLink="">
+            {{ "Главная" | translate }}
+          </a>
+        </li>
+        <li
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{exact: true}"
+        >
+          <a routerLink="trips">
+            {{ "Пробеги" | translate }}
+          </a>
+        </li>
+        <li
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{exact: true}"
+        >
+          <a href="http://autotourism.org.ua/forum/">
+            {{ "Форум" | translate }}
+          </a>
+        </li>
+        <li
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{exact: true}"
+        >
+          <a routerLink="about">
+            {{ "О движении" | translate }}
+          </a>
+        </li>
+        <li
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{exact: true}"
+        >
+          <a routerLink="orgs">
+            {{ "Организаторы" | translate }}
+          </a>
+        </li>
+        <li>
+          <a
+            class="dropdown-trigger"
+            href="#"
+            data-target="dropdown_lang"
+            autotourismDropdown
+          >
+            <i class="material-icons left">language</i> Eng / Рус
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<ul id="dropdown_lang" class="dropdown-content">
   <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
+    <a (click)="changeLang('ru')">Русский</a>
   </li>
   <li>
-    <h2><a target="_blank" rel="noopener" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
+    <a (click)="changeLang('en')">English</a>
   </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
 
+</ul>
+<nav class="hide-on-med-and-down" *ngIf="authService.isLoggedIn()">
+  <div class="nav-wrapper container">
+    <div class="row">
+      <div class="col l10 offset-l2">
+        <ul class="left">
+          <li
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{exact: true}"
+          >
+            <a [routerLink]="['admin', 'crew']">
+              {{ "Главная" | translate }}
+            </a>
+          </li>
+          <li
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{exact: true}"
+          >
+            <a [routerLink]="['admin', 'trips']">
+              {{ "Пробеги" | translate }}
+            </a>
+          </li>
+          <li
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{exact: true}"
+          >
+            <a [routerLink]="['admin', 'about']">
+              {{ "О движении" | translate }}
+            </a>
+          </li>
+          <li
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{exact: true}"
+          >
+            <a [routerLink]="['admin', 'orgs']">
+              {{ "Организаторы" | translate }}
+            </a>
+          </li>
+        </ul>
+        <ul class="right">
+          <li>
+            <a (click)="onLogout()">
+              {{ "Выйти" | translate }}
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>
+<ul class="sidenav" id="slide" autotourismSidenav>
+  <li
+    routerLinkActive="active"
+    [routerLinkActiveOptions]="{exact: true}"
+  >
+    <a routerLink="" class="sidenav-close">
+      {{ "Главная" | translate }}
+    </a>
+  </li>
+  <li
+    routerLinkActive="active"
+    [routerLinkActiveOptions]="{exact: true}"
+  >
+    <a routerLink="trips" class="sidenav-close">
+      {{ "Пробеги" | translate }}
+    </a>
+  </li>
+  <li
+    routerLinkActive="active"
+    [routerLinkActiveOptions]="{exact: true}"
+  >
+    <a href="http://autotourism.org.ua/forum/">
+      {{ "Форум" | translate }}
+    </a>
+  </li>
+  <li
+    routerLinkActive="active"
+    [routerLinkActiveOptions]="{exact: true}"
+  >
+    <a routerLink="about" class="sidenav-close">
+      {{ "О движении" | translate }}
+    </a>
+  </li>
+  <li
+    routerLinkActive="active"
+    [routerLinkActiveOptions]="{exact: true}"
+  >
+    <a routerLink="orgs" class="sidenav-close">
+      {{ "Организаторы" | translate }}
+    </a>
+  </li>
+  <li>
+    <div class="divider"></div>
+  </li>
+  <li
+    routerLinkActive="active"
+    [routerLinkActiveOptions]="{exact: true}"
+    *ngIf="authService.isLoggedIn()"
+  >
+    <a [routerLink]="['admin', 'crew']">
+      {{ "Главная админки" | translate }}
+    </a>
+  </li>
+  <li
+    routerLinkActive="active"
+    [routerLinkActiveOptions]="{exact: true}"
+    *ngIf="authService.isLoggedIn()"
+  >
+    <a [routerLink]="['admin', 'trips']">
+      {{ "Редактировать пробеги" | translate }}
+    </a>
+  </li>
+  <li
+    routerLinkActive="active"
+    [routerLinkActiveOptions]="{exact: true}"
+    *ngIf="authService.isLoggedIn()"
+  >
+    <a [routerLink]="['admin', 'about']">
+      {{ "Редактировать" | translate }} "{{ "О движении" | translate }}"
+    </a>
+  </li>
+  <li
+    routerLinkActive="active"
+    [routerLinkActiveOptions]="{exact: true}"
+    *ngIf="authService.isLoggedIn()"
+  >
+    <a [routerLink]="['admin', 'orgs']">
+      {{ "Редактировать" | translate }} "{{ "Организаторы" | translate }}"
+    </a>
+  </li>
+
+  <li *ngIf="authService.isLoggedIn()">
+    <div class="divider"></div>
+  </li>
+  <li *ngIf="authService.isLoggedIn()">
+    <a (click)="onLogout()">
+      {{ "Выйти" | translate }}
+    </a>
+  </li>
+
+</ul>
+<div class="block grey lighten-4">
+  <router-outlet></router-outlet>
+  <div class="row center" *ngIf="loading">
+    <div class="preloader-wrapper big active ">
+      <div class="spinner-layer spinner-red-only ">
+        <div class="circle-clipper left">
+          <div class="circle"></div>
+        </div>
+        <div class="gap-patch">
+          <div class="circle"></div>
+        </div>
+        <div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<footer class="page-footer grey darken-4">
+  <div class="container">
+    <div class="row">
+      <div class="col l6 s12">
+        <h5 class="white-text">{{ "Автотуризм без границ" | translate }}</h5>
+        <p class="grey-text text-lighten-4">
+          {{ "Если Вы любите свою машину, получаете удовольствие от поездок на дальние расстояния и хотите общаться с
+          единомышленниками – присоединяйтесь…" | translate }}
+        </p>
+      </div>
+      <div class="col l4 offset-l2 s12">
+        <h5 class="white-text">{{ "Меню" | translate }}</h5>
+        <ul>
+          <li
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{exact: true}"
+          >
+            <a
+              routerLink=""
+              class="grey-text text-lighten-3"
+            >
+              {{ "Главная" | translate }}
+            </a>
+          </li>
+          <li
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{exact: true}"
+          >
+            <a
+              routerLink="trips"
+              class="grey-text text-lighten-3"
+            >
+              {{ "Пробеги" | translate }}
+            </a>
+          </li>
+          <li
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{exact: true}"
+          >
+            <a
+              href="http://autotourism.org.ua/forum/"
+              class="grey-text text-lighten-3"
+            >
+              {{ "Форум" | translate }}
+            </a>
+          </li>
+          <li
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{exact: true}"
+          >
+            <a
+              class="grey-text text-lighten-3"
+              routerLink="about"
+            >
+              {{ "О движении" | translate }}
+            </a>
+          </li>
+          <li
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{exact: true}"
+          >
+            <a
+              routerLink="orgs"
+              class="grey-text text-lighten-3"
+            >
+              {{ "Организаторы" | translate }}
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="footer-copyright">
+    <div class="container">
+      © {{date | date:'yyyy'}} {{ "Автотуризм без границ" | translate }}.
+      <a href="https://www.linkedin.com/in/soko1off/" target="_blank" class="right white-text"><i
+        class="material-icons tiny">open_in_new</i> Developed by Aleksandr Sokolov</a>
+    </div>
+  </div>
+</footer>
