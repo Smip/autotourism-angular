@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Trip} from "../../../shared/models/trip.model";
+import {Trip} from '../../../shared/models/trip.model';
 import * as moment from 'moment';
 
 @Component({
@@ -12,26 +12,26 @@ export class CurrentTripComponent implements OnInit {
   trip: Trip;
   trips1: Trip[];
   trips2: Trip[];
-  time_to_trip: string = "";
+  time_to_trip = '';
 
 
   constructor() { }
 
   ngOnInit() {
     moment.locale('ru');
-    this.trips = this.trips.filter((trip) =>{
-      return trip.type === "real";
+    this.trips = this.trips.filter((trip) => {
+      return trip.type === 'real';
     });
 
-    if(this.trips.length > 0){
+    if (this.trips.length > 0) {
       this.trips1 = Object.assign({}, this.trips.sort((trip1: Trip, trip2: Trip) => {
         const diff1 = moment().startOf('day').diff(moment(trip1.date_until), 'days');
         const diff2 = moment().startOf('day').diff(moment(trip2.date_until), 'days');
-        if(diff1 >= 0 &&  diff2 < 0){
+        if (diff1 >= 0 &&  diff2 < 0) {
           return  -1;
-        }else if (diff1 >= 0 && diff2 >= 0){
+        } else if (diff1 >= 0 && diff2 >= 0) {
           return diff1 - diff2;
-        }else{
+        } else {
           return 1;
         }
 
@@ -40,30 +40,30 @@ export class CurrentTripComponent implements OnInit {
       this.trips2 = Object.assign({}, this.trips.sort((trip1: Trip, trip2: Trip) => {
         const diff1 = moment().startOf('day').diff(moment(trip1.date_from), 'days');
         const diff2 = moment().startOf('day').diff(moment(trip2.date_from), 'days');
-        if(diff1 <= 0 &&  diff2 >= 0){
+        if (diff1 <= 0 &&  diff2 >= 0) {
           return  -1;
-        }else if (diff1 <= 0 && diff2 <= 0){
+        } else if (diff1 <= 0 && diff2 <= 0) {
           return diff2 - diff1;
-        }else{
+        } else {
           return 1;
         }
       }));
 
-      if(moment().startOf('day').diff(this.trips1[0].date_until, 'days') < 7){
+      if (moment().startOf('day').diff(this.trips1[0].date_until, 'days') < 7) {
         this.trip = this.trips1[0];
-      }else {
+      } else {
         this.trip = this.trips2[0];
       }
 
-      if(this.dateHappened(this.trip.date_until, 1)){
+      if (this.dateHappened(this.trip.date_until, 1)) {
         this.time_to_trip = moment(this.trip.date_until).fromNow().toString();
-      }else{
+      } else {
         this.time_to_trip = moment(this.trip.date_from).fromNow().toString();
       }
     }
   }
 
-  dateHappened(date = '', addDay:number = 0) {
+  dateHappened(date = '', addDay: number = 0) {
     return moment(date).add(addDay, 'd').isBefore();
   }
 

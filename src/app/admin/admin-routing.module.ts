@@ -1,20 +1,20 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {AdminComponent} from './admin.component';
-import {TripsComponent} from "./trips/trips.component";
-import {AboutComponent} from "./about/about.component";
-import {OrgsComponent} from "./orgs/orgs.component";
-import {EditOrgComponent} from "./orgs/edit-org/edit-org.component";
-import {EditTripComponent} from "./trips/edit-trip/edit-trip.component";
-import {EditRouteComponent} from "./trips/edit-route/edit-route.component";
-import {EditMembersComponent} from "./trips/edit-members/edit-members.component";
-import {EditReportComponent} from "./trips/edit-report/edit-report.component";
-import {AddOrgComponent} from "./orgs/add-org/add-org.component";
-import {AuthGuard} from "../shared/services/auth.guard";
-import {MainComponent} from "./main/main.component";
-import {CrewComponent} from "./main/crew/crew.component";
-import {CitiesComponent} from "./main/cities/cities.component";
-import {CarsComponent} from "./main/cars/cars.component";
+import {TripsComponent} from './trips/trips.component';
+import {AboutComponent} from './about/about.component';
+import {OrgsComponent} from './orgs/orgs.component';
+import {EditOrgComponent} from './orgs/edit-org/edit-org.component';
+import {EditTripComponent} from './trips/edit-trip/edit-trip.component';
+import {EditRouteComponent} from './trips/edit-route/edit-route.component';
+import {EditMembersComponent} from './trips/edit-members/edit-members.component';
+import {EditReportComponent} from './trips/edit-report/edit-report.component';
+import {AddOrgComponent} from './orgs/add-org/add-org.component';
+import {AuthGuard} from '../shared/services/auth.guard';
+import {MainComponent} from './main/main.component';
+import {CrewComponent} from './main/crew/crew.component';
+import {CitiesComponent} from './main/cities/cities.component';
+import {CarsComponent} from './main/cars/cars.component';
 
 const routes: Routes = [
   {path: '', component: AdminComponent, canActivate: [AuthGuard], children: [

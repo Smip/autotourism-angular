@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ChatsService} from "../../../shared/services/chats.service";
+import {ChatsService} from '../../../shared/services/chats.service';
 
 @Component({
   selector: 'autotourism-crew',
@@ -7,30 +7,30 @@ import {ChatsService} from "../../../shared/services/chats.service";
   styleUrls: ['./crew.component.scss']
 })
 export class CrewComponent implements OnInit {
-  public barChartOptions:any = {
+  public barChartOptions: any = {
     scaleShowVerticalLines: false,
     responsive: true,
-    scales:{
-      "yAxes":[
-        {"ticks":{"beginAtZero":true}}
+    scales: {
+      'yAxes': [
+        {'ticks': {'beginAtZero': true}}
       ]
     },
     tooltips: {
       callbacks: {
         afterBody: function(t, d) {
           console.log(t[0].index, this);
-          return "+";
+          return '+';
           // return 'margin ' + this.data[t[0].index]['name'];
         }
       }
     }
   };
 
-  public barChartLabels:string[];
-  public barChartType:string = 'bar';
-  public barChartLegend:boolean = true;
+  public barChartLabels: string[];
+  public barChartType = 'bar';
+  public barChartLegend = true;
 
-  public barChartData:any[] = [];
+  public barChartData: any[] = [];
 
   public data;
   isLoaded = false;
@@ -41,22 +41,22 @@ export class CrewComponent implements OnInit {
 
   ngOnInit(): void {
     this.chartsServise.getMembers()
-      .subscribe((response)=> {
+      .subscribe((response) => {
         this.data = response['response'];
-        this.barChartLabels = this.data.map((el)=>{
-          return "Пробег "+el.number;
+        this.barChartLabels = this.data.map((el) => {
+          return 'Пробег ' + el.number;
         });
         this.barChartData.push({
-          data:this.data.map((el)=>{
+          data: this.data.map((el) => {
             return el.members;
           }),
-          label: "Экипажей"
+          label: 'Экипажей'
         });
         this.isLoaded = true;
       });
   }
 
-  public chartClicked(e:any):void {
+  public chartClicked(e: any): void {
     console.log(e);
   }
 

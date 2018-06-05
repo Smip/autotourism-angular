@@ -1,9 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {Subscription} from "rxjs/Rx";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Subscription} from 'rxjs/Subscription';
 
-import {TripsService} from "../../../shared/services/trips.service";
-import {ActivatedRoute} from "@angular/router";
-import {Trip} from "../../../shared/models/trip.model";
+import {TripsService} from '../../../shared/services/trips.service';
+import {ActivatedRoute} from '@angular/router';
+import {Trip} from '../../../shared/models/trip.model';
 import * as moment from 'moment';
 
 @Component({
@@ -11,7 +11,7 @@ import * as moment from 'moment';
   templateUrl: './info-page.component.html',
   styleUrls: ['./info-page.component.scss']
 })
-export class InfoPageComponent implements OnInit {
+export class InfoPageComponent implements OnInit, OnDestroy {
 
   subscription: Subscription;
 
@@ -26,17 +26,17 @@ export class InfoPageComponent implements OnInit {
   ngOnInit() {
     moment.locale('ru');
     this.subscription = this.tripService.getTrip(+this.id)
-      .subscribe((data)=> {
+      .subscribe((data) => {
         this.trip = data['response'];
         this.isLoaded = true;
       });
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe()
+    this.subscription.unsubscribe();
   }
 
-  dateHappened(date = '', addDay:number = 0) {
+  dateHappened(date = '', addDay: number = 0) {
     return moment(date).add(addDay, 'd').isBefore();
   }
 

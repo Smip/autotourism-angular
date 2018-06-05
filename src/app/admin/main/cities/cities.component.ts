@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ChatsService} from "../../../shared/services/chats.service";
+import {ChatsService} from '../../../shared/services/chats.service';
 
 @Component({
   selector: 'autotourism-cities',
@@ -8,10 +8,10 @@ import {ChatsService} from "../../../shared/services/chats.service";
 })
 export class CitiesComponent implements OnInit {
 
-  public doughnutChartLabels:string[] = [];
-  public doughnutChartData:number[] = [];
-  public doughnutChartType:string = 'doughnut';
-  public doughnutChartLegend:boolean = false;
+  public doughnutChartLabels: string[] = [];
+  public doughnutChartData: number[] = [];
+  public doughnutChartType = 'doughnut';
+  public doughnutChartLegend = false;
   isLoaded = false;
 
   constructor(
@@ -20,12 +20,12 @@ export class CitiesComponent implements OnInit {
 
   ngOnInit(): void {
     this.chartsServise.getCities()
-      .subscribe((response)=> {
-        let data = response['response'];
-        this.doughnutChartLabels = data.map((el)=>{
+      .subscribe((response) => {
+        const data = response['response'];
+        this.doughnutChartLabels = data.map((el) => {
           return el.city;
         });
-        this.doughnutChartData = data.map((el)=>{
+        this.doughnutChartData = data.map((el) => {
             return el.number;
           });
 

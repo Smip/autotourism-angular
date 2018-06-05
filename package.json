@@ -1,6 +1,6 @@
 {
-  "name": "autotouri",
-  "version": "0.0.0",
+  "name": "autotourism",
+  "version": "0.0.1",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -23,6 +23,7 @@
     "chart.js": "^2.7.2",
     "core-js": "^2.5.4",
     "countdown": "^2.6.0",
+    "hoek": "^5.0.3",
     "materialize-css": "^1.0.0-rc.1",
     "moment": "^2.22.2",
     "moment-countdown": "0.0.3",

@@ -1,4 +1,4 @@
-import {Route} from "./route.model";
+import {Route} from './route.model';
 
 export class Trip {
   constructor(public number: number,

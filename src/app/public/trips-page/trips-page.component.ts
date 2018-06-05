@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Subscription} from "rxjs/Rx";
-import {Trip} from "../../shared/models/trip.model";
-import {TripsService} from "../../shared/services/trips.service";
+import {Subscription} from 'rxjs/Subscription';
+import {Trip} from '../../shared/models/trip.model';
+import {TripsService} from '../../shared/services/trips.service';
 import * as moment from 'moment';
 
 
@@ -12,9 +12,9 @@ import * as moment from 'moment';
 })
 export class TripsPageComponent implements OnInit, OnDestroy {
 
-  itemsOnPage:number = 10;
-  currentPage:number = 1;
-  maxPage:number;
+  itemsOnPage = 10;
+  currentPage = 1;
+  maxPage: number;
 
   subscription: Subscription;
 
@@ -26,16 +26,16 @@ export class TripsPageComponent implements OnInit, OnDestroy {
   ngOnInit() {
     moment.locale('ru');
     this.subscription = this.tripService.getTrips()
-      .subscribe((data)=> {
+      .subscribe((data) => {
         this.trips = data['response'];
-        this.trips = this.trips.sort((trip1: Trip, trip2: Trip) =>{
-          if(trip1.date_from > trip2.date_from){
+        this.trips = this.trips.sort((trip1: Trip, trip2: Trip) => {
+          if (trip1.date_from > trip2.date_from) {
             return -1;
-          }else {
+          } else {
             return 1;
           }
         });
-        this.maxPage = Math.round(this.trips.length/this.itemsOnPage);
+        this.maxPage = Math.round(this.trips.length / this.itemsOnPage);
         this.isLoaded = true;
       });
   }
@@ -48,7 +48,7 @@ export class TripsPageComponent implements OnInit, OnDestroy {
     this.currentPage--;
   }
 
-  dateHappened(date = '', addDay:number = 0) {
+  dateHappened(date = '', addDay: number = 0) {
     return moment(date).add(addDay, 'd').isBefore();
   }
 

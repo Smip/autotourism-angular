@@ -1,14 +1,14 @@
-import {Component, OnInit} from '@angular/core';
-import {Org} from "../../shared/models/org.model";
-import {OrgsService} from "../../shared/services/orgs.service";
-import {Subscription} from "rxjs/Rx";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Org} from '../../shared/models/org.model';
+import {OrgsService} from '../../shared/services/orgs.service';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'autotourism-orgs',
   templateUrl: './orgs.component.html',
   styleUrls: ['./orgs.component.scss']
 })
-export class OrgsComponent implements OnInit {
+export class OrgsComponent implements OnInit, OnDestroy {
   subscription: Subscription;
   isLoaded = false;
   orgs: Org[];
@@ -18,7 +18,7 @@ export class OrgsComponent implements OnInit {
 
   ngOnInit() {
     this.subscription = this.orgsService.getOrgs()
-      .subscribe((data)=> {
+      .subscribe((data) => {
       console.log(data['response']);
         this.orgs = data['response'];
         this.isLoaded = true;
@@ -26,21 +26,21 @@ export class OrgsComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe()
+    this.subscription.unsubscribe();
   }
 
-  onDeleteOrg(org){
-    this.candidateToDelete=org;
+  onDeleteOrg(org) {
+    this.candidateToDelete = org;
   }
 
-  confirmDeleteOrg(org){
+  confirmDeleteOrg(org) {
 
     this.orgsService.deleteOrg(org.id)
-      .subscribe((data)=> {
-        if(data['response']){
-          this.orgs = this.orgs.filter((o)=>{
-            console.log(o.id, org.id, o.id != org.id);
-            return o.id != org.id;
+      .subscribe((data) => {
+        if (data['response']) {
+          this.orgs = this.orgs.filter((o) => {
+            console.log(o.id, org.id, o.id !== org.id);
+            return o.id !== org.id;
           });
         }
       });

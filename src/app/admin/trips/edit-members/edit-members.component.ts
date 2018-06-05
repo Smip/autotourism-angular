@@ -1,12 +1,12 @@
-import {Component, OnInit} from '@angular/core';
-import {FormArray, FormBuilder, FormGroup, NgForm, Validators} from "@angular/forms";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {FormArray, FormBuilder, FormGroup, NgForm, Validators} from '@angular/forms';
 import {Location} from '@angular/common';
-import {Subscription} from "rxjs/Rx";
-import {ActivatedRoute} from "@angular/router";
-import {MembersService} from "../../../shared/services/members.service";
-import {fadeStateTrigger} from "../../../shared/animations/fade.animation";
-import {forkJoin} from "rxjs/index";
-import {AutocompleteService} from "../../../shared/services/autocomplete.service";
+import {Subscription} from 'rxjs/Subscription';
+import {ActivatedRoute} from '@angular/router';
+import {MembersService} from '../../../shared/services/members.service';
+import {fadeStateTrigger} from '../../../shared/animations/fade.animation';
+import {forkJoin} from 'rxjs/index';
+import {AutocompleteService} from '../../../shared/services/autocomplete.service';
 
 
 @Component({
@@ -15,7 +15,7 @@ import {AutocompleteService} from "../../../shared/services/autocomplete.service
   styleUrls: ['./edit-members.component.scss'],
   animations: [ fadeStateTrigger ]
 })
-export class EditMembersComponent implements OnInit {
+export class EditMembersComponent implements OnInit, OnDestroy {
 
   form: FormGroup;
   subscription: Subscription;
@@ -31,12 +31,12 @@ export class EditMembersComponent implements OnInit {
   nicks;
   autous;
   cities;
-  message:string;
+  message: string;
 
 
   constructor(
     private membersService: MembersService,
-    private route:ActivatedRoute,
+    private route: ActivatedRoute,
     private fb: FormBuilder,
     private location: Location,
     private autocomleteService: AutocompleteService
@@ -55,7 +55,7 @@ export class EditMembersComponent implements OnInit {
       this.autocomleteService.getAutous(),
       this.autocomleteService.getCities(),
     ])
-      .subscribe(results=> {
+      .subscribe(results => {
         this.members = results[0]['response'];
         this.nicks = results[1]['response'];
         this.autous = results[2]['response'];
@@ -76,12 +76,12 @@ export class EditMembersComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe()
+    this.subscription.unsubscribe();
   }
 
 
   removeRow(index) {
-    this.deletedMember = this.form.get('members.'+index);
+    this.deletedMember = this.form.get('members.' + index);
     (<FormArray>this.form.controls.members).removeAt(index);
   }
 
@@ -91,32 +91,32 @@ export class EditMembersComponent implements OnInit {
   }
 
 
-  onSubmit(form: NgForm){
+  onSubmit(form: NgForm) {
     this.membersService.editMembers(+this.id, form.value)
       .subscribe((data) => {
-        if(data['response']){
-          this.message = "Сохранения изменены!";
-          setTimeout(()=>{
+        if (data['response']) {
+          this.message = 'Сохранения изменены!';
+          setTimeout(() => {
             this.message = null;
-          },5000)
+          }, 5000);
         }
       });
   }
 
-  onImportMembers(form: NgForm){
+  onImportMembers(form: NgForm) {
     this.importedMembers = [];
     this.updatedMembers = [];
     this.errorRow = [];
     this.smallRow = [];
-    const parsedRows= form.value['imported-members'].split(/\s*\n+/).map((row)=>{
-      return row.split(/\s{3,}|[\t]|[\s\-]{3}/)
+    const parsedRows = form.value['imported-members'].split(/\s*\n+/).map((row) => {
+      return row.split(/\s{3,}|[\t]|[\s\-]{3}/);
     });
 
-    parsedRows.forEach((el, index)=>{
-      if(el.length === 4){
-        if(['№','#', '№  Экипажа', '№ Экипажа'].indexOf(el[0]) === -1){
-          if(!(<FormArray>this.form.controls.members).controls.some((memberControl)=>{
-            if(memberControl.value.nick.toLowerCase() === el[1].toLowerCase()){
+    parsedRows.forEach((el) => {
+      if (el.length === 4) {
+        if (['№', '#', '№  Экипажа', '№ Экипажа'].indexOf(el[0]) === -1) {
+          if (!(<FormArray>this.form.controls.members).controls.some((memberControl) => {
+            if (memberControl.value.nick.toLowerCase() === el[1].toLowerCase()) {
               this.updatedMembers.push(el[1]);
               memberControl.setValue({
                 nick: el[1].trim(),
@@ -126,7 +126,7 @@ export class EditMembersComponent implements OnInit {
               });
               return true;
             }
-          })){
+          })) {
             this.importedMembers.push(el[1]);
             (<FormArray>this.form.controls.members).push(this.fb.group({
               nick: [el[1].trim(), [Validators.required]],
@@ -135,12 +135,12 @@ export class EditMembersComponent implements OnInit {
               city: [el[3].trim(), [Validators.required]]
             }));
           }
-        }else {
+        } else {
           this.headerRow.push(el.join(' - '));
         }
-      }else if(el.length > 4){
+      } else if (el.length > 4) {
         this.errorRow.push(el.join(' - '));
-      }else if(el.length === 1 && el[0] === "" ){}else {
+      } else if (el.length === 1 && el[0] === '' ) {} else {
         this.smallRow.push(el.join(' - '));
       }
     });
@@ -148,7 +148,7 @@ export class EditMembersComponent implements OnInit {
   }
 
 
-  newRow(){
+  newRow() {
     (<FormArray>this.form.controls.members).push(this.fb.group({
       nick: [null, [Validators.required]],
       number: [null],

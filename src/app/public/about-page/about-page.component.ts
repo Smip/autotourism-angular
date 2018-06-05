@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
-import {AboutService} from "../../shared/services/about.service";
-import {Subscription} from "rxjs/Rx";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {AboutService} from '../../shared/services/about.service';
+import {Subscription} from 'rxjs/Subscription';
 
 
 @Component({
@@ -8,25 +8,25 @@ import {Subscription} from "rxjs/Rx";
   templateUrl: './about-page.component.html',
   styleUrls: ['./about-page.component.scss']
 })
-export class AboutPageComponent implements OnInit {
+export class AboutPageComponent implements OnInit, OnDestroy {
 
   subscription: Subscription;
   isLoaded = false;
-  about:string = "";
+  about = '';
 
   constructor(private aboutService: AboutService) { }
 
   ngOnInit() {
     this.subscription = this.aboutService.getAbout()
-      .subscribe((data)=> {
+      .subscribe((data) => {
         this.about = data['response'];
         this.isLoaded = true;
-      })
+      });
 
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe()
+    this.subscription.unsubscribe();
   }
 
 }

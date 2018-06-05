@@ -1,4 +1,4 @@
-import {animate, style, transition, trigger} from "@angular/animations";
+import {animate, style, transition, trigger} from '@angular/animations';
 
 export const fadeStateTrigger = trigger('fade', [
   transition(':enter', [
@@ -7,7 +7,7 @@ export const fadeStateTrigger = trigger('fade', [
     }),
     animate(500)
   ]),
-  transition(":leave", animate(500, style({
+  transition(':leave', animate(500, style({
     opacity: 0
   })))
 ]);

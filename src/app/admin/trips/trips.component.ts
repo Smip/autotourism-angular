@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Subscription} from 'rxjs/Rx';
+import {Subscription} from 'rxjs/Subscription';
 import {Trip} from '../../shared/models/trip.model';
 import {TripsService} from '../../shared/services/trips.service';
 
@@ -13,9 +13,9 @@ export class TripsComponent implements OnInit, OnDestroy {
 
   trips: [Trip];
 
-  itemsOnPage:number = 10;
-  currentPage:number = 1;
-  totalItems:number = 0;
+  itemsOnPage = 10;
+  currentPage = 1;
+  totalItems = 0;
 
   isLoaded = false;
 
@@ -24,18 +24,18 @@ export class TripsComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.subscription = this.tripService.getTrips()
-      .subscribe((data)=> {
+      .subscribe((data) => {
         this.trips = data['response'];
-        this.trips =  this.trips.sort((trip1: Trip, trip2: Trip) =>{
-          if(trip1.date_from > trip2.date_from){
+        this.trips =  this.trips.sort((trip1: Trip, trip2: Trip) => {
+          if (trip1.date_from > trip2.date_from) {
             return -1;
-          }else {
+          } else {
             return 1;
           }
         });
         this.totalItems = this.trips.length;
         this.isLoaded = true;
-      })
+      });
   }
 
   ngOnDestroy() {

@@ -9,16 +9,16 @@ import * as moment from 'moment';
   styleUrls: ['./trip-details.component.scss']
 })
 export class TripDetailsComponent implements OnInit {
-  @Input() trip:Trip;
+  @Input() trip: Trip;
 
   constructor() { }
 
   ngOnInit() {
-    moment.locale('ru')
+    moment.locale('ru');
   }
 
 
-  dateHappened(date = '', addDay:number = 0) {
+  dateHappened(date = '', addDay: number = 0) {
     return moment(date).add(addDay, 'd').isBefore();
   }
 

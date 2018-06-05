@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {MembersService} from '../../../shared/services/members.service';
-import {Subscription} from 'rxjs/Rx';
+import {Subscription} from 'rxjs/Subscription';
 import {ActivatedRoute} from '@angular/router';
 import {Member} from '../../../shared/models/member.model';
 
@@ -25,14 +25,14 @@ export class MembersPageComponent implements OnInit, OnDestroy {
   ngOnInit() {
     console.log(this.id);
     this.subscription = this.membersService.getMembers(+this.id)
-      .subscribe((data)=> {
+      .subscribe((data) => {
         this.members = data['response'];
         this.isLoaded = true;
       });
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe()
+    this.subscription.unsubscribe();
   }
 
 }

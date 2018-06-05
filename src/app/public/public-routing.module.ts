@@ -4,12 +4,12 @@ import {RouterModule, Routes} from '@angular/router';
 import {PublicComponent} from './public.component';
 import {MainPageComponent} from './main-page/main-page.component';
 import {TripPageComponent} from './trip-page/trip-page.component';
-import {InfoPageComponent} from "./trip-page/info-page/info-page.component";
+import {InfoPageComponent} from './trip-page/info-page/info-page.component';
 import {MembersPageComponent} from './trip-page/members-page/members-page.component';
 import {ReportPageComponent} from './trip-page/report-page/report-page.component';
-import {TripsPageComponent} from "./trips-page/trips-page.component";
-import {OrganisatorsPageComponent} from "./organisators-page/organisators-page.component";
-import {AboutPageComponent} from "./about-page/about-page.component";
+import {TripsPageComponent} from './trips-page/trips-page.component';
+import {OrganisatorsPageComponent} from './organisators-page/organisators-page.component';
+import {AboutPageComponent} from './about-page/about-page.component';
 
 
 const routes: Routes = [

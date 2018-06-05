@@ -1,13 +1,13 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {NgForm} from '@angular/forms';
-import {Subscription} from 'rxjs/Rx';
+import {Subscription} from 'rxjs/Subscription';
 import {Location} from '@angular/common';
 
 import {OrgsService} from '../../../shared/services/orgs.service';
 import {Org} from '../../../shared/models/org.model';
-import {FilesService} from "../../../shared/services/files.service";
-import {fadeStateTrigger} from "../../../shared/animations/fade.animation";
+import {FilesService} from '../../../shared/services/files.service';
+import {fadeStateTrigger} from '../../../shared/animations/fade.animation';
 
 
 @Component({
@@ -16,7 +16,7 @@ import {fadeStateTrigger} from "../../../shared/animations/fade.animation";
   styleUrls: ['./edit-org.component.scss'],
   animations: [ fadeStateTrigger ]
 })
-export class EditOrgComponent implements OnInit {
+export class EditOrgComponent implements OnInit, OnDestroy {
 
   subscription: Subscription;
   isLoaded = false;
@@ -24,11 +24,11 @@ export class EditOrgComponent implements OnInit {
   org: Org;
   id: string;
   modules = {};
-  message:string;
+  message: string;
 
   constructor(private orgsService: OrgsService,
               private filesService: FilesService,
-              private route:ActivatedRoute,
+              private route: ActivatedRoute,
               private location: Location
   ) { }
 
@@ -44,19 +44,19 @@ export class EditOrgComponent implements OnInit {
       ],
     };
     this.subscription = this.orgsService.getOrg(+this.id)
-      .subscribe((data)=> {
+      .subscribe((data) => {
         this.org = data['response'];
         this.isLoaded = true;
       });
   }
 
-  onUpload(fileInput:any){
+  onUpload(fileInput: any) {
     this.photoIsLoading = true;
     const file = <File>fileInput.target.files[0];
     console.log(file);
     const fb = new FormData();
     fb.append('file', file, file.name);
-    this.filesService.addFile(fb).subscribe(event=> {
+    this.filesService.addFile(fb).subscribe(event => {
         this.org.photo = event['response'];
         this.photoIsLoading = false;
       });
@@ -64,18 +64,18 @@ export class EditOrgComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    if(this.subscription) this.subscription.unsubscribe();
+    if (this.subscription) { this.subscription.unsubscribe(); }
   }
 
-  onSubmit(form: NgForm){
+  onSubmit(form: NgForm) {
     console.log(form.value);
     this.orgsService.editOrg(+this.id, form.value)
-      .subscribe((data)=> {
-        if(data['response']){
-          this.message = "Сохранения изменены!";
-          setTimeout(()=>{
+      .subscribe((data) => {
+        if (data['response']) {
+          this.message = 'Сохранения изменены!';
+          setTimeout(() => {
             this.message = null;
-          },5000)
+          }, 5000);
         }
       });
   }

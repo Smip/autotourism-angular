@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Trip} from "../../shared/models/trip.model";
-import {TripsService} from "../../shared/services/trips.service";
-import {Subscription} from "rxjs/Rx";
+import {Trip} from '../../shared/models/trip.model';
+import {TripsService} from '../../shared/services/trips.service';
+import {Subscription} from 'rxjs/Subscription';
 
 
 @Component({
@@ -21,14 +21,14 @@ export class MainPageComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.subscription = this.tripService.getTrips()
-      .subscribe((data)=> {
+      .subscribe((data) => {
         this.trips = data['response'];
         this.isLoaded = true;
-      })
+      });
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe()
+    this.subscription.unsubscribe();
   }
 
 }

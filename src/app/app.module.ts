@@ -10,14 +10,14 @@ import {ReportsService} from './shared/services/reports.service';
 import {AboutService} from './shared/services/about.service';
 import {OrgsService} from './shared/services/orgs.service';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {AuthService} from "./shared/services/auth.service";
-import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from "@angular/common/http";
-import {TokenInterceptor} from "./shared/core/token.interceptor";
-import {SidenavDirective} from "./shared/directives/sidenav.directive";
-import {UsersService} from "./shared/services/users.service";
-import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
-import {DropdownDirective} from "./shared/directives/dropdown.directive";
-import {TranslateHttpLoader} from "@ngx-translate/http-loader";
+import {AuthService} from './shared/services/auth.service';
+import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from '@angular/common/http';
+import {TokenInterceptor} from './shared/core/token.interceptor';
+import {SidenavDirective} from './shared/directives/sidenav.directive';
+import {UsersService} from './shared/services/users.service';
+import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import {DropdownDirective} from './shared/directives/dropdown.directive';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);

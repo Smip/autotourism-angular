@@ -8,7 +8,7 @@ export class SidenavDirective implements OnInit {
 
   constructor(private element: ElementRef) {}
 
-  ngOnInit(){
+  ngOnInit() {
     M.Sidenav.init(this.element.nativeElement);
   }
 

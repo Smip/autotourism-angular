@@ -1,13 +1,13 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {Location} from '@angular/common';
-import {Subscription} from "rxjs/Rx";
-import {ReportsService} from "../../../shared/services/reports.service";
-import {Report} from "../../../shared/models/report.model";
-import {ActivatedRoute} from "@angular/router";
-import {NgForm} from "@angular/forms";
-import {fadeStateTrigger} from "../../../shared/animations/fade.animation";
-import {FilesService} from "../../../shared/services/files.service";
-import {QuillEditorComponent} from "ngx-quill";
+import {Subscription} from 'rxjs/Subscription';
+import {ReportsService} from '../../../shared/services/reports.service';
+import {Report} from '../../../shared/models/report.model';
+import {ActivatedRoute} from '@angular/router';
+import {NgForm} from '@angular/forms';
+import {fadeStateTrigger} from '../../../shared/animations/fade.animation';
+import {FilesService} from '../../../shared/services/files.service';
+import {QuillEditorComponent} from 'ngx-quill';
 import Delta from 'quill-delta';
 
 
@@ -17,12 +17,12 @@ import Delta from 'quill-delta';
   styleUrls: ['./edit-report.component.scss'],
   animations: [ fadeStateTrigger ]
 })
-export class EditReportComponent implements OnInit {
+export class EditReportComponent implements OnInit, OnDestroy {
 
   subscription: Subscription;
   subscription2: Subscription;
-  id:string;
-  message:string;
+  id: string;
+  message: string;
   @ViewChild('editor') editor: QuillEditorComponent;
 
   modules = {};
@@ -39,11 +39,11 @@ export class EditReportComponent implements OnInit {
     'list',
     'image'];
   isLoaded = false;
-  report:Report;
+  report: Report;
 
   constructor(
     private reportService: ReportsService,
-    private route:ActivatedRoute,
+    private route: ActivatedRoute,
     private filesService: FilesService,
     private location: Location
   ) {}
@@ -51,10 +51,10 @@ export class EditReportComponent implements OnInit {
   ngOnInit() {
     this.id = this.route.snapshot.params['id'];
     this.subscription = this.reportService.getReport(+this.id)
-      .subscribe((data)=> {
-        if(data['response']){
+      .subscribe((data) => {
+        if (data['response']) {
           this.report = data['response'];
-        }else {
+        } else {
           this.report = new Report(null, null, false);
         }
         this.isLoaded = true;
@@ -73,15 +73,15 @@ export class EditReportComponent implements OnInit {
       clipboard: {
         matchVisual: false
       }
-    }
+    };
   }
 
-  addBindingCreated(event){
+  addBindingCreated(event) {
     const toolbar = event.getModule('toolbar');
-    toolbar.quill.theme.tooltip.textbox.className="browser-default";
-    toolbar.quill.theme.tooltip.textbox.dataset.link="Вставьте ссылку и нажмите Enter";
+    toolbar.quill.theme.tooltip.textbox.className = 'browser-default';
+    toolbar.quill.theme.tooltip.textbox.dataset.link = 'Вставьте ссылку и нажмите Enter';
     toolbar.quill.clipboard.addMatcher('span', function(node, delta) {
-      return delta.compose(new Delta().insert(delta.length(), { color: "#000"}));
+      return delta.compose(new Delta().insert(delta.length(), { color: '#000'}));
     });
     toolbar.quill.clipboard.addMatcher('a', function(node, delta) {
       return delta.compose(new Delta().insert(delta.length(), { color: false }));
@@ -89,8 +89,8 @@ export class EditReportComponent implements OnInit {
     toolbar.addHandler('image', this.onUpload.bind(null, toolbar, this));
   }
 
-  onUpload(editor, component){
-    var fileInput = editor.container.querySelector('input.ql-image[type=file]');
+  onUpload(editor, component) {
+    let fileInput = editor.container.querySelector('input.ql-image[type=file]');
     if (fileInput == null) {
       fileInput = document.createElement('input');
       fileInput.setAttribute('type', 'file');
@@ -101,8 +101,8 @@ export class EditReportComponent implements OnInit {
           const file = <File>fileInput.files[0];
           const fb = new FormData();
           fb.append('file', file, file.name);
-          component.filesService.addFile(fb).subscribe(event=> {
-            var range = editor.quill.getSelection(true);
+          component.filesService.addFile(fb).subscribe(event => {
+            const range = editor.quill.getSelection(true);
             editor.quill.insertEmbed(range.index, 'image', event['response']);
             editor.quill.setSelection(range.index + 1);
           });
@@ -114,21 +114,21 @@ export class EditReportComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe()
+    this.subscription.unsubscribe();
   }
 
   goBack(): void {
     this.location.back();
   }
 
-  onSubmit(form: NgForm){
+  onSubmit(form: NgForm) {
     this.subscription2 = this.reportService.editReport(+this.id, form.value)
-      .subscribe((data)=> {
-        if(data['response']){
-          this.message = "Сохранения изменены!";
-          setTimeout(()=>{
+      .subscribe((data) => {
+        if (data['response']) {
+          this.message = 'Сохранения изменены!';
+          setTimeout(() => {
             this.message = null;
-          },5000)
+          }, 5000);
         }
       });
   }

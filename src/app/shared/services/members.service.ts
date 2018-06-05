@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs/Rx';
+import {Observable} from 'rxjs/Observable';
 
 import {BaseApi} from '../core/base-api';
 import {Member} from '../models/member.model';
-import {HttpClient} from "@angular/common/http";
-import {Router} from "@angular/router";
+import {HttpClient} from '@angular/common/http';
+import {Router} from '@angular/router';
 
 @Injectable()
 export class MembersService extends BaseApi {
@@ -16,7 +16,7 @@ export class MembersService extends BaseApi {
 
   getMembers(id: number): Observable<Member[]> {
     return this.get('members/' + id).map(response => {
-      if (response['error_code'] && response['error_code'] == 403) {
+      if (response['error_code'] && response['error_code'] === 403) {
         this.router.navigate(['/auth'], {
           queryParams: {
             accessDenied: true

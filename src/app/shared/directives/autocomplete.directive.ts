@@ -5,7 +5,7 @@ import * as M from '../../../../node_modules/materialize-css/dist/js/materialize
 @Directive({
   selector: '[autotourismAutocomplete]'
 })
-export class AutocompleteDirective implements OnInit{
+export class AutocompleteDirective implements OnInit {
 
   @Input('autotourismAutocomplete') autotourismAutocomplete: object;
   options: object;
@@ -18,12 +18,12 @@ export class AutocompleteDirective implements OnInit{
 
   ) {}
 
-  ngOnInit(){
+  ngOnInit() {
     this.options = {
-      'minLength':1,
+      'minLength': 1,
       'data': {},
-      'onAutocomplete':(d)=>{
-         this.element.nativeElement.dispatchEvent(new CustomEvent("input"));
+      'onAutocomplete': (d) => {
+         this.element.nativeElement.dispatchEvent(new CustomEvent('input'));
       }
     };
     this.autotourismAutocomplete = Object.assign(this.options, this.autotourismAutocomplete);

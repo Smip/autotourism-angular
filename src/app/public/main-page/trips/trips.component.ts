@@ -11,25 +11,25 @@ import * as moment from 'moment';
 export class TripsComponent implements OnInit {
   @Input() trips;
 
-  itemsOnPage:number = 4;
-  currentPage:number = 1;
-  maxPage:number;
-  currentTrip:Trip;
+  itemsOnPage = 4;
+  currentPage = 1;
+  maxPage: number;
+  currentTrip: Trip;
 
   constructor() { }
 
   ngOnInit() {
-    this.trips = this.trips.filter((trip: Trip) =>{
+    this.trips = this.trips.filter((trip: Trip) => {
       return trip.type === 'real' && this.dateHappened(trip.date_until);
-    }).sort((trip1: Trip, trip2: Trip) =>{
-      if(trip1.date_from > trip2.date_from){
+    }).sort((trip1: Trip, trip2: Trip) => {
+      if (trip1.date_from > trip2.date_from) {
         return -1;
-      }else {
+      } else {
         return 1;
       }
     });
     this.currentTrip = this.trips[0];
-    this.maxPage = Math.round(this.trips.length/this.itemsOnPage);
+    this.maxPage = Math.round(this.trips.length / this.itemsOnPage);
   }
 
   nextPage() {
@@ -40,11 +40,11 @@ export class TripsComponent implements OnInit {
     this.currentPage--;
   }
 
-  showTripDetails(trip:Trip){
+  showTripDetails(trip: Trip) {
     this.currentTrip = trip;
   }
 
-  dateHappened(date = '', addDay:number = 0) {
+  dateHappened(date = '', addDay: number = 0) {
     return moment(date).add(addDay, 'd').isBefore();
   }
 

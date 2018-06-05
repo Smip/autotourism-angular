@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {NavigationEnd, NavigationStart, Router} from '@angular/router';
 import {AuthService} from './shared/services/auth.service';
 import {UsersService} from './shared/services/users.service';
-import {Subscription} from 'rxjs/Rx';
+import {Subscription} from 'rxjs/Subscription';
 import {TranslateService} from '@ngx-translate/core';
 
 
@@ -15,7 +15,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
 
   date = new Date();
-  loading: boolean = false;
+  loading = false;
   subscription: Subscription;
 
   constructor(private router: Router,
@@ -47,7 +47,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.subscription) this.subscription.unsubscribe();
+    if (this.subscription) { this.subscription.unsubscribe(); }
   }
 
   onLogout() {

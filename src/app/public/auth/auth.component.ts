@@ -1,8 +1,8 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {UsersService} from "../../shared/services/users.service";
-import {Subscription} from "rxjs/Rx";
-import {fadeStateTrigger} from "../../shared/animations/fade.animation";
-import {ActivatedRoute, Params, Router} from "@angular/router";
+import {UsersService} from '../../shared/services/users.service';
+import {Subscription} from 'rxjs/Subscription';
+import {fadeStateTrigger} from '../../shared/animations/fade.animation';
+import {ActivatedRoute, Params, Router} from '@angular/router';
 
 @Component({
   selector: 'autotourism-auth',
@@ -11,11 +11,11 @@ import {ActivatedRoute, Params, Router} from "@angular/router";
   animations: [ fadeStateTrigger ]
 })
 export class AuthComponent implements OnInit, OnDestroy {
-  subscription:Subscription;
-  message:string;
+  subscription: Subscription;
+  message: string;
 
   constructor(
-    private userService:UsersService,
+    private userService: UsersService,
     private router: Router,
     private route: ActivatedRoute
   ) { }
@@ -23,32 +23,32 @@ export class AuthComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.userService.logout();
     this.route.queryParams
-      .subscribe((params: Params) =>{
-        if(params['accessDenied']){
-          this.message = "Пожалуйста, авторизируйтесь.";
-          setTimeout(()=>{
+      .subscribe((params: Params) => {
+        if (params['accessDenied']) {
+          this.message = 'Пожалуйста, авторизируйтесь.';
+          setTimeout(() => {
             this.message = null;
-          },5000)
+          }, 5000);
         }
-      })
+      });
   }
 
-  onLogin(form){
+  onLogin(form) {
     this.subscription = this.userService.login(form.value.username, form.value.password)
-      .subscribe((user)=> {
-        if(user){
+      .subscribe((user) => {
+        if (user) {
           this.router.navigate(['/admin', 'crew']);
-        }else{
-          this.message = "Пользователь с таким логином и паролем не найден, попробуйте ещё раз.";
-          setTimeout(()=>{
+        } else {
+          this.message = 'Пользователь с таким логином и паролем не найден, попробуйте ещё раз.';
+          setTimeout(() => {
             this.message = null;
-          },5000)
+          }, 5000);
         }
       });
   }
 
   ngOnDestroy() {
-    if(this.subscription) this.subscription.unsubscribe();
+    if (this.subscription) { this.subscription.unsubscribe(); }
   }
 
 }

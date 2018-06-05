@@ -1,13 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {NgForm} from '@angular/forms';
-import {Subscription} from 'rxjs/Rx';
+import {Subscription} from 'rxjs/Subscription';
 import {Location} from '@angular/common';
 
 import {OrgsService} from '../../../shared/services/orgs.service';
 import {Org} from '../../../shared/models/org.model';
-import {FilesService} from "../../../shared/services/files.service";
-import {fadeStateTrigger} from "../../../shared/animations/fade.animation";
+import {FilesService} from '../../../shared/services/files.service';
+import {fadeStateTrigger} from '../../../shared/animations/fade.animation';
 
 
 @Component({
@@ -25,11 +25,11 @@ export class AddOrgComponent implements OnInit {
   org: Org = new Org;
   id: string;
   modules = {};
-  message:string;
+  message: string;
 
   constructor(private orgsService: OrgsService,
               private filesService: FilesService,
-              private route:ActivatedRoute,
+              private route: ActivatedRoute,
               private location: Location,
               private router: Router
   ) { }
@@ -47,12 +47,12 @@ export class AddOrgComponent implements OnInit {
     this.isLoaded = true;
   }
 
-  onUpload(fileInput:any){
+  onUpload(fileInput: any) {
     this.photoIsLoading = true;
     const file = <File>fileInput.target.files[0];
     const fb = new FormData();
     fb.append('file', file, file.name);
-    this.filesService.addFile(fb).subscribe(event=> {
+    this.filesService.addFile(fb).subscribe(event => {
       this.org.photo = event['response'];
       this.photoIsLoading = false;
     });
@@ -60,13 +60,13 @@ export class AddOrgComponent implements OnInit {
   }
 
 
-  onSubmit(form: NgForm){
+  onSubmit(form: NgForm) {
     console.log(form.value);
     this.subscription2 = this.orgsService.addOrg(form.value)
-      .subscribe((data)=> {
+      .subscribe((data) => {
       console.log(data['response']);
-        if(data['response']){
-          this.router.navigate(["..", data['response']], {relativeTo:this.route});
+        if (data['response']) {
+          this.router.navigate(['..', data['response']], {relativeTo: this.route});
         }
       });
   }

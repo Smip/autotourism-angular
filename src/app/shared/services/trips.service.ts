@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs/Rx';
+import {Observable} from 'rxjs/Observable';
 import {Trip} from '../models/trip.model';
 import {BaseApi} from '../core/base-api';
-import {Route} from "../models/route.model";
-import {HttpClient} from "@angular/common/http";
+import {Route} from '../models/route.model';
+import {HttpClient} from '@angular/common/http';
 
 @Injectable()
 export class TripsService extends BaseApi {

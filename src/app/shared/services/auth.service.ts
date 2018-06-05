@@ -2,15 +2,15 @@ export class AuthService {
 
   private isAuthenticated = false;
 
-  login(){
+  login() {
     this.isAuthenticated = true;
   }
 
-  logout(){
+  logout() {
     this.isAuthenticated = false;
   }
 
-  isLoggedIn():boolean{
+  isLoggedIn(): boolean {
     return this.isAuthenticated;
   }
 }
