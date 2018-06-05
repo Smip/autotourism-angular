@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col l8 offset-l2 s12 header">
-      <h1>Организаторы</h1>
+      <h1>{{"Организаторы"| translate}}</h1>
     </div>
     <div class="col s12">
       <div class="row" *ngIf="!isLoaded">
@@ -14,7 +14,7 @@
               <img [src]="org.photo">
             </div>
             <div class="col s9">
-              <h3>{{org.name}} / {{org.nick}}</h3>
+              <h3>{{org.name| translate}} / {{org.nick}}</h3>
               <span class="black-text" [innerHTML]="org.description">
 
               </span>

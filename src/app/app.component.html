@@ -47,7 +47,7 @@
         <li>
           <a
             class="dropdown-trigger"
-            href="#"
+            (click)="changeLang()"
             data-target="dropdown_lang"
             autotourismDropdown
           >
@@ -58,15 +58,7 @@
     </div>
   </div>
 </nav>
-<ul id="dropdown_lang" class="dropdown-content">
-  <li>
-    <a (click)="changeLang('ru')">Русский</a>
-  </li>
-  <li>
-    <a (click)="changeLang('en')">English</a>
-  </li>
 
-</ul>
 <nav class="hide-on-med-and-down" *ngIf="authService.isLoggedIn()">
   <div class="nav-wrapper container">
     <div class="row">

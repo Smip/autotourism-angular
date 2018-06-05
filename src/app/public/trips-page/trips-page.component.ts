@@ -24,7 +24,6 @@ export class TripsPageComponent implements OnInit, OnDestroy {
   constructor(private tripService: TripsService) { }
 
   ngOnInit() {
-    moment.locale('ru');
     this.subscription = this.tripService.getTrips()
       .subscribe((data) => {
         this.trips = data['response'];
@@ -53,7 +52,7 @@ export class TripsPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    if(this.subscription) this.subscription.unsubscribe();
   }
 
 

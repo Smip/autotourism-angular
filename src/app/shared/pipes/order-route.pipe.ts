@@ -8,7 +8,6 @@ import * as moment from 'moment';
 export class OrderRoutePipe implements PipeTransform {
 
   transform(route: Route[]): any {
-    // console.log(route);
     if (route.length === 0 ) {
       return route;
     }

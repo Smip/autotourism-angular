@@ -24,7 +24,6 @@ export class InfoPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    moment.locale('ru');
     this.subscription = this.tripService.getTrip(+this.id)
       .subscribe((data) => {
         this.trip = data['response'];
@@ -33,7 +32,7 @@ export class InfoPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    if(this.subscription) this.subscription.unsubscribe();
   }
 
   dateHappened(date = '', addDay: number = 0) {

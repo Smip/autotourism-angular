@@ -13,7 +13,6 @@ export class ParallaxDirective implements OnInit {
   ngOnInit() {
     this.options = {
     };
-    console.log('autotourismParallax');
 
     setTimeout(() => {
       this.autotourismParallax = Object.assign(this.options, this.autotourismParallax);

@@ -25,7 +25,6 @@ export class TripPageComponent implements OnInit, OnDestroy {
     this.subscription = this.tripService.getTrip(+this.id)
       .subscribe((data) => {
         this.trip = data['response'];
-        console.log(this.trip);
         this.isLoaded = true;
       });
 
@@ -40,7 +39,7 @@ export class TripPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    if(this.subscription) this.subscription.unsubscribe();
   }
 
 

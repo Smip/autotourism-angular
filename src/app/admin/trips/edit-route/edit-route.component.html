@@ -1,5 +1,5 @@
 <div class="col l10 offset-l2 s12 header">
-  <h1>Маршрут пробега <span *ngIf="isLoaded">№{{trip.number}}</span></h1>
+  <h1>{{"Маршрут пробега"| translate}} <span *ngIf="isLoaded">№{{trip.number}}</span></h1>
 </div>
 <div class="row">
   <button
@@ -7,7 +7,7 @@
     (click)="goBack()"
   >
     <i class="material-icons left">arrow_back</i>
-    Назад
+    {{"Назад"| translate}}
   </button>
 </div>
 <div class="col s4">
@@ -40,7 +40,7 @@
                     [for]="'date_from_'+i"
                     [ngClass]="{'active':items.value.date_from}"
                   >
-                    Начало
+                    {{"Начало"| translate}}
                   </label>
                 </div>
                 <div class="input-field col s3">
@@ -54,7 +54,7 @@
                     [for]="'date_until_'+i"
                     [ngClass]="{'active':items.value.date_until}"
                   >
-                    Окончание
+                    {{"Окончание"| translate}}
                   </label>
                 </div>
                 <div class="input-field col s4">
@@ -69,7 +69,7 @@
                       [for]="'description_'+i"
                       [ngClass]="{'active':items.value.destination}"
                     >
-                      Страна
+                      {{"Страна"| translate}}
                     </label>
                 </div>
                 <div class="input-field col s2 center">
@@ -88,18 +88,18 @@
                 >
                   <span *ngIf="items.errors && items.errors['validateDateMore']">
                     <i class="material-icons">arrow_upward</i>
-                    Дата окончания не может быть меньше даты начала<i class="material-icons">arrow_upward</i>
+                    {{"Дата окончания не может быть меньше даты начала"| translate}}<i class="material-icons">arrow_upward</i>
                   </span>
                   <span *ngIf="items.get('date_until').touched && items.get('date_until').invalid && items.get('date_until').errors['required']">
-                    Дата окончания обязательна для заполнения.
+                    {{"Дата окончания обязательна для заполнения."| translate}}
                     <i class="material-icons">arrow_upward</i>
                   </span>
                   <span *ngIf="items.get('date_from').touched && items.get('date_from').invalid && items.get('date_from').errors['required']">
                     <i class="material-icons">arrow_upward</i>
-                    Дата начала обязательна для заполнения.
+                    {{"Дата начала обязательна для заполнения."| translate}}
                   </span>
                   <span *ngIf="items.get('description').touched && items.get('description').invalid && items.get('description').errors['required']">
-                    Страна обязательна для заполнения.
+                    {{"Страна обязательна для заполнения."| translate}}
                   </span>
                 </div>
               </div>
@@ -112,7 +112,7 @@
               *ngIf="message"
             >
               <div class="card-content">
-                <p>{{message}}</p>
+                <p>{{message| translate}}</p>
               </div>
             </div>
           </div>
@@ -124,7 +124,8 @@
                 (click)="newRow()"
                 name="action"
                 [disabled]="form.invalid"
-              >Добавить
+              >
+                {{"Добавить"| translate}}
                 <i class="material-icons left">add</i>
               </button>
               <button
@@ -132,7 +133,8 @@
                 type="submit"
                 name="action"
                 [disabled]="form.invalid"
-              >Сохранить
+              >
+                {{"Сохранить"| translate}}
                 <i class="material-icons right">send</i>
               </button>
             </div>

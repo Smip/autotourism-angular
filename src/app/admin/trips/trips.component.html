@@ -1,5 +1,5 @@
 <div class="col l8 offset-l2 s12 header">
-  <h1>Пробеги</h1>
+  <h1>{{"Пробеги"| translate}}</h1>
 </div>
 <div class="col s12">
   <div class="card">
@@ -14,18 +14,18 @@
             class="waves-effect waves-light btn right blue"
             [routerLink]="['new']"
           >
-            <i class="material-icons left">add</i>Создать новый
+            <i class="material-icons left">add</i>{{"Создать новый"| translate}}
           </a>
         </div>
         <table class="striped responsive-table">
           <thead>
           <tr>
             <th>#</th>
-            <th>Название</th>
-            <th>Начало</th>
-            <th>Окончание</th>
-            <th>Статус</th>
-            <th>Участников</th>
+            <th>{{"Название"| translate}}</th>
+            <th>{{"Начало"| translate}}</th>
+            <th>{{"Окончание"| translate}}</th>
+            <th>{{"Статус"| translate}}</th>
+            <th>{{"Экипажей"| translate}}</th>
             <th></th>
           </tr>
           </thead>
@@ -35,7 +35,7 @@
             *ngFor="let trip of trips | autoPaginator:currentPage:itemsOnPage"
           >
             <td><b>{{trip.number}}</b></td>
-            <td>{{trip.name}}</td>
+            <td>{{trip.name| translate}}</td>
             <td style="white-space: nowrap">{{trip.date_from | autoMoment: 'YYYY-MM-DD'}}</td>
             <td style="white-space: nowrap">{{trip.date_until | autoMoment: 'YYYY-MM-DD'}}</td>
             <td class="center">
@@ -73,28 +73,28 @@
                   <a
                     [routerLink]="['info', trip.id]"
                   >
-                    Общая информация
+                    {{"Общая информация"| translate}}
                   </a>
                 </li>
                 <li>
                   <a
                     [routerLink]="['route', trip.id]"
                   >
-                    Маршрут
+                    {{"Маршрут"| translate}}
                   </a>
                 </li>
                 <li>
                   <a
                     [routerLink]="['members', trip.id]"
                   >
-                    Участники пробега
+                    {{"Участники пробега"| translate}}
                   </a>
                 </li>
                 <li>
                   <a
                     [routerLink]="['report', trip.id]"
                   >
-                    Отчёт
+                    {{"Отчёт"| translate}}
                   </a>
                 </li>
 

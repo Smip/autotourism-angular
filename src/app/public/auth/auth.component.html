@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col l10 offset-l2 s12 header">
-      <h1>Авторизация</h1>
+      <h1>{{"Авторизация"| translate}}</h1>
     </div>
     <div class="col l6 offset-l3 s12">
       <form
@@ -17,7 +17,7 @@
               *ngIf="message"
             >
               <div class="card-content">
-                <p>{{message}}</p>
+                <p>{{message| translate}}</p>
               </div>
             </div>
           </div>
@@ -32,12 +32,12 @@
               name="username"
               ngModel
             >
-            <label for="username">Логин</label>
+            <label for="username">{{"Логин"| translate}}</label>
             <span
               class="helper-text red-text"
               *ngIf="username.invalid && username.touched"
             >
-              Введите имя пользователя
+              {{"Введите имя пользователя"| translate}}
             </span>
           </div>
           <div class="input-field col s12">
@@ -51,12 +51,12 @@
               name="password"
               ngModel
             >
-            <label for="password">Пароль</label>
+            <label for="password">{{"Пароль"| translate}}</label>
             <span
               class="helper-text red-text"
               *ngIf="password.invalid && password.touched"
             >
-              Введите пароль
+              {{"Введите пароль"| translate}}
             </span>
           </div>
           <div class="input-field col s12">
@@ -64,7 +64,8 @@
               class="btn waves-effect waves-light green right"
               type="submit"
               [disabled]="!form.valid"
-            >Войти
+            >
+              {{"Войти"| translate}}
               <i class="material-icons right">send</i>
             </button>
           </div>

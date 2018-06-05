@@ -14,7 +14,6 @@ export class TripDetailsComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    moment.locale('ru');
   }
 
 

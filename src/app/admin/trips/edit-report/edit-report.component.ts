@@ -114,7 +114,8 @@ export class EditReportComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    if(this.subscription) this.subscription.unsubscribe();
+    if(this.subscription2) this.subscription2.unsubscribe();
   }
 
   goBack(): void {

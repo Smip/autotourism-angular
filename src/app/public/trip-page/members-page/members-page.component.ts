@@ -23,7 +23,6 @@ export class MembersPageComponent implements OnInit, OnDestroy {
 
 
   ngOnInit() {
-    console.log(this.id);
     this.subscription = this.membersService.getMembers(+this.id)
       .subscribe((data) => {
         this.members = data['response'];
@@ -32,7 +31,7 @@ export class MembersPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    if(this.subscription) this.subscription.unsubscribe();
   }
 
 }

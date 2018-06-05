@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {NgForm} from '@angular/forms';
 import {Subscription} from 'rxjs/Subscription';
@@ -16,7 +16,8 @@ import {fadeStateTrigger} from '../../../shared/animations/fade.animation';
   styleUrls: ['./add-org.component.scss'],
   animations: [ fadeStateTrigger ]
 })
-export class AddOrgComponent implements OnInit {
+export class AddOrgComponent implements OnInit, OnDestroy {
+
 
   subscription: Subscription;
   subscription2: Subscription;
@@ -47,6 +48,11 @@ export class AddOrgComponent implements OnInit {
     this.isLoaded = true;
   }
 
+  ngOnDestroy(): void {
+    if(this.subscription) this.subscription.unsubscribe();
+    if(this.subscription2) this.subscription2.unsubscribe();
+  }
+
   onUpload(fileInput: any) {
     this.photoIsLoading = true;
     const file = <File>fileInput.target.files[0];
@@ -59,12 +65,9 @@ export class AddOrgComponent implements OnInit {
 
   }
 
-
   onSubmit(form: NgForm) {
-    console.log(form.value);
     this.subscription2 = this.orgsService.addOrg(form.value)
       .subscribe((data) => {
-      console.log(data['response']);
         if (data['response']) {
           this.router.navigate(['..', data['response']], {relativeTo: this.route});
         }

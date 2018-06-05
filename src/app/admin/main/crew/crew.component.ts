@@ -18,9 +18,7 @@ export class CrewComponent implements OnInit {
     tooltips: {
       callbacks: {
         afterBody: function(t, d) {
-          console.log(t[0].index, this);
           return '+';
-          // return 'margin ' + this.data[t[0].index]['name'];
         }
       }
     }
@@ -56,8 +54,5 @@ export class CrewComponent implements OnInit {
       });
   }
 
-  public chartClicked(e: any): void {
-    console.log(e);
-  }
 
 }

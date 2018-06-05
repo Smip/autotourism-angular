@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col l10 offset-l2 s12 header">
-      <h1>Автотуризм без границ</h1>
+      <h1>{{"Автотуризм без границ"| translate}}</h1>
     </div>
     <div class="col s12">
       <div class="card">
@@ -9,7 +9,7 @@
           <autotourism-loader></autotourism-loader>
         </div>
         <div class="card-content" *ngIf="isLoaded">
-          <p [innerHTML]="about.article">
+          <p [innerHTML]="about.article| translate">
           </p>
         </div>
       </div>

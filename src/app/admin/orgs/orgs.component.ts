@@ -19,14 +19,13 @@ export class OrgsComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.subscription = this.orgsService.getOrgs()
       .subscribe((data) => {
-      console.log(data['response']);
         this.orgs = data['response'];
         this.isLoaded = true;
       });
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    if(this.subscription) this.subscription.unsubscribe();
   }
 
   onDeleteOrg(org) {
@@ -39,7 +38,6 @@ export class OrgsComponent implements OnInit, OnDestroy {
       .subscribe((data) => {
         if (data['response']) {
           this.orgs = this.orgs.filter((o) => {
-            console.log(o.id, org.id, o.id !== org.id);
             return o.id !== org.id;
           });
         }

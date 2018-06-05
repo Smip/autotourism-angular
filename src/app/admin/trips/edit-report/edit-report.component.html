@@ -1,5 +1,5 @@
 <div class="col l10 offset-l2 s12 header">
-  <h1>Отчёт</h1>
+  <h1>{{"Отчёт"| translate}}</h1>
 </div>
 <div class="row">
   <button
@@ -7,7 +7,7 @@
     (click)="goBack()"
   >
     <i class="material-icons left">arrow_back</i>
-    Назад
+    {{"Назад"| translate}}
   </button>
 </div>
 <div class="col s12">
@@ -27,7 +27,7 @@
                [formats]="formats"
                (onEditorCreated)="addBindingCreated($event)"
                name="article"
-               placeholder="Введите текст..."
+               [placeholder]="'Введите текст...'| translate"
             ></quill-editor>
             </div>
           </div>
@@ -38,7 +38,7 @@
               *ngIf="message"
             >
               <div class="card-content">
-                <p>{{message}}</p>
+                <p>{{message| translate}}</p>
               </div>
             </div>
           </div>
@@ -46,14 +46,14 @@
           <div class="col l12">
             <div class="switch right">
               <label>
-                Черновик
+                {{"Черновик"| translate}}
                 <input
                   type="checkbox"
                   name="posted"
                   [(ngModel)]="report.posted"
                 >
                 <span class="lever"></span>
-                Опубликован
+                {{"Опубликован"| translate}}
               </label>
             </div>
           </div>
@@ -64,7 +64,7 @@
               class="waves-effect waves-light btn right"
               type="submit"
             ><i class="material-icons left">save</i>
-              Сохранить
+              {{"Сохранить"| translate}}
             </button>
           </div>
           </div>

@@ -1,5 +1,5 @@
 <div class="col l10 offset-l2 s12 header">
-  <h1>Редактирование организатора</h1>
+  <h1>{{"Редактирование организатора"| translate}}</h1>
 </div>
 <div class="row">
   <button
@@ -7,7 +7,7 @@
     (click)="goBack()"
   >
     <i class="material-icons left">arrow_back</i>
-    Назад
+    {{"Назад"| translate}}
   </button>
 </div>
 <div class="col s12">
@@ -30,7 +30,9 @@
                 [(ngModel)]="org.name"
                 ngModel
               >
-              <label for="name" class="active">Имя</label>
+              <label for="name" class="active">
+                {{"Имя"| translate}}
+              </label>
               <span
                 class="helper-text red-text"
                 *ngIf="name.invalid && name.touched"
@@ -38,7 +40,7 @@
                 <span
                   *ngIf="name.errors['required']"
                 >
-                  Имя обязательное поле
+                  {{"Имя обязательное поле"| translate}}
                 </span>
               </span>
             </div>
@@ -55,7 +57,9 @@
               <label
                 for="nick"
                 class="active"
-              >Ник</label>
+              >
+                {{"Ник"| translate}}
+              </label>
             </div>
             <div class="input-field file-field col s4">
               <input
@@ -70,7 +74,7 @@
                 </div>
                 <div class="col s6">
                   <div class="btn">
-                    <span>Фотография</span>
+                    <span>{{"Фотография"| translate}}</span>
                     <input
                       type="file"
                       (change)="onUpload($event)"
@@ -103,7 +107,7 @@
                 name="description"
                 [modules]="modules"
                 #description="ngModel"
-                placeholder="Введите текст..."
+                [placeholder]="'Введите текст...'| translate"
                 required
               ></quill-editor>
               <span
@@ -113,7 +117,7 @@
                 <span
                   *ngIf="description.errors['required']"
                 >
-                  Описание обязательное поле
+                  {{"Описание обязательное поле"| translate}}
                 </span>
               </span>
             </div>
@@ -124,7 +128,7 @@
                 *ngIf="message"
               >
                 <div class="card-content">
-                  <p>{{message}}</p>
+                  <p>{{message| translate}}</p>
                 </div>
               </div>
             </div>
@@ -134,7 +138,7 @@
                 type="submit"
                 [disabled]="!form.valid"
               ><i class="material-icons left">save</i>
-                Сохранить
+                {{"Сохранить"| translate}}
               </button>
             </div>
           </div>
@@ -145,7 +149,7 @@
 </div>
 
 <div class="col s12">
-  <h2>Предпросмотр</h2>
+  <h2>{{"Предпросмотр"| translate}}</h2>
   <div class="card">
     <div class="row">
       <div *ngIf="isLoaded">
@@ -153,8 +157,8 @@
           <img [src]="org.photo">
         </div>
         <div class="col s9">
-          <h3>{{org.name}} / {{org.nick}}</h3>
-          <span class="black-text" [innerHTML]="org.description"></span>
+          <h3>{{org.name| translate}} / {{org.nick}}</h3>
+          <span class="black-text" [innerHTML]="org.description| translate"></span>
         </div>
       </div>
     </div>

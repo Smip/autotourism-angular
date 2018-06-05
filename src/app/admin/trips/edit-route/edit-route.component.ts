@@ -61,7 +61,7 @@ export class EditRouteComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    if(this.subscription) this.subscription.unsubscribe();
   }
 
 
@@ -121,7 +121,6 @@ export class EditRouteComponent implements OnInit, OnDestroy {
       const date_from = group.controls[key1];
       const date_until = group.controls[key2];
       if (moment(date_from.value).isAfter(date_until.value)) {
-        console.log(date_from.value, date_until.value, 'isAfter');
         return {
           validateDateMore: true
         };

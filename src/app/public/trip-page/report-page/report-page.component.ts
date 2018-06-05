@@ -30,7 +30,6 @@ export class ReportPageComponent implements OnInit, OnDestroy {
         const doc = document.createElement('div');
         doc.innerHTML = data['response']['article'];
         Array.from(doc.childNodes).forEach((el) => {
-          // console.log(el.firstChild, el, el.firstChild.nodeName);
           if (el.firstChild.nodeType === 3 ) {
             if (this.article.length === 0 || this.article[this.article.length - 1]['type'] !== 'text') {
               this.article.push({'type': 'text', 'contents': []});
@@ -46,14 +45,13 @@ export class ReportPageComponent implements OnInit, OnDestroy {
 
           }
         });
-        console.log(this.article);
         this.report = data['response'];
         this.isLoaded = true;
       });
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    if(this.subscription) this.subscription.unsubscribe();
   }
 
 }

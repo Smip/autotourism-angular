@@ -16,7 +16,6 @@ import {TokenInterceptor} from './shared/core/token.interceptor';
 import {SidenavDirective} from './shared/directives/sidenav.directive';
 import {UsersService} from './shared/services/users.service';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
-import {DropdownDirective} from './shared/directives/dropdown.directive';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -27,8 +26,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 @NgModule({
   declarations: [
     AppComponent,
-    SidenavDirective,
-    DropdownDirective
+    SidenavDirective
   ],
   imports: [
     HttpClientModule,

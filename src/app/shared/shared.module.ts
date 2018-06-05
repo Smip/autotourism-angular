@@ -12,6 +12,7 @@ import {ParallaxDirective} from './directives/parallax.directive';
 import {DateMoreValidator} from './directives/date-more-validator.directive';
 import {TabsDirective} from './directives/tabs.directive';
 import {TranslateModule} from '@ngx-translate/core';
+import {DropdownDirective} from "./directives/dropdown.directive";
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import {TranslateModule} from '@ngx-translate/core';
     ModalDirective,
     ParallaxDirective,
     DateMoreValidator,
-    TabsDirective
+    TabsDirective,
+    DropdownDirective
   ],
   imports: [
     CommonModule,
@@ -44,7 +46,8 @@ import {TranslateModule} from '@ngx-translate/core';
     ParallaxDirective,
     DateMoreValidator,
     TabsDirective,
-    TranslateModule
+    TranslateModule,
+    DropdownDirective
   ]
 })
 export class SharedModule {

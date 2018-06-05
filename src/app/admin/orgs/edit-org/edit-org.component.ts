@@ -53,7 +53,6 @@ export class EditOrgComponent implements OnInit, OnDestroy {
   onUpload(fileInput: any) {
     this.photoIsLoading = true;
     const file = <File>fileInput.target.files[0];
-    console.log(file);
     const fb = new FormData();
     fb.append('file', file, file.name);
     this.filesService.addFile(fb).subscribe(event => {
@@ -68,7 +67,6 @@ export class EditOrgComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(form: NgForm) {
-    console.log(form.value);
     this.orgsService.editOrg(+this.id, form.value)
       .subscribe((data) => {
         if (data['response']) {

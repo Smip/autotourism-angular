@@ -15,6 +15,7 @@ export class DropdownDirective implements OnInit {
     this.options = {
       'constrainWidth': false
     };
+
     setTimeout(() => {
       this.autotourismDropdown = Object.assign(this.options, this.autotourismDropdown);
       M.Dropdown.init(this.element.nativeElement, this.autotourismDropdown);

@@ -38,8 +38,14 @@ export class AppComponent implements OnInit, OnDestroy {
     });
   }
 
-  changeLang(lang: string) {
-    this.translate.use(lang);
+  changeLang() {
+    if(this.translate.currentLang === "ru"){
+      this.translate.use("en");
+    }
+    else{
+      this.translate.use("ru");
+    }
+
   }
 
   ngOnInit(): void {

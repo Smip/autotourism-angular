@@ -18,8 +18,7 @@ export class CurrentTripComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    moment.locale('ru');
-    this.trips = this.trips.filter((trip) => {
+     this.trips = this.trips.filter((trip) => {
       return trip.type === 'real';
     });
 

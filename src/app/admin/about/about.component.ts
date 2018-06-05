@@ -40,11 +40,11 @@ export class AboutComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    if(this.subscription) this.subscription.unsubscribe();
+    if(this.subscription2) this.subscription2.unsubscribe();
   }
 
   onSubmit(form: NgForm) {
-    console.log(form.value);
     this.subscription2 = this.aboutService.editAbout(form.value)
       .subscribe((data) => {
         if (data['response']) {

@@ -1,5 +1,5 @@
 <div class="col l10 offset-l2 s12 header">
-  <h1>Редактирование пробега</h1>
+  <h1>{{"Редактирование пробега"| translate}}</h1>
 </div>
 <div class="row">
   <button
@@ -7,7 +7,7 @@
     (click)="goBack()"
   >
     <i class="material-icons left">arrow_back</i>
-    Назад
+    {{"Назад"| translate}}
   </button>
 </div>
 <div class="col s6">
@@ -31,7 +31,7 @@
                 name="number"
                 [(ngModel)]="trip.number"
               >
-              <label for="number" class="active">Номер пробега</label>
+              <label for="number" class="active">{{"Номер пробега"| translate}}</label>
             </div>
             <div class="input-field col s8">
               <input
@@ -43,12 +43,12 @@
                 name="name"
                 [(ngModel)]="trip.name"
               >
-              <label for="name" class="active">Название</label>
+              <label for="name" class="active">{{"Название"| translate}}</label>
               <span
                 class="helper-text red-text"
                 *ngIf="name.invalid && name.touched"
               >
-                Название обязательное поле
+                {{"Название обязательное поле"| translate}}
               </span>
             </div>
             <div class="input-field col s6">
@@ -65,7 +65,7 @@
                 validateDateMore="date_until"
                 reverse="true"
               >
-              <label for="date_from" class="active">Начало пробега</label>
+              <label for="date_from" class="active">{{"Начало пробега"| translate}}</label>
               <span
                 class="helper-text red-text"
                 *ngIf="date_from.invalid && date_from.touched"
@@ -73,7 +73,7 @@
                 <span
                   *ngIf="date_from.errors['required']"
                 >
-                  Начало пробега обязательное поле
+                  {{"Начало пробега обязательное поле"| translate}}
                 </span>
               </span>
             </div>
@@ -90,20 +90,20 @@
                 [autotourismDatepicker]="{'defaultDate':(trip.date_until?trip.date_until:trip.date_from)}"
                 validateDateMore="date_from"
               >
-              <label for="date_until" class="active">Окончание пробега</label>
+              <label for="date_until" class="active">{{"Окончание пробега"| translate}}</label>
               <span
                 class="helper-text red-text"
-                *ngIf="date_until.invalid"
+                *ngIf="date_until.invalid && (date_from.touched || date_until.touched)"
               >
                 <span
                 *ngIf="date_until.errors['required']"
               >
-                  Окончание пробега обязательное поле
+                  {{"Окончание пробега обязательное поле"| translate}}
                 </span>
                 <span
                   *ngIf="date_until.errors['validateDateMore']"
                 >
-                  Окончание пробега не может быть раньше начала
+                  {{"Окончание пробега не может быть раньше начала"| translate}}
                 </span>
               </span>
             </div>
@@ -120,7 +120,7 @@
                 validateDateMore="registration_open_to"
                 reverse="true"
               >
-              <label for="registration_open_from" class="active">Начало регистрации</label>
+              <label for="registration_open_from" class="active">{{"Начало регистрации"| translate}}</label>
             </div>
             <div class="input-field col s6">
               <input
@@ -134,7 +134,7 @@
                 autotourismDatepicker
                 validateDateMore="registration_open_from"
               >
-              <label for="registration_open_to" class="active">Окончание регистрации</label>
+              <label for="registration_open_to" class="active">{{"Окончание регистрации"| translate}}</label>
               <span
                 class="helper-text red-text"
                 *ngIf="registration_open_to.invalid"
@@ -142,7 +142,7 @@
                 <span
                   *ngIf="registration_open_to.errors['validateDateMore']"
                 >
-                  Окончание регистрации не может быть раньше начала
+                  {{"Окончание регистрации не может быть раньше начала"| translate}}
                 </span>
               </span>
             </div>
@@ -156,7 +156,7 @@
                     [value]="item.value"
                     [(ngModel)]="trip.type" />
                   <span>
-                    {{item.label}}
+                    {{item.label| translate}}
                     <i class="material-icons red-text tiny" *ngIf="item.value === 'draft'">border_color</i>
                     <i class="material-icons accent-3-text light-blue-text tiny" *ngIf="item.value === 'plan'">book</i>
                     <i class="material-icons green-text tiny" *ngIf="item.value === 'real'">assignment_turned_in</i>
@@ -174,7 +174,7 @@
                 [(ngModel)]="trip.link_to_registration"
                 ngModel
               >
-              <label for="link_to_registration" class="active">Ссылка на тему регистрации</label>
+              <label for="link_to_registration" class="active">{{"Ссылка на тему регистрации"| translate}}</label>
             </div>
             <div class="col l12">
               <div
@@ -183,7 +183,7 @@
                 *ngIf="message"
               >
                 <div class="card-content">
-                  <p>{{message}}</p>
+                  <p>{{message| translate}}</p>
                 </div>
               </div>
             </div>
@@ -192,7 +192,8 @@
                 class="btn waves-effect waves-light right"
                 type="submit"
                 [disabled]="!form.valid"
-              >Сохранить
+              >
+                {{"Сохранить"| translate}}
                 <i class="material-icons right">send</i>
               </button>
             </div>
@@ -208,10 +209,10 @@
     <autotourism-loader></autotourism-loader>
   </div>
   <div *ngIf="isLoaded">
-    <h4>Автопробег {{trip.number?'№'+trip.number+'.':''}} {{trip.name}}</h4>
+    <h4>{{"Автопробег"| translate}} {{trip.number?'№'+trip.number+'.':''}} {{trip.name}}</h4>
     <div class="card-panel red lighten-4" *ngIf="trip.type === 'draft'">
     <span class="black-text">
-      Пробег будет виден только в административной панеле до того как Вы не измените тип на план или пробег.
+      {{"Пробег будет виден только в административной панеле до того как Вы не измените тип на план или пробег."| translate}}
     </span>
     </div>
     <div class="card-panel grey lighten-5 z-depth-1">
@@ -221,12 +222,12 @@
         </div>
         <div class="col s10">
         <span class="black-text">
-          Пробег {{!dateHappened(trip.date_from)?'состоится':!dateHappened(trip.date_until, 1)?'проходит':'состоялся'}} c {{trip.date_from | autoMoment: 'YYYY-MM-DD'}} по {{trip.date_until | autoMoment: 'YYYY-MM-DD'}}
+          {{"Пробег"| translate}} {{!dateHappened(trip.date_from)?('состоится'| translate):!dateHappened(trip.date_until, 1)?('проходит'| translate):('состоялся'| translate)}} {{"c"| translate}} {{trip.date_from | autoMoment: 'YYYY-MM-DD'}} {{"по"| translate}} {{trip.date_until | autoMoment: 'YYYY-MM-DD'}}
         </span>
         </div>
       </div>
       <div class="row valign-wrapper" *ngIf="!isValidDate(trip.date_from) || !isValidDate(trip.date_until)">
-        Укажите дату начала и окончания пробега
+        {{"Укажите дату начала и окончания пробега"| translate}}
       </div>
     </div>
     <div class="card-panel grey lighten-5 z-depth-1" *ngIf="dateHappened(trip.registration_open_from) && !dateHappened(trip.registration_open_to, 1) && trip.type === 'real'">
@@ -236,7 +237,7 @@
         </div>
         <div class="col s10">
         <span class="black-text">
-          Регистрация открыта
+          {{"Регистрация открыта"| translate}}
         </span>
         </div>
       </div>
@@ -248,7 +249,7 @@
         </div>
         <div class="col s10">
             <span class="black-text">
-              Регистрация в пробег откроется {{trip.registration_open_from | autoMoment:'YYYY-MM-DD':'LL'}}
+              {{"Регистрация в пробег откроется"| translate}} {{trip.registration_open_from | autoMoment:'YYYY-MM-DD':'LL'}}
             </span>
         </div>
       </div>
@@ -260,12 +261,12 @@
         </div>
         <div class="col s10">
             <span class="black-text">
-              Регистрация в пробег завершена
+              {{"Регистрация в пробег завершена"| translate}}
             </span>
         </div>
       </div>
     </div>
-    <h6>Раздел планов</h6>
+    <h6>{{"Раздел планов"| translate}}</h6>
     <div class="card-panel grey lighten-5 z-depth-1">
       <div class="row valign-wrapper" *ngIf="(!this.dateHappened(trip.registration_open_to, 1) || !trip.registration_open_to) && (trip.type === 'plan' || trip.type === 'real')">
         <div class="col s2 avatar">
@@ -279,15 +280,15 @@
           >explore</i>
         </div>
         <div class="col s10">
-          <h5>C {{isValidDate(trip.date_from)?(trip.date_from | autoMoment: 'YYYY-MM-DD'):"?"}} по {{isValidDate(trip.date_until)?(trip.date_until | autoMoment: 'YYYY-MM-DD'):"?"}}</h5>
+          <h5>{{"C"| translate}} {{isValidDate(trip.date_from)?(trip.date_from | autoMoment: 'YYYY-MM-DD'):"?"}} {{"по"| translate}} {{isValidDate(trip.date_until)?(trip.date_until | autoMoment: 'YYYY-MM-DD'):"?"}}</h5>
           <span  class="black-text">
-          {{trip.name}}
+          {{trip.name| translate}}
         </span>
         </div>
       </div>
       <div class="row valign-wrapper" *ngIf="dateHappened(trip.registration_open_to, 1) || trip.type === 'draft'">
         <div class="col s12">
-          Пробег будет отсутствовать в разделе планы
+          {{"Пробег будет отсутствовать в разделе планы"| translate}}
         </div>
       </div>
     </div>

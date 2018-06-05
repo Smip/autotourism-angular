@@ -1,5 +1,5 @@
 <div class="col l10 offset-l2 s12 header">
-  <h1>Организаторы</h1>
+  <h1>{{"Организаторы"| translate}}</h1>
 </div>
 <div class="col s12">
   <div class="card">
@@ -13,15 +13,15 @@
           routerLink="new"
           class="waves-effect waves-light btn right blue"
         >
-          <i class="material-icons left">add</i>Добавить нового
+          <i class="material-icons left">add</i>{{"Добавить нового"| translate}}
         </a>
       </div>
       <table class="striped">
         <thead>
         <tr>
-          <th>Имя</th>
-          <th>Ник</th>
-          <th>Последнее изменение</th>
+          <th>{{"Имя"| translate}}</th>
+          <th>{{"Ник"| translate}}</th>
+          <th>{{"Последнее изменение"| translate}}</th>
           <th></th>
         </tr>
         </thead>
@@ -30,8 +30,8 @@
         <tr
           *ngFor="let org of orgs"
         >
-          <td>{{org.name}}</td>
-          <td>{{org.nick}}</td>
+          <td>{{org.name | translate}}</td>
+          <td>{{org.nick | translate}}</td>
           <td>{{org.lastUpdate | autoMoment: 'YYYY-MM-DD hh:mm:ss':'LLL'}}</td>
           <td>
             <a class="waves-effect waves-light btn-floating" [routerLink]="org.id"><i class="material-icons left">edit</i></a>
@@ -56,15 +56,15 @@
   autotourismModal
 >
     <div class="modal-content">
-      <h4>Удалить {{candidateToDelete.name}} из списка организаторов?</h4>
+      <h4>{{"Удалить name из списка организаторов?"| translate:candidateToDelete}}</h4>
       <div class="row">
         <div class="col s12">
-          <p>После удаления, организатора нельзя будет восстановить. Для подтверждения, нажмите удалить.</p>
+          <p>{{"После удаления, организатора нельзя будет восстановить. Для подтверждения, нажмите удалить."| translate}}</p>
         </div>
       </div>
     </div>
     <div class="modal-footer">
-      <button type="button" class="modal-close waves-effect waves-green btn-flat">Отмена</button>
-      <button type="button" class="modal-close waves-effect waves-light red btn" (click)="confirmDeleteOrg(candidateToDelete)">Удалить</button>
+      <button type="button" class="modal-close waves-effect waves-green btn-flat">{{"Отмена"| translate}}</button>
+      <button type="button" class="modal-close waves-effect waves-light red btn" (click)="confirmDeleteOrg(candidateToDelete)">{{"Удалить"| translate}}</button>
     </div>
 </div>
