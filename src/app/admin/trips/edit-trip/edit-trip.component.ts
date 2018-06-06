@@ -56,7 +56,7 @@ export class EditTripComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     if (this.subscription) {
-      if(this.subscription) this.subscription.unsubscribe();
+      if (this.subscription) { this.subscription.unsubscribe(); }
     }
 
   }
@@ -79,7 +79,7 @@ export class EditTripComponent implements OnInit, OnDestroy {
       this.tripService.editTrip(+this.id, form.value)
         .subscribe((data) => {
           if (data['response']) {
-            this.message = 'Сохранения изменены!';
+            this.message = 'Изменения сохранены!';
             setTimeout(() => {
               this.message = null;
             }, 5000);

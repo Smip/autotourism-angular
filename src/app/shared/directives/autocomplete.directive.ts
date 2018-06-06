@@ -30,7 +30,9 @@ export class AutocompleteDirective implements OnInit {
     M.Autocomplete.init(this.element.nativeElement, this.autotourismAutocomplete);
     this.instance = M.Autocomplete.getInstance(this.element.nativeElement);
     this.renderer.listen(this.element.nativeElement, 'keyup', (e) => {
-      this.instance.open();
+      if (e.keyCode !== 13 || e.keyCode !== 38 || e.keyCode !== 40) {
+        this.instance.open();
+      }
     });
   }
 

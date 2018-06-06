@@ -39,7 +39,7 @@ export class TripsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if(this.subscription) this.subscription.unsubscribe();
+    if (this.subscription) { this.subscription.unsubscribe(); }
   }
 
   goToPage(n: number): void {

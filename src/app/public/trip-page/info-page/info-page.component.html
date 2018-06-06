@@ -9,33 +9,33 @@
       </div>
       <div class="col l10 s8">
       <span class="black-text">
-        Пробег {{!dateHappened(trip.date_from)?'состоится':!dateHappened(trip.date_until, 1)?'проходит':'состоялся'}} c {{trip.date_from | autoMoment: 'YYYY-MM-DD'}} по {{trip.date_until | autoMoment: 'YYYY-MM-DD'}}
+        {{"Пробег" | translate}} {{!dateHappened(trip.date_from)?('состоится' | translate):!dateHappened(trip.date_until, 1)?('проходит' | translate):('состоялся' | translate)}} {{"c" | translate}} {{trip.date_from | autoMoment: 'YYYY-MM-DD'}} {{"по" | translate}} {{trip.date_until | autoMoment: 'YYYY-MM-DD'}}
       </span>
       </div>
     </div>
   </div>
-  <div class="card-panel grey lighten-5 z-depth-1">
+  <div class="card-panel grey lighten-5 z-depth-1" *ngIf="trip.registration_open_from || dateHappened(trip.date_from)">
     <div class="row valign-wrapper">
       <div class="col l2 s4">
         <i class="material-icons dp48 medium">directions_car</i>
       </div>
       <div class="col l10 s8">
         <span class="black-text"  *ngIf="dateHappened(trip.registration_open_from) && !dateHappened(trip.registration_open_to)">
-                  В пробеге зарегистрировалось {{trip.members_number}} экипаж(а)
-                </span>
-        <span class="black-text"  *ngIf="dateHappened(trip.registration_open_to)  && !dateHappened(trip.date_from)">
-                  В пробеге будет учавствовать {{trip.members_number}} экипаж(а)
-                </span>
+          {{"В пробеге зарегистрировалось members_number экипаж(а)"| translate:trip}}
+        </span>
         <span class="black-text"  *ngIf="dateHappened(trip.date_from) && !dateHappened(trip.date_until, 1) ">
-                  В пробеге участвуют {{trip.members_number}} экипаж(а)
-                </span>
+          {{"В пробеге участвуют members_number экипаж(а)"| translate:trip}}
+        </span>
         <span class="black-text"  *ngIf="dateHappened(trip.date_until, 1) ">
-                  В пробеге участвовало {{trip.members_number}} экипаж(а)
-                </span>
-        <span class="black-text"  *ngIf="!dateHappened(trip.registration_open_from)">
-                  Регистрация в пробег откроется в {{trip.registration_open_from | autoMoment:'YYYY-MM-DD':'MMM YYYY'}}
-                </span>
-        <a [routerLink]="['/trips', trip.id, 'members']" *ngIf="dateHappened(trip.registration_open_from)" class="secondary-content">Список</a>
+          {{"В пробеге участвовало members_number экипаж(а)"| translate:trip}}
+        </span>
+        <span class="black-text"  *ngIf="dateHappened(trip.registration_open_to)  && !dateHappened(trip.date_from)">
+          {{"В пробеге будет учавствовать members_number экипаж(а)"| translate:trip}}
+        </span>
+        <span class="black-text"  *ngIf="!dateHappened(trip.registration_open_from) && trip.registration_open_from">
+          {{"Регистрация в пробег откроется в"| translate}} {{trip.registration_open_from | autoMoment:'YYYY-MM-DD':'MMM YYYY'}}
+        </span>
+        <a [routerLink]="['trips', trip.id, 'members']" class="secondary-content">{{"Список"| translate}}</a>
       </div>
     </div>
   </div>
@@ -46,9 +46,9 @@
       </div>
       <div class="col s10">
         <span class="black-text">
-          Регистрация открыта
+          {{"Регистрация открыта"| translate}}
         </span>
-        <a href="{{trip.link_to_registration}}" *ngIf="trip.link_to_registration" class="secondary-content">Присоеденится</a>
+        <a href="{{trip.link_to_registration}}" *ngIf="trip.link_to_registration" class="secondary-content">{{"Присоеденится"| translate}}</a>
       </div>
     </div>
   </div>

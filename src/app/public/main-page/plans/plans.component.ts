@@ -15,7 +15,7 @@ export class PlansComponent implements OnInit {
   ngOnInit() {
 
     this.trips = this.trips.filter((trip: Trip) => {
-      return !this.dateHappened(trip.registration_open_to, 1) && (trip.type === 'real' || trip.type === 'plan');
+      return !this.dateHappened(trip.registration_open_to, 1) && !this.dateHappened(trip.date_from, 1) && (trip.type === 'real' || trip.type === 'plan');
     }).sort((trip1: Trip, trip2: Trip) => {
       if (trip1.date_from > trip2.date_from) {
         return 1;

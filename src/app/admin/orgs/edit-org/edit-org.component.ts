@@ -70,7 +70,7 @@ export class EditOrgComponent implements OnInit, OnDestroy {
     this.orgsService.editOrg(+this.id, form.value)
       .subscribe((data) => {
         if (data['response']) {
-          this.message = 'Сохранения изменены!';
+          this.message = 'Изменения сохранены!';
           setTimeout(() => {
             this.message = null;
           }, 5000);

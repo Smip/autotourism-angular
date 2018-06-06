@@ -15,7 +15,7 @@
             'orange':numberInArray(trip.date_from | autoMoment: 'YYYY-MM-DD':'M', [9,10,11])
             }"
           >explore</i>
-          <h5>C {{trip.date_from | autoMoment: 'YYYY-MM-DD'}} по {{trip.date_until | autoMoment: 'YYYY-MM-DD'}}</h5>
+          <h5>{{"C"| translate}} {{trip.date_from | autoMoment: 'YYYY-MM-DD'}} {{"по"| translate}} {{trip.date_until | autoMoment: 'YYYY-MM-DD'}}</h5>
           <p>
             {{trip.name}}
             <span class="new badge right blue" *ngIf="dateHappened(trip.registration_open_from)" [attr.data-badge-caption]="'Открыта регистрация' | translate"></span>

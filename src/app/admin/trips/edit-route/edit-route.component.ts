@@ -61,7 +61,7 @@ export class EditRouteComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if(this.subscription) this.subscription.unsubscribe();
+    if (this.subscription) { this.subscription.unsubscribe(); }
   }
 
 
@@ -95,7 +95,7 @@ export class EditRouteComponent implements OnInit, OnDestroy {
     this.tripService.editRoute(+this.id, form.value)
       .subscribe((data) => {
         if (data['response']) {
-          this.message = 'Сохранения изменены!';
+          this.message = 'Изменения сохранены!';
           setTimeout(() => {
             this.message = null;
           }, 5000);

@@ -24,7 +24,10 @@ export class AppComponent implements OnInit, OnDestroy {
               private translate: TranslateService) {
     translate.addLangs(['en', 'ru']);
     translate.setDefaultLang('ru');
-    translate.use('ru');
+
+    const browserLang = translate.getBrowserLang();
+    translate.use(browserLang.match(/en|ru/) ? browserLang : 'ru');
+
     router.events.subscribe(event => {
       if (event instanceof NavigationStart) {
         this.loading = true;
@@ -39,11 +42,10 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   changeLang() {
-    if(this.translate.currentLang === "ru"){
-      this.translate.use("en");
-    }
-    else{
-      this.translate.use("ru");
+    if (this.translate.currentLang === 'ru') {
+      this.translate.use('en');
+    } else {
+      this.translate.use('ru');
     }
 
   }

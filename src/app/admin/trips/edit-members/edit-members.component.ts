@@ -76,7 +76,7 @@ export class EditMembersComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if(this.subscription) this.subscription.unsubscribe();
+    if (this.subscription) { this.subscription.unsubscribe(); }
   }
 
 
@@ -95,7 +95,7 @@ export class EditMembersComponent implements OnInit, OnDestroy {
     this.membersService.editMembers(+this.id, form.value)
       .subscribe((data) => {
         if (data['response']) {
-          this.message = 'Сохранения изменены!';
+          this.message = 'Изменения сохранены!';
           setTimeout(() => {
             this.message = null;
           }, 5000);
@@ -108,7 +108,7 @@ export class EditMembersComponent implements OnInit, OnDestroy {
     this.updatedMembers = [];
     this.errorRow = [];
     this.smallRow = [];
-    const parsedRows = form.value['imported-members'].split(/\s*\n+/).map((row) => {
+    const parsedRows = form.value['imported-members'].split(/\s*\n+\s*/).map((row) => {
       return row.split(/\s{3,}|[\t]|[\s\-]{3}/);
     });
 

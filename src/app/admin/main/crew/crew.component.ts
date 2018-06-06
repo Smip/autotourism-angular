@@ -1,12 +1,16 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ChatsService} from '../../../shared/services/chats.service';
+import {TranslateService} from '@ngx-translate/core';
+import {forkJoin} from 'rxjs/index';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'autotourism-crew',
   templateUrl: './crew.component.html',
   styleUrls: ['./crew.component.scss']
 })
-export class CrewComponent implements OnInit {
+export class CrewComponent implements OnInit, OnDestroy {
+
   public barChartOptions: any = {
     scaleShowVerticalLines: false,
     responsive: true,
@@ -24,6 +28,8 @@ export class CrewComponent implements OnInit {
     }
   };
 
+  subscription: Subscription;
+
   public barChartLabels: string[];
   public barChartType = 'bar';
   public barChartLegend = true;
@@ -34,25 +40,29 @@ export class CrewComponent implements OnInit {
   isLoaded = false;
 
   constructor(
-    private chartsServise: ChatsService
+    private chartsServise: ChatsService,
+    private translate: TranslateService
   ) {}
 
   ngOnInit(): void {
-    this.chartsServise.getMembers()
-      .subscribe((response) => {
-        this.data = response['response'];
+    this.subscription = forkJoin([this.chartsServise.getMembers(), this.translate.get(['Экипажей', 'Пробег'])])
+      .subscribe((res) => {
+        this.data = res[0]['response'];
         this.barChartLabels = this.data.map((el) => {
-          return 'Пробег ' + el.number;
+          return res[1]['Пробег'] + ' ' + el.number;
         });
         this.barChartData.push({
           data: this.data.map((el) => {
             return el.members;
           }),
-          label: 'Экипажей'
+          label: res[1]['Экипажей']
         });
         this.isLoaded = true;
       });
-  }
 
+  }
+  ngOnDestroy(): void {
+    if (this.subscription) { this.subscription.unsubscribe(); }
+  }
 
 }

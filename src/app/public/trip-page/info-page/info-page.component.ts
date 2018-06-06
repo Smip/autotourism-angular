@@ -32,7 +32,7 @@ export class InfoPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if(this.subscription) this.subscription.unsubscribe();
+    if (this.subscription) { this.subscription.unsubscribe(); }
   }
 
   dateHappened(date = '', addDay: number = 0) {

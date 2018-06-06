@@ -1,5 +1,5 @@
 <div class="col l10 offset-l2 s12 header">
-  <h1>{{"Маршрут пробега"| translate}} <span *ngIf="isLoaded">№{{trip.number}}</span></h1>
+  <h1>{{"Маршрут пробега"| translate}} <span *ngIf="isLoaded">{{trip.number?"№"+trip.number:""}}</span></h1>
 </div>
 <div class="row">
   <button

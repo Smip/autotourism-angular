@@ -2,8 +2,8 @@
   <div class="container">
     <div class="row">
       <div class="col l8 offset-l2 s12 header">
-        <h1 *ngIf="!isLoaded">Информация о пробеге</h1>
-        <h1 *ngIf="isLoaded">{{trip.name}}</h1>
+        <h1 *ngIf="!isLoaded">{{"Информация о пробеге"| translate}}</h1>
+        <h1 *ngIf="isLoaded">{{trip.name| translate}}</h1>
       </div>
       <div class="row" *ngIf="!isLoaded">
         <autotourism-loader></autotourism-loader>
@@ -17,7 +17,7 @@
             routerLink="info"
           >
             <i class="material-icons">info_outline</i>
-            Информация о пробеге
+            {{"Информация о пробеге"| translate}}
           </a>
           <a
             class="collection-item"
@@ -26,7 +26,7 @@
             routerLink="members"
           >
             <i class="material-icons">people</i>
-            Список участников
+            {{"Список экипажей"| translate}}
           </a>
           <a
             class="collection-item"
@@ -36,7 +36,7 @@
             *ngIf="trip.report"
           >
             <i class="material-icons">description</i>
-            Отчёт о пробеге
+            {{"Отчёт о пробеге"| translate}}
           </a>
         </div>
         <autotourism-time-line [route]="trip.route" *ngIf="trip.route.length > 0"></autotourism-time-line>

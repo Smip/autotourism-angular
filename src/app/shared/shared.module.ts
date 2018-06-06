@@ -12,7 +12,7 @@ import {ParallaxDirective} from './directives/parallax.directive';
 import {DateMoreValidator} from './directives/date-more-validator.directive';
 import {TabsDirective} from './directives/tabs.directive';
 import {TranslateModule} from '@ngx-translate/core';
-import {DropdownDirective} from "./directives/dropdown.directive";
+import {DropdownDirective} from './directives/dropdown.directive';
 
 
 @NgModule({

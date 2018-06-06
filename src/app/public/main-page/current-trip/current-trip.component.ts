@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Trip} from '../../../shared/models/trip.model';
 import * as moment from 'moment';
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'autotourism-current-trip',
@@ -15,12 +16,13 @@ export class CurrentTripComponent implements OnInit {
   time_to_trip = '';
 
 
-  constructor() { }
+  constructor(private translate: TranslateService) { }
 
   ngOnInit() {
+    moment.locale(this.translate.currentLang);
      this.trips = this.trips.filter((trip) => {
       return trip.type === 'real';
-    });
+     });
 
     if (this.trips.length > 0) {
       this.trips1 = Object.assign({}, this.trips.sort((trip1: Trip, trip2: Trip) => {

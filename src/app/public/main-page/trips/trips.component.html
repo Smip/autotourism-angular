@@ -25,12 +25,12 @@
             class="collection-item"
             *ngFor="let trip of trips | autoPaginator:currentPage:itemsOnPage"
             [ngClass]="{'active':trip === currentTrip}"
-          > <!--active-->
+          >
             <span class="title red-text">
-              {{"Автопробег" | translate}} №{{trip.number}}
+              {{"Автопробег" | translate}} {{trip.number?"№"+trip.number:""}}
             </span>
             <p>
-              {{trip.name}}
+              {{trip.name | translate}}
             </p>
           </li>
         </ul>

@@ -74,10 +74,9 @@ input.ng-invalid {
 
 autotourism-edit-report {
   quill-editor {
-    margin: 0 auto;
+    margin: 100px auto 0 auto;
     width: 880px;
     min-height: 500px;
-    margin-top: 100px;
     .ql-toolbar.ql-snow,
     .ql-container.ql-snow {
       border: none;

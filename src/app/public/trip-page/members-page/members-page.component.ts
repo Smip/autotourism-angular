@@ -14,7 +14,7 @@ export class MembersPageComponent implements OnInit, OnDestroy {
   subscription: Subscription;
 
   id: string;
-  members: [Member];
+  members: Member[];
 
   isLoaded = false;
   constructor(private membersService: MembersService, private route: ActivatedRoute) {
@@ -31,7 +31,7 @@ export class MembersPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if(this.subscription) this.subscription.unsubscribe();
+    if (this.subscription) { this.subscription.unsubscribe(); }
   }
 
 }

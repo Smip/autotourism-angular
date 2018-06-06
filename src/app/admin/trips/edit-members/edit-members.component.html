@@ -1,5 +1,5 @@
 <div class="col l10 offset-l2 s12 header">
-  <h1 *ngIf="isLoaded">{{"Участники пробега"| translate}}</h1>
+  <h1 *ngIf="isLoaded">{{"Экипажи пробега"| translate}}</h1>
 </div>
 <div class="row">
   <button
@@ -25,7 +25,7 @@
             type="button"
           >
             <i class="material-icons left">get_app</i>
-            {{"Импортировать участников"| translate}}
+            {{"Импортировать экипажи"| translate}}
           </button>
         </div>
         <div class="row">
@@ -210,11 +210,11 @@
     #importForm="ngForm"
 >
     <div class="modal-content">
-      <h4>{{"Импорт участников"| translate}}</h4>
+      <h4>{{"Импорт экипажей"| translate}}</h4>
 
           <div class="row">
             <div class="col s12">
-              <p>{{"Список участников может быть легко импортирован из документа Word или Excel, для этого скопируйте содержимое документа в поле ниже и нажмите импортировать."| translate}}</p>
+              <p>{{"Список экипажей может быть легко импортирован из документа Word или Excel, для этого скопируйте содержимое документа в поле ниже и нажмите импортировать."| translate}}</p>
               <p>{{"Документ должен содержать 4 колонки в следующем порядке: № Экипажа, Ник, Автомобиль, Место проживания."| translate}}</p>
             </div>
             <div class="input-field col s12">

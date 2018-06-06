@@ -49,8 +49,8 @@ export class AddOrgComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if(this.subscription) this.subscription.unsubscribe();
-    if(this.subscription2) this.subscription2.unsubscribe();
+    if (this.subscription) { this.subscription.unsubscribe(); }
+    if (this.subscription2) { this.subscription2.unsubscribe(); }
   }
 
   onUpload(fileInput: any) {

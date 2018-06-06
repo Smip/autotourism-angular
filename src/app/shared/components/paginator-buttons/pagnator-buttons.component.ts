@@ -18,17 +18,17 @@ export class PaginatorButtonsComponent {
   constructor() {
   }
 
-  getMin(): number {
-    return ((this.perPage * this.page) - this.perPage) + 1;
-  }
+  // getMin(): number {
+  //   return ((this.perPage * this.page) - this.perPage) + 1;
+  // }
 
-  getMax(): number {
-    let max = this.perPage * this.page;
-    if (max > this.count) {
-      max = this.count;
-    }
-    return max;
-  }
+  // getMax(): number {
+  //   let max = this.perPage * this.page;
+  //   if (max > this.count) {
+  //     max = this.count;
+  //   }
+  //   return max;
+  // }
 
   onPage(n: number): void {
     this.goPage.emit(n);
@@ -42,9 +42,9 @@ export class PaginatorButtonsComponent {
     this.goNext.emit(next);
   }
 
-  totalPages(): number {
-    return Math.ceil(this.count / this.perPage) || 0;
-  }
+  // totalPages(): number {
+  //   return Math.ceil(this.count / this.perPage) || 0;
+  // }
 
   lastPage(): boolean {
     return this.perPage * this.page > this.count;

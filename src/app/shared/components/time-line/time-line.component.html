@@ -7,6 +7,6 @@
     {{isValidDate(point.date_from)?(point.date_from | autoMoment: 'YYYY-MM-DD'):'?'}} {{point.date_from !== point.date_until && isValidDate(point.date_until) ? ' - '+(point.date_until | autoMoment: 'YYYY-MM-DD'):''}}
   </p>
   <h5>
-    {{point.destination?point.destination:'?'}}
+    {{point.destination?(point.destination | translate):'?'}}
   </h5>
 </div>

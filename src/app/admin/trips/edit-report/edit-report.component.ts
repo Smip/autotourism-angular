@@ -114,8 +114,8 @@ export class EditReportComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if(this.subscription) this.subscription.unsubscribe();
-    if(this.subscription2) this.subscription2.unsubscribe();
+    if (this.subscription) { this.subscription.unsubscribe(); }
+    if (this.subscription2) { this.subscription2.unsubscribe(); }
   }
 
   goBack(): void {
@@ -126,7 +126,7 @@ export class EditReportComponent implements OnInit, OnDestroy {
     this.subscription2 = this.reportService.editReport(+this.id, form.value)
       .subscribe((data) => {
         if (data['response']) {
-          this.message = 'Сохранения изменены!';
+          this.message = 'Изменения сохранены!';
           setTimeout(() => {
             this.message = null;
           }, 5000);
