@@ -17,13 +17,13 @@
             <i class="material-icons left">add</i>{{"Создать новый"| translate}}
           </a>
         </div>
-        <table class="striped responsive-table">
+        <table class="striped">
           <thead>
           <tr>
             <th>#</th>
             <th>{{"Название"| translate}}</th>
-            <th>{{"Начало"| translate}}</th>
-            <th>{{"Окончание"| translate}}</th>
+            <th class="hide-on-med-and-down">{{"Начало"| translate}}</th>
+            <th class="hide-on-med-and-down">{{"Окончание"| translate}}</th>
             <th>{{"Статус"| translate}}</th>
             <th>{{"Экипажей"| translate}}</th>
             <th></th>
@@ -36,8 +36,8 @@
           >
             <td><b>{{trip.number}}</b></td>
             <td>{{trip.name| translate}}</td>
-            <td style="white-space: nowrap">{{trip.date_from | autoMoment: 'YYYY-MM-DD'}}</td>
-            <td style="white-space: nowrap">{{trip.date_until | autoMoment: 'YYYY-MM-DD'}}</td>
+            <td  class="hide-on-med-and-down" style="white-space: nowrap">{{trip.date_from | autoMoment: 'YYYY-MM-DD'}}</td>
+            <td  class="hide-on-med-and-down" style="white-space: nowrap">{{trip.date_until | autoMoment: 'YYYY-MM-DD'}}</td>
             <td class="center">
               <i
                 class="material-icons red-text tooltipped"

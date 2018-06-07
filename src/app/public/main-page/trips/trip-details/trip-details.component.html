@@ -1,25 +1,22 @@
 <h3>{{trip.name| translate}}</h3>
-<div class="card-panel grey lighten-5 z-depth-1">
+<div class="card-panel grey lighten-5 z-depth-1" *ngIf="trip.report">
   <div class="row valign-wrapper">
-    <div class="col s2">
+    <div class="col s3 m2">
         <i class="material-icons dp48 medium">description</i>
     </div>
-    <div class="col s10">
-      <a [routerLink]="['/report',trip.id]" *ngIf="trip.report">
+    <div class="col s9 m10">
+      <a [routerLink]="['/report',trip.id]">
         {{"Отчёт о пробеге"| translate}}
       </a>
-      <span *ngIf="!trip.report">
-        {{"Отчёт о пробеге находится в процессе написания"| translate}}
-      </span>
     </div>
   </div>
 </div>
 <div class="card-panel grey lighten-5 z-depth-1">
   <div class="row valign-wrapper">
-    <div class="col s2">
+    <div class="col s3 m2">
       <i class="material-icons dp48 medium">event</i>
     </div>
-    <div class="col s10">
+    <div class="col s9 m10">
       <span class="black-text">
         {{"Пробег"| translate}} {{!dateHappened(trip.date_from)?('состоится'| translate):!dateHappened(trip.date_until, 1)?('проходит'| translate):('состоялся'| translate)}} {{"c"| translate}} {{trip.date_from | autoMoment: 'YYYY-MM-DD'}} {{"по"| translate}} {{trip.date_until | autoMoment: 'YYYY-MM-DD'}}
       </span>
@@ -28,10 +25,10 @@
 </div>
 <div class="card-panel grey lighten-5 z-depth-1">
   <div class="row valign-wrapper">
-    <div class="col s2">
+    <div class="col s3 m2">
       <i class="material-icons dp48 medium">directions_car</i>
     </div>
-    <div class="col s10">
+    <div class="col s9 m10">
       <span class="black-text"  *ngIf="dateHappened(trip.registration_open_from) && !dateHappened(trip.registration_open_to)">
         {{"В пробеге зарегистрировалось members_number экипаж(а)"| translate:trip}}
       </span>

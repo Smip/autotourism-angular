@@ -3,6 +3,7 @@ import {UsersService} from '../../shared/services/users.service';
 import {Subscription} from 'rxjs/Subscription';
 import {fadeStateTrigger} from '../../shared/animations/fade.animation';
 import {ActivatedRoute, Params, Router} from '@angular/router';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'autotourism-auth',
@@ -17,8 +18,11 @@ export class AuthComponent implements OnInit, OnDestroy {
   constructor(
     private userService: UsersService,
     private router: Router,
-    private route: ActivatedRoute
-  ) { }
+    private route: ActivatedRoute,
+    private title: Title
+  ) {
+    title.setTitle('Авторизация в системе Автотуризм без границ');
+  }
 
   ngOnInit() {
     this.userService.logout();

@@ -1,6 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AboutService} from '../../shared/services/about.service';
 import {Subscription} from 'rxjs/Subscription';
+import {Title} from '@angular/platform-browser';
 
 
 @Component({
@@ -14,7 +15,11 @@ export class AboutPageComponent implements OnInit, OnDestroy {
   isLoaded = false;
   about = '';
 
-  constructor(private aboutService: AboutService) { }
+  constructor(
+    private aboutService: AboutService,
+    private title: Title) {
+    title.setTitle('О движении Автотуризм без границ');
+  }
 
   ngOnInit() {
     this.subscription = this.aboutService.getAbout()

@@ -10,7 +10,7 @@
     {{"Назад"| translate}}
   </button>
 </div>
-<div class="col s6">
+<div class="col s12 l6">
   <div class="card">
     <div class="card-content">
       <div class="row" *ngIf="!isLoaded">
@@ -204,7 +204,7 @@
   </div>
 </div>
 
-<div class="col s6">
+<div class="col  s12 l6">
   <div class="row" *ngIf="!isLoaded">
     <autotourism-loader></autotourism-loader>
   </div>
@@ -217,10 +217,10 @@
     </div>
     <div class="card-panel grey lighten-5 z-depth-1">
       <div class="row valign-wrapper" *ngIf="isValidDate(trip.date_from) && isValidDate(trip.date_until)">
-        <div class="col s2">
+        <div class="col s3 m2">
           <i class="material-icons dp48 medium">event</i>
         </div>
-        <div class="col s10">
+        <div class="col s9 m10">
         <span class="black-text">
           {{"Пробег"| translate}} {{!dateHappened(trip.date_from)?('состоится'| translate):!dateHappened(trip.date_until, 1)?('проходит'| translate):('состоялся'| translate)}} {{"c"| translate}} {{trip.date_from | autoMoment: 'YYYY-MM-DD'}} {{"по"| translate}} {{trip.date_until | autoMoment: 'YYYY-MM-DD'}}
         </span>
@@ -232,10 +232,10 @@
     </div>
     <div class="card-panel grey lighten-5 z-depth-1" *ngIf="dateHappened(trip.registration_open_from) && !dateHappened(trip.registration_open_to, 1) && trip.type === 'real'">
       <div class="row valign-wrapper">
-        <div class="col s2">
+        <div class="col s3 m2">
           <i class="material-icons dp48 medium green-text">album</i>
         </div>
-        <div class="col s10">
+        <div class="col s9 m10">
         <span class="black-text">
           {{"Регистрация открыта"| translate}}
         </span>
@@ -244,10 +244,10 @@
     </div>
     <div class="card-panel grey lighten-5 z-depth-1" *ngIf="trip.registration_open_from && !dateHappened(trip.registration_open_from) && trip.type === 'real'">
       <div class="row valign-wrapper">
-        <div class="col s2">
+        <div class="col s3 m2">
           <i class="material-icons dp48 medium yellow-text">album</i>
         </div>
-        <div class="col s10">
+        <div class="col s9 m10">
             <span class="black-text">
               {{"Регистрация в пробег откроется"| translate}} {{trip.registration_open_from | autoMoment:'YYYY-MM-DD':'LL'}}
             </span>
@@ -256,10 +256,10 @@
     </div>
     <div class="card-panel grey lighten-5 z-depth-1" *ngIf="dateHappened(trip.registration_open_to, 1) && (trip.type === 'plan' || trip.type === 'real')">
       <div class="row valign-wrapper">
-        <div class="col s2">
+        <div class="col s3 m2">
           <i class="material-icons dp48 medium red-text">album</i>
         </div>
-        <div class="col s10">
+        <div class="col s9 m10">
             <span class="black-text">
               {{"Регистрация в пробег завершена"| translate}}
             </span>
@@ -269,7 +269,7 @@
     <h6>{{"Раздел планов"| translate}}</h6>
     <div class="card-panel grey lighten-5 z-depth-1">
       <div class="row valign-wrapper" *ngIf="(!this.dateHappened(trip.registration_open_to, 1) || !trip.registration_open_to) && (trip.type === 'plan' || trip.type === 'real')">
-        <div class="col s2 avatar">
+        <div class="col s3 m2 avatar">
           <i
             class="material-icons circle medium"
             [ngClass]="{
@@ -279,7 +279,7 @@
           }"
           >explore</i>
         </div>
-        <div class="col s10">
+        <div class="col s9 m10">
           <h5>{{"C"| translate}} {{isValidDate(trip.date_from)?(trip.date_from | autoMoment: 'YYYY-MM-DD'):"?"}} {{"по"| translate}} {{isValidDate(trip.date_until)?(trip.date_until | autoMoment: 'YYYY-MM-DD'):"?"}}</h5>
           <span  class="black-text">
           {{trip.name| translate}}

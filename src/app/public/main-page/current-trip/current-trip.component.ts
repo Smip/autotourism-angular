@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Trip} from '../../../shared/models/trip.model';
 import * as moment from 'moment';
-import {TranslateService} from "@ngx-translate/core";
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'autotourism-current-trip',

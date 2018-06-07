@@ -10,6 +10,10 @@ import {FilesService} from '../../../shared/services/files.service';
 import {QuillEditorComponent} from 'ngx-quill';
 import Delta from 'quill-delta';
 
+import Quill from 'quill';
+import {ImageDrop} from 'quill-image-drop-module';
+
+Quill.register('modules/imageDrop', ImageDrop);
 
 @Component({
   selector: 'autotourism-edit-report',
@@ -25,7 +29,11 @@ export class EditReportComponent implements OnInit, OnDestroy {
   message: string;
   @ViewChild('editor') editor: QuillEditorComponent;
 
-  modules = {};
+  Parchment = Quill.import('parchment');
+
+  modules = {
+
+  };
   formats = [
     'bold',
     'italic',
@@ -72,7 +80,8 @@ export class EditReportComponent implements OnInit, OnDestroy {
       ],
       clipboard: {
         matchVisual: false
-      }
+      },
+      imageDrop: {handler: this.upload.bind(this)}
     };
   }
 
@@ -81,12 +90,32 @@ export class EditReportComponent implements OnInit, OnDestroy {
     toolbar.quill.theme.tooltip.textbox.className = 'browser-default';
     toolbar.quill.theme.tooltip.textbox.dataset.link = 'Вставьте ссылку и нажмите Enter';
     toolbar.quill.clipboard.addMatcher('span', function(node, delta) {
-      return delta.compose(new Delta().insert(delta.length(), { color: '#000'}));
+      return delta.compose(new Delta().retain(delta.length(), { color: null}));
     });
     toolbar.quill.clipboard.addMatcher('a', function(node, delta) {
-      return delta.compose(new Delta().insert(delta.length(), { color: false }));
+      if (node.childNodes.length === 1 && node.firstChild.nodeName === 'IMG') {
+        return delta.compose(new Delta().retain(delta.length(), {link: null, color: null, backgroudColor: null}));
+      } else {
+        return delta;
+      }
     });
+    toolbar.quill.clipboard.addMatcher('dl', function(node, delta) {
+      return delta.compose(new Delta().retain(delta.length(), {link: null, color: null, bold: null, backgroudColor: null}));
+    });
+    toolbar.quill.clipboard.addMatcher('img', this.pasteImgHandler.bind(this, toolbar.quill));
     toolbar.addHandler('image', this.onUpload.bind(null, toolbar, this));
+  }
+
+  pasteImgHandler(quill, node, delta) {
+    this.filesService.addFileFromLink(node.src).subscribe(event => {
+      if (event['response']) {
+        const src = node.src;
+        const no = document.querySelectorAll(`[src="${src}"]`);
+        (<HTMLImageElement>no[0]).src = event['response'];
+      }
+    });
+    console.log(new Delta().insert('\n').insert(delta.ops[delta.length() - 1].insert).insert('\n'));
+    return new Delta().insert('\n').insert(delta.ops[delta.length() - 1].insert).insert('\n');
   }
 
   onUpload(editor, component) {
@@ -98,19 +127,26 @@ export class EditReportComponent implements OnInit, OnDestroy {
       fileInput.classList.add('ql-image');
       fileInput.addEventListener('change', function () {
         if (fileInput.files != null && fileInput.files[0] != null) {
-          const file = <File>fileInput.files[0];
-          const fb = new FormData();
-          fb.append('file', file, file.name);
-          component.filesService.addFile(fb).subscribe(event => {
+          component.upload(<File>fileInput.files[0], (link) => {
             const range = editor.quill.getSelection(true);
-            editor.quill.insertEmbed(range.index, 'image', event['response']);
-            editor.quill.setSelection(range.index + 1);
+            editor.quill.insertText(range.index, '\n');
+            editor.quill.insertEmbed(range.index + 1, 'image', link);
+            editor.quill.insertText(range.index + 2, '\n');
+            editor.quill.setSelection(range.index + 3);
           });
         }
       });
       editor.container.appendChild(fileInput);
     }
     fileInput.click();
+  }
+
+  upload(file, callback) {
+    const fb = new FormData();
+    fb.append('file', file, file.name);
+    this.filesService.addFile(fb).subscribe(event => {
+      callback(event['response']);
+    });
   }
 
   ngOnDestroy() {

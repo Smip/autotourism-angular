@@ -2,6 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {OrgsService} from '../../shared/services/orgs.service';
 import {Subscription} from 'rxjs/Subscription';
 import {Org} from '../../shared/models/org.model';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'autotourism-organisators-page',
@@ -13,7 +14,12 @@ export class OrganisatorsPageComponent implements OnInit, OnDestroy {
   isLoaded = false;
   orgs: Org[];
 
-  constructor(private orgsService: OrgsService) { }
+  constructor(
+    private orgsService: OrgsService,
+    private title: Title
+  ) {
+    title.setTitle('О организаторах Автотуризма без границ');
+  }
 
   ngOnInit() {
     this.subscription = this.orgsService.getOrgs()

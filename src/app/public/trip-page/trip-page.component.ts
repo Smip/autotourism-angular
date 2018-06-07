@@ -4,6 +4,7 @@ import {Trip} from '../../shared/models/trip.model';
 import {Subscription} from 'rxjs/Subscription';
 import {ActivatedRoute, Router} from '@angular/router';
 import * as moment from 'moment';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'autotourism-trip-page',
@@ -18,13 +19,21 @@ export class TripPageComponent implements OnInit, OnDestroy {
   id: string;
 
   isLoaded = false;
-  constructor(private tripService: TripsService, private route: ActivatedRoute, private router: Router) { }
+  constructor(
+    private tripService: TripsService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private title: Title
+  ) {
+    title.setTitle('Информация о пробеге');
+  }
 
   ngOnInit() {
     this.id = this.route.snapshot.params['id'];
     this.subscription = this.tripService.getTrip(+this.id)
       .subscribe((data) => {
         this.trip = data['response'];
+        this.title.setTitle('Информация о пробеге ' + this.trip.name);
         this.isLoaded = true;
       });
 

@@ -16,5 +16,9 @@ export class FilesService extends BaseApi {
     return this.post('files', data);
   }
 
+  addFileFromLink(link: string): Observable<any> {
+    return this.post('files', {file: link});
+  }
+
 
 }

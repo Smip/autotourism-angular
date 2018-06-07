@@ -18,7 +18,7 @@
     <div class="card-content" *ngIf="isLoaded">
       <form #form="ngForm" (ngSubmit)="onSubmit(form)">
         <div class="row">
-          <div class="col l12">
+          <div class="col s12">
             <div class="z-depth-1">
             <quill-editor
                [(ngModel)]="report.article"
@@ -31,7 +31,7 @@
             ></quill-editor>
             </div>
           </div>
-          <div class="col l12">
+          <div class="col s12">
             <div
               @fade
               class="card light-green accent-3"
@@ -42,8 +42,7 @@
               </div>
             </div>
           </div>
-          <div class="row">
-          <div class="col l12">
+          <div class="col s12">
             <div class="switch right">
               <label>
                 {{"Черновик"| translate}}
@@ -56,17 +55,17 @@
                 {{"Опубликован"| translate}}
               </label>
             </div>
+
           </div>
-          </div>
-          <div class="row">
-          <div class="col l12">
+
+          <div class="col s12">
+            <hr>
             <button
               class="waves-effect waves-light btn right"
               type="submit"
             ><i class="material-icons left">save</i>
               {{"Сохранить"| translate}}
             </button>
-          </div>
           </div>
         </div>
       </form>

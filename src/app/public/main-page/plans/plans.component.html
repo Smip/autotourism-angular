@@ -17,7 +17,7 @@
           >explore</i>
           <h5>{{"C"| translate}} {{trip.date_from | autoMoment: 'YYYY-MM-DD'}} {{"по"| translate}} {{trip.date_until | autoMoment: 'YYYY-MM-DD'}}</h5>
           <p>
-            {{trip.name}}
+            {{trip.name| translate}}
             <span class="new badge right blue" *ngIf="dateHappened(trip.registration_open_from)" [attr.data-badge-caption]="'Открыта регистрация' | translate"></span>
           </p>
           <div class="clearfix"></div>

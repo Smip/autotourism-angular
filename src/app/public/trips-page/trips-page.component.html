@@ -9,7 +9,7 @@
       <div class="col s12" *ngIf="isLoaded">
         <div class="card-panel z-depth-1" *ngFor="let trip of trips | autoPaginator:currentPage:itemsOnPage">
           <div class="row valign-wrapper">
-            <div class="col s2">
+            <div class="col m2 hide-on-small-only">
               <i
                 class="material-icons dp48 medium"
                 [ngClass]="{
@@ -19,7 +19,7 @@
                 }"
               >directions_car</i>
             </div>
-            <div class="col s10">
+            <div class="col s12 m10">
               <span class="new badge red left" *ngIf="dateHappened(trip.registration_open_from) && !dateHappened(trip.registration_open_to)" data-badge-caption="Открыта регистрация"></span>
               <h3>{{trip.number?"№"+trip.number:""}} {{trip.name| translate}}</h3>
               <span class="black-text">

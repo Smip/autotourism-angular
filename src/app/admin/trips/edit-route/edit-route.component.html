@@ -10,12 +10,8 @@
     {{"Назад"| translate}}
   </button>
 </div>
-<div class="col s4">
-  <div *ngIf="isLoaded">
-    <autotourism-time-line [route]="trip.route"></autotourism-time-line>
-  </div>
-</div>
-<div class="col s8">
+
+<div class="col l8 s12 right">
   <div class="card">
     <div class="card-content">
       <div class="row" *ngIf="!isLoaded">
@@ -142,6 +138,11 @@
         </form>
       </div>
     </div>
+  </div>
+</div>
+<div class="col l4 s12 left">
+  <div *ngIf="isLoaded">
+    <autotourism-time-line [route]="trip.route"></autotourism-time-line>
   </div>
 </div>
 <div class="fixed-action-btn">

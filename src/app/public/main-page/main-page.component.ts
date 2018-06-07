@@ -2,6 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Trip} from '../../shared/models/trip.model';
 import {TripsService} from '../../shared/services/trips.service';
 import {Subscription} from 'rxjs/Subscription';
+import {Title} from '@angular/platform-browser';
 
 
 @Component({
@@ -16,8 +17,11 @@ export class MainPageComponent implements OnInit, OnDestroy {
 
   isLoaded = false;
   constructor(
-    private tripService: TripsService
-  ) { }
+    private tripService: TripsService,
+    private title: Title
+  ) {
+    title.setTitle('Автотуризм без границ - клуб любителей автопутешествий по Европе');
+  }
 
   ngOnInit() {
     this.subscription = this.tripService.getTrips()

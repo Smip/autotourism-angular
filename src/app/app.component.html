@@ -47,9 +47,8 @@
         <li>
           <a
             class="dropdown-trigger"
-            (click)="changeLang()"
             data-target="dropdown_lang"
-            autotourismDropdown
+            #Dropdown
           >
             <i class="material-icons left">language</i> Eng / Рус
           </a>
@@ -58,7 +57,10 @@
     </div>
   </div>
 </nav>
-
+<ul id='dropdown_lang' class='dropdown-content'>
+  <li><a (click)="changeLang('ru')">Русский</a></li>
+  <li><a (click)="changeLang('en')">English</a></li>
+</ul>
 <nav class="hide-on-med-and-down" *ngIf="authService.isLoggedIn()">
   <div class="nav-wrapper container">
     <div class="row">
@@ -147,6 +149,16 @@
   >
     <a routerLink="orgs" class="sidenav-close">
       {{ "Организаторы" | translate }}
+    </a>
+  </li>
+  <li>
+    <a (click)="changeLang('ru')">
+      <i class="material-icons left">language</i> Русский
+    </a>
+  </li>
+  <li>
+    <a (click)="changeLang('en')">
+      <i class="material-icons left">language</i> English
     </a>
   </li>
   <li>
@@ -282,6 +294,16 @@
               class="grey-text text-lighten-3"
             >
               {{ "Организаторы" | translate }}
+            </a>
+          </li>
+          <li>
+            <a class="grey-text text-lighten-3"(click)="changeLang('ru')">
+              <i class="material-icons left tiny">language</i> Русский
+            </a>
+          </li>
+          <li>
+            <a class="grey-text text-lighten-3" (click)="changeLang('en')">
+              <i class="material-icons left tiny">language</i> English
             </a>
           </li>
         </ul>

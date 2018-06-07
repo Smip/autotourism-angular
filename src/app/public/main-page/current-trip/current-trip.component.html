@@ -19,10 +19,10 @@
       <div class="col m7 s12">
         <div class="card-panel grey lighten-5 z-depth-1">
           <div class="row valign-wrapper">
-            <div class="col s2">
+            <div class="col s3 m2">
               <i class="material-icons dp48 medium">access_time</i>
             </div>
-            <div class="col s10">
+            <div class="col s9 m10">
                 <span class="black-text">
                   {{"Пробег"| translate}} {{!dateHappened(trip.date_from)?('начнётся'| translate):!dateHappened(trip.date_until, 1)?('начался'| translate):('закончился'| translate)}} {{time_to_trip}}
                 </span>
@@ -31,10 +31,10 @@
         </div>
         <div class="card-panel grey lighten-5 z-depth-1">
           <div class="row valign-wrapper">
-            <div class="col s2">
+            <div class="col s3 m2">
               <i class="material-icons dp48 medium">directions_car</i>
             </div>
-            <div class="col s10">
+            <div class="col s9 m10">
               <span class="black-text"  *ngIf="dateHappened(trip.registration_open_from) && !dateHappened(trip.registration_open_to)">
                 {{"В пробеге зарегистрировалось members_number экипаж(а)"| translate:trip}}
               </span>
@@ -56,10 +56,10 @@
         </div>
         <div class="card-panel grey lighten-5 z-depth-1" *ngIf="dateHappened(trip.registration_open_from) && !dateHappened(trip.registration_open_to)">
           <div class="row valign-wrapper">
-            <div class="col s2">
+            <div class="col s3 m2">
               <i class="material-icons dp48 medium green-text">album</i>
             </div>
-            <div class="col s10">
+            <div class="col s9 m10">
                 <span class="black-text">
                   {{"Регистрация открыта"| translate}}
                 </span>
@@ -69,10 +69,10 @@
         </div>
         <div class="card-panel grey lighten-5 z-depth-1" *ngIf="trip.registration_open_from && !dateHappened(trip.registration_open_from)">
           <div class="row valign-wrapper">
-            <div class="col s2">
+            <div class="col s3 m2">
               <i class="material-icons dp48 medium yellow-text">album</i>
             </div>
-            <div class="col s10">
+            <div class="col s9 m10">
                 <span class="black-text">
                   {{"Регистрация откроется"| translate}} {{trip.registration_open_from | autoMoment: 'YYYY-MM-DD'}}
                 </span>
@@ -82,10 +82,10 @@
         </div>
         <div class="card-panel grey lighten-5 z-depth-1" *ngIf="dateHappened(trip.registration_open_to)">
           <div class="row valign-wrapper">
-            <div class="col s2">
+            <div class="col s3 m2">
               <i class="material-icons dp48 medium red-text">album</i>
             </div>
-            <div class="col s10">
+            <div class="col s9 m10">
                 <span class="black-text">
                   {{"Регистрация в пробег завершена"| translate}}
                 </span>

@@ -30,9 +30,6 @@ export class UsersService extends BaseApi {
         if (user['response']) {
           this.auth.login();
           return true;
-        } else {
-          this.logout();
-          return false;
         }
       });
   }

@@ -72,7 +72,7 @@
           <div formArrayName="members" *ngIf="form">
             <div *ngFor="let items of form.controls.members.controls; let i = index;">
               <div [formGroupName]="i" class="row">
-                <div class="input-field col s3">
+                <div class="input-field col l3 s5">
                   <input
                     [id]="'nick_'+i"
                     type="text"
@@ -92,7 +92,7 @@
                     {{"Ник обязательное поле"| translate}}
                   </span>
                 </div>
-                <div class="input-field col s2">
+                <div class="input-field col l2 s5">
                   <input
                     [id]="'number_'+i"
                     type="text"
@@ -105,7 +105,7 @@
                     {{"Номер экипажа"| translate}}
                   </label>
                 </div>
-                <div class="input-field col s3">
+                <div class="input-field col l3 s5">
                   <input
                     [id]="'auto_'+i"
                     type="text"
@@ -119,7 +119,7 @@
                     {{"Автомобиль"| translate}}
                   </label>
                 </div>
-                <div class="input-field col s3">
+                <div class="input-field col l3 s5">
                   <input
                     [id]="'city_'+i"
                     type="text"
@@ -139,7 +139,7 @@
                     {{"Ник обязательное поле"| translate}}
                   </span>
                 </div>
-                <div class="input-field col s1 center">
+                <div class="input-field col s2 l1 center">
                   <button
                     type="button"
                     class="btn-floating waves-effect waves-light red"

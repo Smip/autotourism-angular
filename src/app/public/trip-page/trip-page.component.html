@@ -24,6 +24,7 @@
             routerLinkActive="active"
             [routerLinkActiveOptions]="{exact: true}"
             routerLink="members"
+            *ngIf="dateHappened(trip.registration_open_from) || dateHappened(trip.date_from)"
           >
             <i class="material-icons">people</i>
             {{"Список экипажей"| translate}}
