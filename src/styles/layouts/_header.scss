@@ -1,0 +1,36 @@
+nav {
+  .brand-logo {
+    margin-right: 20px;
+    position: absolute;
+    float: left;
+    img {
+      margin-top: 15px;
+    }
+    z-index: 1;
+  }
+  ul.left {
+    margin-left: 130px;
+  }
+  ul a {
+    padding: 0 12px;
+  }
+  .lang-selector {
+    span:not(:last-of-type):after {
+      content: '/';
+      position: relative;
+      top: -2px;
+      padding-right: 8px;
+      //color: #fff;
+    }
+  }
+  @media only screen and (min-width: 993px) {
+    .container {
+      width: 85%;
+    }
+  }
+  @media only screen and (min-width: 1150px) {
+    .container {
+      width: 70%;
+    }
+  }
+}

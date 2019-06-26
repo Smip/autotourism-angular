@@ -1,0 +1,104 @@
+<div class="row">
+  <div class="col l10 offset-l2 s12">
+    <h1 class="header">Изменение организатора
+      <ng-container *ngIf="isLoaded">{{form.get('name').value}}</ng-container>
+    </h1>
+  </div>
+  <div class="col s12">
+    <a
+      class="waves-effect waves-teal btn-flat btn "
+      [routerLink]="['/admin', 'organizers']"
+    >
+      <i class="material-icons left">arrow_back</i>
+      Назад
+    </a>
+  </div>
+  <div class="col s12">
+    <app-loader *ngIf="!isLoaded"></app-loader>
+    <div class="card" *ngIf="isLoaded">
+      <div class="card-content">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+          <div class="row">
+            <div class="input-field col s4">
+              <input
+                id="name"
+                type="text"
+                class="validate"
+                formControlName="name"
+              >
+              <label for="name">
+                Имя
+              </label>
+              <span
+                class="helper-text red-text"
+                *ngIf="form.get('name').touched && form.get('name').invalid && form.get('name').errors['required']"
+              >
+                Поле обязательное
+              </span>
+            </div>
+            <div class="input-field col s4">
+              <input
+                id="nick"
+                type="text"
+                class="validate"
+                formControlName="nick"
+              >
+              <label for="nick">
+                Ник
+              </label>
+            </div>
+            <div class="input-field file-field col s4">
+              <input
+                type="text"
+                class="hide"
+                name="photo"
+                formControlName="photo"
+              >
+              <div class="row">
+                <div class="col s3">
+                  <img [src]="form.get('photo').value" class="responsive-img">
+                </div>
+                <div class="col s6">
+                  <div class="btn">
+                    <span>Фотография</span>
+                    <input
+                      type="file"
+                      (change)="onUpload($event)"
+                    >
+                  </div>
+                  <div class="file-path-wrapper hide">
+                    <input class="file-path validate" type="text">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col l12">
+              <quill-editor
+                formControlName="description"
+                [modules]="modules"
+                (onEditorCreated)="addBindingCreated($event)"
+                [formats]="formats"
+                placeholder="Введите текст..."
+              ></quill-editor>
+              <span
+                class="helper-text red-text"
+                *ngIf="form.get('description').touched && form.get('description').invalid && form.get('name').errors['description']"
+              >
+                Поле обязательное
+              </span>
+            </div>
+
+            <div class="col l12">
+              <button
+                class="waves-effect waves-green btn right"
+                type="submit"
+              ><i class="material-icons left">save</i>
+                Сохранить
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

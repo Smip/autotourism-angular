@@ -1,0 +1,82 @@
+<div class="row">
+  <div class="col l10 offset-l2 s12">
+    <h1 class="header">
+      <ng-container *ngIf="isLoaded">
+        <ng-container *ngIf="id; else newUserHeader">
+          Редактирование пользователя {{form.get('username').value}}
+        </ng-container>
+        <ng-template #newUserHeader>
+          Создание нового пользователя
+        </ng-template>
+      </ng-container>
+    </h1>
+  </div>
+  <div class="col s12">
+    <a
+      class="waves-effect waves-teal btn-flat btn "
+      [routerLink]="['/admin', 'users']"
+    >
+      <i class="material-icons left">arrow_back</i>
+      Назад
+    </a>
+  </div>
+  <div class="col s12">
+    <app-loader *ngIf="!isLoaded"></app-loader>
+    <ng-container *ngIf="isLoaded">
+      <div class="card">
+        <div class="card-content">
+          <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <div class="row">
+              <div class="input-field col s4">
+                <input
+                  id="username"
+                  type="text"
+                  class="validate"
+                  formControlName="username"
+                >
+                <label for="username">
+                  Логин
+                </label>
+                <span
+                  class="helper-text red-text"
+                  *ngIf="form.get('username').invalid && form.get('username').touched"
+                >
+                  <span *ngFor="let error of form.get('username')['errors'] | keys">
+                    {{'errors.' + error | translate:form.get('username')['errors'][error]}}
+                  </span>
+                </span>
+              </div>
+              <div class="input-field col s4">
+                <input
+                  id="password"
+                  type="text"
+                  class="validate"
+                  formControlName="password"
+                >
+                <label for="password">
+                  Пароль
+                </label>
+                <span
+                  class="helper-text red-text"
+                  *ngIf="form.get('password').invalid && form.get('password').touched"
+                >
+                  <span *ngFor="let error of form.get('password')['errors'] | keys">
+                    {{'errors.' + error | translate:form.get('password')['errors'][error]}}
+                  </span>
+                </span>
+              </div>
+              <div class="input-field col s4">
+                <button
+                  class="waves-effect waves-green btn"
+                  type="submit"
+                ><i class="material-icons left">save</i>
+                  Сохранить
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>

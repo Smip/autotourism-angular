@@ -1,0 +1,64 @@
+<div class="container">
+  <h2 class="center">{{"Прошедшие пробеги" | translate}}</h2>
+  <app-loader *ngIf="!isLoaded"></app-loader>
+  <div class="row" *ngIf="isLoaded && trips.length >0">
+    <div class="col s12 l4 m5">
+      <div
+        class="card"
+        (click)="showTripDetails(trip)"
+        *ngFor="let trip of trips"
+        [ngClass]="{'blue lighten-4':trip === selectedTrip}"
+        style="cursor: pointer;"
+      >
+        <div class="card-content">
+          <strong>{{"Автопробег" | translate}} {{trip.number?"№"+trip.number:""}}</strong>
+          <p>
+            {{trip.name | translate}}
+          </p>
+        </div>
+      </div>
+      <p class="right">
+        <a [routerLink]="['/trips']">
+          {{'Все пробеги' | translate}}
+        </a>
+      </p>
+    </div>
+    <div class="col l8 m7 hide-on-small-only" *ngIf="selectedTrip">
+      <div class="card">
+        <div class="card-content">
+          <span class="card-title">
+            <strong>
+              {{selectedTrip.number?'№'+selectedTrip.number:''}} {{selectedTrip.name| translate}}
+            </strong>
+          </span>
+          <hr>
+          <p class="flow-text" *ngIf="selectedTrip.trip_report">
+            <i class="material-icons medium">description</i>
+            <small>
+              <a [routerLink]="['/trips', selectedTrip.id, 'report']">
+                {{"Отчёт о пробеге"| translate}}
+              </a>
+            </small>
+          </p>
+          <p class="flow-text">
+            <i class="material-icons medium">event</i>
+            <small>
+              {{"Пробег состоялся с"| translate}} {{selectedTrip.date_from |
+              moment:'YYYY-MM-DD'}} {{"по"| translate}} {{selectedTrip.date_until | moment:'YYYY-MM-DD'}}
+            </small>
+          </p>
+          <p class="flow-text" *ngIf="selectedTrip.members_number">
+            <i class="material-icons medium">directions_car</i>
+            <small>
+              {{"В пробеге участвовало экипажей"| translate}} {{selectedTrip.members_number}}
+              <a [routerLink]="['trips', selectedTrip.id]" fragment="members">
+                ({{"Список"| translate}})
+              </a>
+            </small>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

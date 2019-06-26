@@ -1,63 +1,57 @@
+// angular
+import {APP_INITIALIZER, NgModule} from '@angular/core';
+import {RouterModule} from '@angular/router';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
-
-import {AppComponent} from './app.component';
-import {AppRoutingModule} from './app-routing.module';
-import {PublicModule} from './public/public.module';
-import {TripsService} from './shared/services/trips.service';
-import {MembersService} from './shared/services/members.service';
-import {ReportsService} from './shared/services/reports.service';
-import {AboutService} from './shared/services/about.service';
-import {OrgsService} from './shared/services/orgs.service';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {AuthService} from './shared/services/auth.service';
-import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from '@angular/common/http';
-import {TokenInterceptor} from './shared/core/token.interceptor';
-import {SidenavDirective} from './shared/directives/sidenav.directive';
-import {UsersService} from './shared/services/users.service';
-import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
-import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+// libs
+import {CookieModule, CookieService} from '@gorniv/ngx-universal';
+import {TransferHttpCacheModule} from '@nguniversal/common';
+// shared
+import {SharedModule} from '@shared/shared.module';
+import {TranslatesService} from '@shared/translates';
+import {AuthService} from '@shared/services/auth.service';
+// components
+import {AppRoutes} from './app.routing';
+import {AppComponent} from './app.component';
+import {UniversalStorage} from '@shared/storage/universal.storage';
+// interceptors
+import {TokenInterceptor} from '@shared/interceptors/token.interceptor';
+import {ErrorInterceptor} from '@shared/interceptors/error.interceptor';
+import {AuthGuard} from '@shared/guards/auth.guard';
+import {UnAuthGuard} from '@shared/guards/un-auth.guard';
+import {SharedMetaModule} from '@shared/shared-meta';
+import {Angulartics2Module} from 'angulartics2';
 
-export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http);
+export function initLanguage(translateService: TranslatesService): Function {
+  return (): Promise<any> => translateService.initLanguage();
 }
 
-
 @NgModule({
-  declarations: [
-    AppComponent,
-    SidenavDirective
-  ],
   imports: [
+    BrowserModule.withServerTransition({appId: 'my-app'}),
+    TransferHttpCacheModule,
+    SharedMetaModule,
     HttpClientModule,
-    BrowserModule,
-    PublicModule,
-    AppRoutingModule,
+    RouterModule,
+    AppRoutes,
     BrowserAnimationsModule,
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
-      }
-    })
+    CookieModule.forRoot(),
+    SharedModule,
+    Angulartics2Module.forRoot(),
   ],
+  declarations: [AppComponent],
   providers: [
-    TripsService,
-    MembersService,
-    ReportsService,
-    AboutService,
-    OrgsService,
+    CookieService,
+    UniversalStorage,
     AuthService,
-    UsersService,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: TokenInterceptor,
-      multi: true
-    }
+    // Guards
+    AuthGuard,
+    UnAuthGuard,
+    {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
+    {provide: APP_INITIALIZER, useFactory: initLanguage, multi: true, deps: [TranslatesService]},
   ],
-  bootstrap: [AppComponent]
 })
 export class AppModule {
-
 }

@@ -1,0 +1,35 @@
+<div class="row">
+  <div class="col l10 offset-l2 s12">
+    <h1 class="header">Изменение страницы О движении</h1>
+  </div>
+  <div class="col s12">
+    <app-loader *ngIf="!isLoaded"></app-loader>
+    <div class="card" *ngIf="isLoaded">
+      <div class="card-content">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()" autocomplete="off">
+          <div class="row">
+            <div class="col s12">
+              <quill-editor
+                [modules]="modules"
+                (onEditorCreated)="addBindingCreated($event)"
+                [formats]="formats"
+                placeholder="Введите текст..."
+                formControlName="article"
+              ></quill-editor>
+            </div>
+            <div class="col s12">
+
+              <button
+                class="waves-effect waves-light btn right"
+                type="submit"
+              ><i class="material-icons left">save</i>
+                Сохранить
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+

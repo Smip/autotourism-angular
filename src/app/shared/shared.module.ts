@@ -1,56 +1,36 @@
 import {NgModule} from '@angular/core';
-import {PaginatorPipe} from './pipes/paginator.pipe';
-import {MomentPipe} from './pipes/moment.pipe';
-import {DatepickerDirective} from './directives/datepicker.directive';
-import {TimeLineComponent} from './components/time-line/time-line.component';
-import {CommonModule} from '@angular/common';
-import {OrderRoutePipe} from './pipes/order-route.pipe';
-import {LoaderComponent} from './components/loader/loader.component';
-import {AutocompleteDirective} from './directives/autocomplete.directive';
-import {ModalDirective} from './directives/modal.directive';
-import {ParallaxDirective} from './directives/parallax.directive';
-import {DateMoreValidator} from './directives/date-more-validator.directive';
-import {TabsDirective} from './directives/tabs.directive';
-import {TranslateModule} from '@ngx-translate/core';
-import {DropdownDirective} from './directives/dropdown.directive';
 
+import {TransferHttpModule} from '@gorniv/ngx-universal';
+
+import {LayoutsModule} from './layouts/layouts.module';
+import {NgxMaterialize} from '@smip/ngx-materialize';
+import {TranslateModule} from '@ngx-translate/core';
+import {LoaderComponent} from '@shared/components/loader/loader.component';
+import {MomentPipe} from '@shared/pipes/moment.pipe';
+import {TimeLineComponent} from '@shared/components/time-line/time-line.component';
+import {CommonModule} from '@angular/common';
+import {MomentFromNowPipe} from '@shared/pipes/momentFromNow.pipe';
+import {KeysPipe} from '@shared/pipes/keys.pipe';
 
 @NgModule({
-  declarations: [
-    PaginatorPipe,
-    MomentPipe,
-    DatepickerDirective,
-    TimeLineComponent,
-    OrderRoutePipe,
-    LoaderComponent,
-    AutocompleteDirective,
-    ModalDirective,
-    ParallaxDirective,
-    DateMoreValidator,
-    TabsDirective,
-    DropdownDirective
-  ],
+  declarations: [LoaderComponent, MomentPipe, TimeLineComponent, MomentFromNowPipe, KeysPipe],
   imports: [
     CommonModule,
-    TranslateModule
+    TranslateModule,
+    NgxMaterialize,
   ],
   exports: [
-    PaginatorPipe,
-    MomentPipe,
-    DatepickerDirective,
-    TimeLineComponent,
-    OrderRoutePipe,
-    LoaderComponent,
-    AutocompleteDirective,
-    ModalDirective,
-    ParallaxDirective,
-    DateMoreValidator,
-    TabsDirective,
+    LayoutsModule,
+    TransferHttpModule,
+    NgxMaterialize,
     TranslateModule,
-    DropdownDirective
-  ]
+    LoaderComponent,
+    MomentPipe,
+    MomentFromNowPipe,
+    TimeLineComponent,
+    KeysPipe,
+  ],
+  providers: [],
 })
 export class SharedModule {
-
 }
-

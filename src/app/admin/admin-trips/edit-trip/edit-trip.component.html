@@ -1,0 +1,304 @@
+<div class="row">
+  <div class="col l10 offset-l2 s12">
+    <h1 class="header">Редактирование пробега
+      <ng-container *ngIf="isLoaded">{{form.get('number').value?"№"+form.get('number').value:""}}
+        {{form.get('name').value}}
+      </ng-container>
+    </h1>
+  </div>
+
+  <div class="col s12">
+    <a
+      class="waves-effect waves-teal btn-flat btn "
+      [routerLink]="['/admin', 'trips']"
+    >
+      <i class="material-icons left">arrow_back</i>
+      Назад
+    </a>
+    <ng-container *ngIf="isLoaded && id">
+      <a class="waves-effect waves-teal btn-flat" [routerLink]="['/admin', 'trips', id]">
+        <i class="material-icons left">info_outline</i>
+        Информация
+      </a>
+      <a class="waves-effect waves-teal btn-flat" [routerLink]="['/admin', 'trips', id, 'route']">
+        <i class="material-icons left">timeline</i>
+        Маршрут
+      </a>
+      <a class="waves-effect waves-teal btn-flat" [routerLink]="['/admin', 'trips', id, 'members']">
+        <i class="material-icons left">people</i>
+        Экипажи пробега
+      </a>
+      <a class="waves-effect waves-teal btn-flat" [routerLink]="['/admin', 'trips', id, 'report']">
+        <i class="material-icons left">description</i>
+        Отчёт
+      </a>
+    </ng-container>
+  </div>
+  <div class="col s12 l6">
+    <div class="card">
+      <div class="card-content">
+        <app-loader *ngIf="!isLoaded"></app-loader>
+        <div *ngIf="isLoaded">
+          <form class="form-group" [formGroup]="form" (ngSubmit)="onSubmit()" autocomplete="off">
+            <div class="row">
+              <div class="input-field col s4">
+                <input
+                  id="number"
+                  type="text"
+                  formControlName="number"
+                  class="validate"
+                >
+                <label for="number">Номер пробега</label>
+                <span
+                  class="helper-text red-text"
+                  *ngIf="form.get('number').invalid && form.get('number').touched"
+                >
+                  <span *ngFor="let error of form.get('number')['errors'] | keys">
+                    {{'errors.' + error | translate:form.get('number')['errors'][error]}}
+                  </span>
+                </span>
+              </div>
+
+              <div class="input-field col s8">
+                <input
+                  id="name"
+                  type="text"
+                  formControlName="name"
+                  class="validate"
+                >
+                <label for="name">Название</label>
+                <span
+                  class="helper-text red-text"
+                  *ngIf="form.get('name').invalid && form.get('name').touched"
+                >
+                  <span *ngFor="let error of form.get('name')['errors'] | keys">
+                    {{'errors.' + error | translate:form.get('name')['errors'][error]}}
+                  </span>
+                </span>
+              </div>
+
+              <div class="input-field col s6">
+                <input
+                  id="date_from"
+                  type="text"
+                  formControlName="date_from"
+                  class="validate"
+                  [mDatepicker]="globals.datepickerOptions"
+                >
+                <label for="date_from">Начало пробега</label>
+                <span
+                  class="helper-text red-text"
+                  *ngIf="form.get('date_from').invalid && form.get('date_from').touched"
+                >
+                  <span *ngFor="let error of form.get('date_from')['errors'] | keys">
+                    {{'errors.' + error | translate:form.get('date_from')['errors'][error]}}
+                  </span>
+                </span>
+              </div>
+
+              <div class="input-field col s6">
+                <input
+                  id="date_until"
+                  type="text"
+                  formControlName="date_until"
+                  class="validate"
+                  [mDatepicker]="globals.datepickerOptions"
+                >
+                <label for="date_until">Окончание пробега</label>
+                <span
+                  class="helper-text red-text"
+                  *ngIf="form.get('date_until').invalid && form.get('date_until').touched"
+                >
+                  <span *ngFor="let error of form.get('date_until')['errors'] | keys">
+                    {{'errors.' + error | translate:form.get('date_until')['errors'][error]}}
+                  </span>
+                </span>
+              </div>
+
+              <div class="col s12" *ngIf="form.invalid && form.errors && form.errors['date_until_more_then_date_from']">
+                <span class="helper-text red-text">
+                    Дата окончания пробега не может быть раньше его начала
+                </span>
+              </div>
+
+              <div class="input-field col s6">
+                <input
+                  id="registration_open_from"
+                  type="text"
+                  formControlName="registration_open_from"
+                  class="validate"
+                  [mDatepicker]="globals.datepickerOptions"
+                >
+                <label for="registration_open_from">Начало регистрации</label>
+                <span
+                  class="helper-text red-text"
+                  *ngIf="form.get('registration_open_from').invalid && form.get('registration_open_from').touched"
+                >
+                  <span *ngFor="let error of form.get('registration_open_from')['errors'] | keys">
+                    {{'errors.' + error | translate:form.get('registration_open_from')['errors'][error]}}
+                  </span>
+                </span>
+              </div>
+
+              <div class="input-field col s6">
+                <input
+                  id="registration_open_to"
+                  type="text"
+                  formControlName="registration_open_to"
+                  class="validate"
+                  [mDatepicker]="globals.datepickerOptions"
+                >
+                <label for="registration_open_to">Окончание регистрации</label>
+                <span
+                  class="helper-text red-text"
+                  *ngIf="form.get('registration_open_to').invalid && form.get('registration_open_to').touched"
+                >
+                  <span *ngFor="let error of form.get('registration_open_to')['errors'] | keys">
+                    {{'errors.' + error | translate:form.get('registration_open_to')['errors'][error]}}
+                  </span>
+                </span>
+              </div>
+
+              <div class="col s12"
+                   *ngIf="form.invalid && form.errors && form.errors['registration_open_to_more_then_registration_open_from']">
+                <span class="helper-text red-text">
+                    Дата окончания регистрации не может быть раньше её начала
+                </span>
+              </div>
+
+              <div class="input-field col s12">
+                <p *ngFor="let item of tripTypes">
+                  <label>
+                    <input
+                      formControlName="type"
+                      [value]="item.value"
+                      type="radio"/>
+                    <span>
+                      {{item.label}}
+                      <i class="material-icons red-text tiny" *ngIf="item.value === 'draft'">border_color</i>
+                      <i class="material-icons accent-3-text light-blue-text tiny"
+                         *ngIf="item.value === 'plan'">book</i>
+                      <i class="material-icons green-text tiny" *ngIf="item.value === 'real'">assignment_turned_in</i>
+                    </span>
+                  </label>
+                </p>
+                <span
+                  class="helper-text red-text"
+                  *ngIf="form.get('type').invalid && form.get('type').touched"
+                >
+                  <span *ngFor="let error of form.get('type')['errors'] | keys">
+                    {{'errors.' + error | translate:form.get('type')['errors'][error]}}
+                  </span>
+                </span>
+              </div>
+
+              <div class="input-field col s12">
+                <input
+                  id="link_to_registration"
+                  type="text"
+                  formControlName="link_to_registration"
+                  class="validate"
+                >
+                <label for="link_to_registration">Ссылка на тему регистрации</label>
+                <span
+                  class="helper-text red-text"
+                  *ngIf="form.get('link_to_registration').invalid && form.get('link_to_registration').touched"
+                >
+                  <span *ngFor="let error of form.get('link_to_registration')['errors'] | keys">
+                    {{'errors.' + error | translate:form.get('link_to_registration')['errors'][error]}}
+                  </span>
+                </span>
+              </div>
+
+
+              <div class="input-field col s12">
+                <button
+                  class="btn waves-effect waves-light green right"
+                  type="submit"
+                >
+                  Сохранить
+                  <i class="material-icons right">send</i>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col s12 l6">
+    <app-loader *ngIf="!isLoaded"></app-loader>
+    <div *ngIf="isLoaded">
+      <h4>Автопробег {{form.value.number?'№'+form.value.number:''}} {{form.value.name}}</h4>
+      <div class="card-panel red lighten-4" *ngIf="form.value.type === 'draft'">
+        <span class="black-text">
+          Пробег будет виден только в административной панеле до того как Вы не измените тип на план или пробег.
+        </span>
+      </div>
+      <p class="flow-text" *ngIf="form.value.date_from && form.value.date_until && form.value.type === 'real'">
+        <i class="material-icons medium">event</i>
+        <small>
+          {{"Пробег"| translate}}
+          <ng-container
+            *ngIf="(!dateHappened(form.value.date_from) || !dateHappened(form.value.date_until, 1)); else tripEnd">
+            {{(!dateHappened(form.value.date_from) ? 'пройдёт' : 'проходит') | translate}}
+          </ng-container>
+          <ng-template #tripEnd>
+            {{'проходил'| translate}}
+            {{form.value.date_until | momentFromNow}}
+          </ng-template>
+          {{"c"| translate}} {{form.value.date_from |
+          moment:'YYYY-MM-DD'}} {{"по"| translate}} {{form.value.date_until | moment:'YYYY-MM-DD'}}
+        </small>
+      </p>
+
+
+      <p class="flow-text"
+         *ngIf="form.value.registration_open_from && !dateHappened(form.value.registration_open_from) && form.value.type === 'real'">
+        <i class="material-icons medium yellow-text">album</i>
+        <small>
+          <ng-container *ngIf="!dateHappened(form.value.registration_open_from)">
+            {{"Когда откроется регистрация?" | translate}}
+            {{form.value.registration_open_from | moment:'MMMM YYYY' | titlecase}}
+          </ng-container>
+          <ng-container
+            *ngIf="dateHappened(form.value.registration_open_from) && !dateHappened(form.value.registration_open_to)">
+            {{"Регистрация открыта" | translate}}
+            <a href="{{form.value.link_to_registration}}" *ngIf="form.value.link_to_registration">
+              <small>{{"Присоединиться"| translate}}</small>
+            </a>
+          </ng-container>
+          <ng-container *ngIf="dateHappened(form.value.registration_open_to) && !dateHappened(form.value.date_from)">
+            {{"Регистрация в пробег завершена"| translate}}
+          </ng-container>
+        </small>
+      </p>
+      <h6>Раздел планов</h6>
+      <div
+        class="card-panel red lighten-4"
+        *ngIf=" dateHappened(form.value.date_from, 1) ||
+                (dateHappened(form.value.registration_open_to, 1) && form.value.registration_open_to) ||
+                form.value.type === 'draft'; else plansTpl">
+        <span class="black-text">
+          Пробег не будет отображатся в планах
+        </span>
+      </div>
+      <ng-template #plansTpl>
+        <p class="flow-text">
+          <ng-container *ngIf="
+          dateHappened(form.value.registration_open_from) &&
+          !dateHappened(form.value.registration_open_to, 1) &&
+          form.value.registration_open_from &&
+          form.value.registration_open_to">
+            <span class="new badge right blue" [attr.data-badge-caption]="'Открыта регистрация' | translate"></span>
+          </ng-container>
+          <i class="material-icons medium circle left">explore</i>
+          {{form.value.name| translate}}
+          <br>
+          <small>{{form.value.date_from | moment: 'LL'}} - {{form.value.date_until | moment: 'LL'}}</small>
+        </p>
+      </ng-template>
+    </div>
+  </div>
+</div>

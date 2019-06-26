@@ -1,0 +1,165 @@
+<div class="row">
+  <div class="col l10 offset-l2 s12">
+    <h1 class="header">Маршрут пробега
+      <ng-container *ngIf="isLoaded">{{trip.number?"№"+trip.number:""}} {{trip.name}}</ng-container>
+    </h1>
+  </div>
+  <div class="col s12">
+    <a
+      class="waves-effect waves-teal btn-flat btn "
+      [routerLink]="['/admin', 'trips']"
+    >
+      <i class="material-icons left">arrow_back</i>
+      Назад
+    </a>
+    <ng-container *ngIf="isLoaded && id">
+      <a class="waves-effect waves-teal btn-flat" [routerLink]="['/admin', 'trips', id]">
+        <i class="material-icons left">info_outline</i>
+        Информация
+      </a>
+      <a class="waves-effect waves-teal btn-flat" [routerLink]="['/admin', 'trips', id, 'route']">
+        <i class="material-icons left">timeline</i>
+        Маршрут
+      </a>
+      <a class="waves-effect waves-teal btn-flat" [routerLink]="['/admin', 'trips', id, 'members']">
+        <i class="material-icons left">people</i>
+        Экипажи пробега
+      </a>
+      <a class="waves-effect waves-teal btn-flat" [routerLink]="['/admin', 'trips', id, 'report']">
+        <i class="material-icons left">description</i>
+        Отчёт
+      </a>
+    </ng-container>
+  </div>
+
+  <div class="col l8 s12">
+    <div class="card">
+      <div class="card-content">
+        <app-loader *ngIf="!isLoaded"></app-loader>
+        <ng-container *ngIf="isLoaded">
+          <form
+            [formGroup]="form"
+            (ngSubmit)="onSubmit()"
+          >
+            <ng-container formArrayName="route">
+              <ng-container *ngFor="let items of route.controls; let i = index;">
+                <div [formGroupName]="i" class="row">
+                  <div class="input-field col s6 m3">
+                    <input
+                      [id]="'date_from_'+i"
+                      type="text"
+                      formControlName="date_from"
+                      [mDatepicker]="globals.datepickerOptions"
+                      autocomplete="false"
+                    >
+                    <label [for]="'date_from_'+i">
+                      Начало
+                    </label>
+                  </div>
+                  <div class="input-field col s6 m3">
+                    <input
+                      [id]="'date_until_'+i"
+                      type="text"
+                      formControlName="date_until"
+                      [mDatepicker]="globals.datepickerOptions"
+                      autocomplete="false"
+                    >
+                    <label [for]="'date_until_'+i">
+                      Окончание
+                    </label>
+                  </div>
+                  <div class="input-field col s8 m4">
+                    <input
+                      [id]="'destination_'+i"
+                      type="text"
+                      formControlName="destination"
+                      [mAutocomplete]="{data: countries, minLength: 0}"
+                      autocomplete="new-password"
+                    >
+                    <label [for]="'description_'+i">
+                      Страна
+                    </label>
+                  </div>
+                  <div class="input-field col s4 m2 center">
+                    <button
+                      type="button"
+                      class="btn-floating waves-effect waves-light red"
+                      (click)="removeRow(i)"
+                    >
+                      <i class="material-icons">delete_forever</i>
+                    </button>
+
+                  </div>
+                  <div
+                    class="col s12 red-text center-align"
+                    *ngIf="items.invalid && items.touched"
+                  >
+                    <ng-container *ngIf="items.errors && items.errors['validateDateMore']">
+                      Дата окончания не может быть меньше даты начала
+                    </ng-container>
+                    <ng-container
+                      *ngIf="items.get('date_until').touched && items.get('date_until').invalid && items.get('date_until').errors['required']">
+                      Дата окончания обязательна для заполнения.
+                    </ng-container>
+                    <ng-container
+                      *ngIf="items.get('date_from').touched && items.get('date_from').invalid && items.get('date_from').errors['required']">
+                      Дата начала обязательна для заполнения.
+                    </ng-container>
+                    <ng-container
+                      *ngIf="items.get('destination').touched && items.get('destination').invalid && items.get('destination').errors['required']">
+                      Страна обязательна для заполнения.
+                    </ng-container>
+                  </div>
+                </div>
+              </ng-container>
+            </ng-container>
+            <div class="col l12">
+              <div
+                class="card light-green accent-3"
+                *ngIf="message"
+              >
+                <div class="card-content">
+                  <p>{{message}}</p>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col s12">
+                <button
+                  class="btn waves-effect waves-light left"
+                  type="button"
+                  (click)="newRow()"
+                  [disabled]="form.invalid"
+                >
+                  Добавить
+                  <i class="material-icons left">add</i>
+                </button>
+                <button
+                  class="btn waves-effect waves-light green right"
+                  type="submit"
+                >
+                  Сохранить
+                  <i class="material-icons right">send</i>
+                </button>
+              </div>
+            </div>
+          </form>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+  <div class="col l4 s12">
+    <div *ngIf="isLoaded">
+      <app-time-line [route]="form.controls.route.value"></app-time-line>
+    </div>
+  </div>
+</div>
+<div class="fixed-action-btn">
+  <button
+    class="btn-floating btn-large blue"
+    *ngIf="deletedPoint"
+    (click)="restoreLastDeleted()"
+  >
+    <i class="large material-icons">undo</i>
+  </button>
+</div>

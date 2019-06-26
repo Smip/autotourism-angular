@@ -1,0 +1,130 @@
+<div class="container">
+  <div class="row">
+    <div class="col l10 offset-l2 s12">
+      <h1 class="header" *ngIf="!isLoaded">{{ "trip.title" | translate }}</h1>
+      <h1 class="header" *ngIf="isLoaded">{{ trip.name | translate }}</h1>
+    </div>
+    <div class="col s12">
+      <app-loader *ngIf="!isLoaded"></app-loader>
+      <ng-container *ngIf="isLoaded">
+        <div class="row">
+          <div class="col s12 m4">
+            <app-time-line [route]="trip.trip_routes"></app-time-line>
+          </div>
+          <div class="col s12 m8">
+            <div class="card">
+              <div class="card-tabs">
+                <ul class="tabs" mTabs (mInstance)="mTabs = $event">
+                  <li class="tab">
+                    <a href="#info">
+                      {{'Информация о пробеге' | translate }}
+                    </a>
+                  </li>
+                  <li class="tab" *ngIf="trip.members.length">
+                    <a href="#members">
+                      {{'Список экипажей' | translate }}
+                    </a>
+                  </li>
+                  <li class="tab" *ngIf="trip.trip_report">
+                    <a target="_self" [routerLink]="['report']">
+                      {{'Отчёт о пробеге' | translate}}
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <div class="card-content">
+                <div id="info">
+                  <p class="flow-text" *ngIf="trip.number">
+                    <i class="material-icons medium">timeline</i>
+                    <small>
+                      {{'Пробег номер' | translate}} {{trip.number}}
+                    </small>
+                  </p>
+                  <p class="flow-text" *ngIf="trip.date_from && trip.date_until">
+                    <i class="material-icons medium">event</i>
+                    <small>
+                      {{"Пробег"| translate}}
+                      <ng-container
+                        *ngIf="(!dateHappened(trip.date_from) || !dateHappened(trip.date_until, 1)); else tripEnd">
+                        {{(!dateHappened(trip.date_from) ? 'пройдёт' : 'проходит') | translate}}
+                      </ng-container>
+                      <ng-template #tripEnd>
+                        {{'проходил'| translate}}
+                        {{trip.date_until | momentFromNow}}
+                      </ng-template>
+                      {{"с"| translate}} {{trip.date_from |
+                      moment:'YYYY-MM-DD'}} {{"по"| translate}} {{trip.date_until | moment:'YYYY-MM-DD'}}
+                    </small>
+                  </p>
+                  <p class="flow-text"
+                     *ngIf="(dateHappened(trip.registration_open_from) || dateHappened(trip.date_from)) && trip.members.length">
+                    <i class="material-icons medium">directions_car</i>
+                    <small>
+                      <ng-container
+                        *ngIf="dateHappened(trip.registration_open_from) && !dateHappened(trip.registration_open_to)">
+                        {{"В пробеге зарегистрировалось экипажей:"| translate}} {{trip.members.length}}
+                      </ng-container>
+                      <ng-container *ngIf="dateHappened(trip.date_from) && !dateHappened(trip.date_until, 1)">
+                        {{"В пробеге участвуют экипажей:"| translate}} {{trip.members.length}}
+                      </ng-container>
+                      <ng-container *ngIf="dateHappened(trip.date_until, 1)">
+                        {{"В пробеге участвовало экипажей:"| translate}} {{trip.members.length}}
+                      </ng-container>
+                      <ng-container *ngIf="dateHappened(trip.registration_open_to)  && !dateHappened(trip.date_from)">
+                        {{"В пробеге будет участвовать экипажей:"| translate}} {{trip.members.length}}
+                      </ng-container>
+                      <a [routerLink]="['/trips', trip.id]" fragment="members" (click)="mTabs.select('members')"
+                         *ngIf="trip.members.length">
+                        {{"Список" | translate}}
+                      </a>
+                    </small>
+                  </p>
+                  <p class="flow-text"
+                     *ngIf="(!dateHappened(trip.registration_open_from) || !dateHappened(trip.date_from)) && trip.type === 'real'">
+                    <i class="material-icons medium yellow-text">album</i>
+                    <small>
+                      <ng-container *ngIf="!dateHappened(trip.registration_open_from)">
+                        {{"Когда откроется регистрация?" | translate}}
+                        {{form.value.registration_open_from | moment:'MMMM YYYY' | titlecase}}
+                      </ng-container>
+                      <ng-container
+                        *ngIf="dateHappened(trip.registration_open_from) && !dateHappened(trip.registration_open_to)">
+                        {{"Регистрация открыта" | translate}}
+                        <a href="{{trip.link_to_registration}}" *ngIf="trip.link_to_registration">
+                          <small>{{"Присоединиться"| translate}}</small>
+                        </a>
+                      </ng-container>
+                      <ng-container *ngIf="dateHappened(trip.registration_open_to) && !dateHappened(trip.date_from)">
+                        {{"Регистрация в пробег завершена"| translate}}
+                      </ng-container>
+                    </small>
+                  </p>
+                </div>
+                <div id="members" *ngIf="trip.members.length">
+                  <table class="striped responsive-table">
+                    <thead>
+                    <tr>
+                      <th>{{"Экипаж №"| translate}}</th>
+                      <th>{{"Ник"| translate}}</th>
+                      <th>{{"Авто"| translate}}</th>
+                      <th>{{"Город"| translate}}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let member of trip.members">
+                      <td>{{member.number}}</td>
+                      <td>{{member.nick}}</td>
+                      <td>{{member.auto}}</td>
+                      <td>{{member.city| translate}}</td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>

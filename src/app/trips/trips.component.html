@@ -1,0 +1,64 @@
+<div class="container">
+  <div class="row">
+    <div class="col l10 offset-l2 s12">
+      <h1 class="header">{{ "trips.title" | translate }}</h1>
+    </div>
+    <div class="col s12">
+      <app-loader *ngIf="!isLoaded"></app-loader>
+      <ng-container *ngIf="isLoaded">
+        <div class="card-panel z-depth-1" *ngFor="let trip of trips">
+          <div class="row valign-wrapper">
+            <div class="col m2 hide-on-small-only">
+              <i
+                class="material-icons medium"
+                [ngClass]="{
+                'green-text':dateHappened(trip.date_until),
+                'yellow-text':dateHappened(trip.date_from) && !dateHappened(trip.date_until),
+                'red-text':dateHappened(trip.registration_open_from) && !dateHappened(trip.registration_open_to)
+                }"
+              >directions_car</i>
+            </div>
+            <div class="col s12 m10">
+              <span class="new badge red"
+                    *ngIf="dateHappened(trip.registration_open_from) && !dateHappened(trip.registration_open_to)"
+                    [attr.data-badge-caption]="'Открыта регистрация' | translate"></span>
+              <h3>{{trip.number?"№"+trip.number:""}} {{trip.name| translate}}</h3>
+              <span class="black-text">
+                {{"Пробег" | translate}}
+                <ng-container
+                  *ngIf="(!dateHappened(trip.date_from) || !dateHappened(trip.date_until, 1)); else tripEnd">
+                  {{(!dateHappened(trip.date_from) ? 'пройдёт' : 'проходит') | translate}}
+                </ng-container>
+                <ng-template #tripEnd>
+                  {{'прошёл'| translate}}
+                </ng-template>
+                {{"с" | translate}} {{trip.date_from | moment: 'YYYY-MM-DD'}} {{"по" | translate}} {{trip.date_until | moment: 'YYYY-MM-DD'}}
+              </span>
+
+              <p class="secondary-content">
+                <a class="btn-flat red-text" href="{{trip.link_to_registration}}"
+                   *ngIf="dateHappened(trip.registration_open_from) && !dateHappened(trip.registration_open_to) && trip.link_to_registration">
+                  <i class="material-icons left">send</i>
+                  {{"Присоединиться"| translate}}
+                </a>
+                <a class="btn-flat blue-text text-darken-4" [routerLink]="[trip.id]" fragment="members"
+                   *ngIf="trip.members_number > 0">
+                  <i class="material-icons left">people</i>
+                  {{"Список экипажей"| translate}}
+                </a>
+                <a class="btn-flat blue-text text-darken-4" [routerLink]="[trip.id]">
+                  <i class="material-icons left">info_outline</i>
+                  {{"Информация о пробеге"| translate}}
+                </a>
+                <a class="btn-flat blue-text text-darken-4" [routerLink]="[trip.id, 'report']" *ngIf="trip.trip_report">
+                  <i class="material-icons left">description</i>
+                  {{"Отчёт о пробеге"| translate}}
+                </a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>

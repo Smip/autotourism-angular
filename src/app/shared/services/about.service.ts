@@ -1,9 +1,8 @@
 import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
-
-import {BaseApi} from '../core/base-api';
-import {About} from '../models/about.model';
+import {Observable} from 'rxjs';
+import {BaseApi} from './base-api';
 import {HttpClient} from '@angular/common/http';
+import {About} from '@shared/models/about.model';
 
 @Injectable()
 export class AboutService extends BaseApi {
@@ -12,13 +11,12 @@ export class AboutService extends BaseApi {
     super(http);
   }
 
-  getAbout(): Observable<About> {
+  getAbout(): Observable<any> {
     return this.get('about');
   }
 
-  editAbout(data: About): Observable<About> {
-    return this.put('about', data);
+  editAbout(data: About): Observable<any> {
+    return this.put('admin/about', data);
   }
-
 
 }

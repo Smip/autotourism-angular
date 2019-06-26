@@ -1,8 +1,34 @@
-
-
-<div class="container">
-  <div class="row">
-    <router-outlet></router-outlet>
+<app-header></app-header>
+<nav class="hide-on-small-only">
+  <div class="nav-wrapper">
+    <div class="container">
+      <ul class="right hide-on-med-and-down">
+        <li *ngFor="let item of links">
+          <a class="white-text" [routerLink]="[item.routerLink]" *ngIf="item.routerLink"
+             [routerLinkActive]="['active']">
+            <i class="material-icons left" *ngIf="item.icon">{{ item.icon }}</i>
+            {{ item.name}}
+          </a>
+          <a class="white-text" [href]="[item.href]" *ngIf="item.href">
+            <i class="material-icons left" *ngIf="item.icon">{{ item.icon }}</i>
+            {{ item.name}}
+          </a>
+        </li>
+        <li>
+          <a class="white-text" (click)="logout()">
+            <i class="material-icons left">exit_to_app</i>
+            Выйти
+          </a>
+        </li>
+      </ul>
+    </div>
   </div>
+</nav>
+<div id="wrapper-content" class="grey lighten-5">
+  <main role="main">
+    <div class="container">
+      <router-outlet></router-outlet>
+    </div>
+  </main>
 </div>
-
+<app-footer></app-footer>

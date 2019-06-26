@@ -1,10 +1,7 @@
 import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
-
-import {BaseApi} from '../core/base-api';
-import {Org} from '../models/org.model';
+import {Observable} from 'rxjs';
+import {BaseApi} from './base-api';
 import {HttpClient} from '@angular/common/http';
-
 
 @Injectable()
 export class OrgsService extends BaseApi {
@@ -13,25 +10,24 @@ export class OrgsService extends BaseApi {
     super(http);
   }
 
-  getOrgs(): Observable<Org[]> {
+  getOrgs(): Observable<any> {
     return this.get('orgs');
   }
 
-  getOrg(id: number): Observable<Org> {
-    return this.get('org/' + id);
+  getOrg(id: number): Observable<any> {
+    return this.get('admin/orgs/' + id);
   }
 
-  editOrg(id: number, data: Org): Observable<Org> {
-    return this.put('org/' + id, data);
+  addOrg(data): Observable<any> {
+    return this.post('admin/orgs', data);
   }
 
-  addOrg(data: Org): Observable<Org> {
-    return this.post('org', data);
+  editOrg(id: number, data): Observable<any> {
+    return this.put('admin/orgs/' + id, data);
   }
 
-  deleteOrg(id: number): Observable<Org> {
-    return this.delete('org/' + id);
+  deleteOrg(id: number): Observable<any> {
+    return this.delete('admin/orgs/' + id);
   }
-
 
 }

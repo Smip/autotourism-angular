@@ -1,42 +1,34 @@
 import {Injectable} from '@angular/core';
-import {BaseApi} from '../core/base-api';
+import {Observable} from 'rxjs';
+import {BaseApi} from './base-api';
 import {HttpClient} from '@angular/common/http';
-import {AuthService} from './auth.service';
 
 @Injectable()
 export class UsersService extends BaseApi {
 
-  constructor(
-    public http: HttpClient,
-    public auth: AuthService
-  ) {
+  constructor(public http: HttpClient) {
     super(http);
   }
 
-  login(username: string, password: string) {
-    return this.post('user', {username: username, password: password})
-      .map(user => {
-            if (user['response'] && user['response']['token']) {
-              localStorage.setItem('user', JSON.stringify(user['response']));
-              this.auth.login();
-            }
-            return user['response'];
-      });
+  getUsers(): Observable<any> {
+    return this.get('admin/users');
   }
 
-  checkLogin() {
-    return this.get('user')
-      .map(user => {
-        if (user['response']) {
-          this.auth.login();
-          return true;
-        }
-      });
+  getUser(id: number): Observable<any> {
+    return this.get(`admin/users/${id}`);
   }
 
-  logout() {
-    localStorage.removeItem('user');
-    this.auth.logout();
+  editUser(id: number, data: {}): Observable<any> {
+    return this.post(`admin/users/${id}`, data);
   }
+
+  addUser(data: {}): Observable<any> {
+    return this.put(`admin/users`, data);
+  }
+
+  deleteUser(id: number): Observable<any> {
+    return this.delete(`admin/users/${id}`);
+  }
+
 
 }

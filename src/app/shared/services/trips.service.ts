@@ -1,8 +1,6 @@
 import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
-import {Trip} from '../models/trip.model';
-import {BaseApi} from '../core/base-api';
-import {Route} from '../models/route.model';
+import {Observable} from 'rxjs';
+import {BaseApi} from './base-api';
 import {HttpClient} from '@angular/common/http';
 
 @Injectable()
@@ -12,23 +10,41 @@ export class TripsService extends BaseApi {
     super(http);
   }
 
-  getTrips(): Observable<Trip[]> {
+  getTrips(): Observable<any> {
     return this.get('trips');
   }
 
-  getTrip(id: number): Observable<Trip> {
-    return this.get('trip/' + id);
+  getTripAndReport(id: number): Observable<any> {
+    return this.get(`trips/${id}/report`);
   }
 
-  addTrip(data: Trip): Observable<number> {
-    return this.post('trip', data);
+
+  getPlans(): Observable<any> {
+    return this.get('plans');
   }
 
-  editTrip(id: number, data: Trip): Observable<boolean> {
-    return this.put('trip/' + id, data);
+  getCurrentTrip(): Observable<any> {
+    return this.get('trips/current');
   }
 
-  editRoute(id: number, data: [Route]): Observable<boolean> {
+  getLastTrips(): Observable<any> {
+    return this.get('trips/last');
+  }
+
+
+  getTrip(id: number): Observable<any> {
+    return this.get('trips/' + id);
+  }
+
+  addTrip(data): Observable<any> {
+    return this.post('trips', data);
+  }
+
+  editTrip(id: number, data): Observable<any> {
+    return this.put('trips/' + id, data);
+  }
+
+  editRoute(id: number, data): Observable<any> {
     return this.post('route/' + id, data);
   }
 

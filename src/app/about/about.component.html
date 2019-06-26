@@ -1,0 +1,18 @@
+<div class="container">
+  <div class="row">
+    <div class="col l10 offset-l2 s12">
+      <h1 class="header">{{ "about.title" | translate }}</h1>
+    </div>
+    <div class="col s12">
+      <app-loader *ngIf="!isLoaded"></app-loader>
+      <ng-container *ngIf="isLoaded">
+        <div class="card">
+          <div class="card-content">
+            <div class="content" [innerHTML]="about.article| translate">
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>

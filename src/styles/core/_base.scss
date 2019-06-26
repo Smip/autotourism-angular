@@ -1,0 +1,111 @@
+
+* {
+  box-sizing: border-box;
+  &:active,
+  &:hover,
+  &:focus {
+    outline: 0;
+  }
+}
+
+html {
+  height: 100%;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+i.medium {
+  vertical-align: middle;
+}
+
+.flex {
+  display: flex;
+}
+
+.card-content h3 {
+  margin-top: 0;
+}
+
+h1.header {
+  margin-bottom: 3rem;
+  @media only screen and (max-width: 993px) {
+    margin-top: 10rem;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .container {
+    width: 100% !important;
+  }
+}
+
+@import "~materialize-css/sass/components/variables";
+
+.ql-snow .ql-editor {
+  h2 {
+    font-size: $h2-fontsize;
+    margin: 1.73333333rem 0 1.04rem 0;
+  }
+  img {
+    margin: 10px 5px;
+  }
+}
+
+.ql-container {
+  line-height: 1.5;
+
+  @media only screen and (min-width: 0) {
+    font-size: 14px;
+  }
+
+  @media only screen and (min-width: $medium-screen) {
+    font-size: 14.5px;
+  }
+
+  @media only screen and (min-width: $large-screen) {
+    font-size: 15px;
+  }
+
+  font-family: $font-stack;
+  font-weight: normal;
+  color: $off-black;
+}
+
+.ql-clipboard {
+  position: fixed;
+}
+
+.report {
+  padding: 15px 0;
+  img {
+    margin-left: auto;
+    display: block;
+    margin-right: auto;
+  }
+}
+
+.card .card-content .content p {
+  margin: 10px 0;
+}
+
+@media only screen and (min-width: 0) {
+  h2 {
+    font-size: 1.9rem !important;
+  }
+  h3 {
+    font-size: 1.6rem !important;
+  }
+}
+
+//@media only screen and (min-width: $medium-screen) {
+//  h2{
+//    font-size: 14px;
+//  }
+//}

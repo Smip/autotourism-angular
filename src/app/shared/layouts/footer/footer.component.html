@@ -1,0 +1,39 @@
+<footer class="page-footer">
+  <div class="container">
+    <div class="row">
+      <div class="col l6 s12">
+        <h5>{{"Автотуризм без границ" | translate }}</h5>
+        <p>{{"footer.text" | translate }}</p>
+        <p>
+          <a href="https://www.facebook.com/groups/autotourism/">
+            <img src="/assets/fb.png" alt="" style="width: 32px; vertical-align: middle;">
+            {{"Следите за нами в Facebook" | translate }}
+          </a>
+        </p>
+      </div>
+      <div class="col l4 offset-l2 s12">
+        <h5>{{"Меню"| translate}}</h5>
+        <ul>
+          <li *ngFor="let item of links">
+            <a [routerLink]="[item.routerLink]" *ngIf="item.routerLink" [routerLinkActive]="['active']">
+              <i class="material-icons left" *ngIf="item.icon">{{ item.icon }}</i>
+              {{ item.name | translate }}
+            </a>
+            <a [href]="[item.href]" *ngIf="item.href">
+              <i class="material-icons left" *ngIf="item.icon">{{ item.icon }}</i>
+              {{ item.name | translate }}
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="footer-copyright">
+    <div class="container">
+      © {{"Автотуризм без границ" | translate}}
+      <a class="right" href="https://www.linkedin.com/in/soko1off/" target="_blank">
+        <i class="material-icons tiny">open_in_new</i> Developed by Aleksandr Sokolov
+      </a>
+    </div>
+  </div>
+</footer>

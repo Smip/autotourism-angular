@@ -1,0 +1,25 @@
+<div class="container">
+  <div class="row">
+    <div class="col l10 offset-l2 s12">
+      <h1 class="header">{{ "organizers.title" | translate }}</h1>
+    </div>
+    <div class="col s12">
+      <app-loader *ngIf="!isLoaded"></app-loader>
+      <ng-container *ngIf="isLoaded">
+        <div class="card" *ngFor="let org of orgs">
+          <div class="row">
+            <div class="col m3 s12 card-image">
+              <img [src]="org.photo">
+            </div>
+            <div class="col m9 s12 card-content">
+              <h3>{{org.name| translate}} / {{org.nick}}</h3>
+              <span [innerHTML]="org.description">
+
+              </span>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>

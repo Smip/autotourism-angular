@@ -1,9 +1,8 @@
 import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 
-import {BaseApi} from '../core/base-api';
-import {Report} from '../models/report.model';
 import {HttpClient} from '@angular/common/http';
+import {BaseApi} from '@shared/services/base-api';
 
 @Injectable()
 export class ReportsService extends BaseApi {
@@ -12,12 +11,8 @@ export class ReportsService extends BaseApi {
     super(http);
   }
 
-  getReport(id: number): Observable<Report> {
+  getReport(id: number): Observable<any> {
     return this.get('report/' + id);
-  }
-
-  editReport(id: number, data: Report): Observable<boolean> {
-    return this.put('report/' + id, data);
   }
 
 

@@ -1,12 +1,37 @@
+<ul class="collapsible hide-on-med-and-up" mCollapsible>
+  <li>
+    <div class="collapsible-header"><i class="material-icons">timeline</i>{{'Посмотреть маршрут' | translate}}</div>
+    <div class="collapsible-body">
+      <div
+        *ngFor="let point of route"
+        class="timeline-item"
+        [ngClass]="{'active':isValidDate(point.date_from) && isValidDate(point.date_until) && dateBetween(point.date_from, point.date_until)}"
+      >
+        <p class="timeline-date">
+          {{isValidDate(point.date_from)?(point.date_from | moment: 'LL'):'?'}} {{point.date_from !== point.date_until
+          && isValidDate(point.date_until) ? ' - '+(point.date_until | moment: 'LL'):''}}
+        </p>
+        <h5>
+          {{point.destination?(point.destination | translate):'?'}}
+        </h5>
+      </div>
+    </div>
+  </li>
+</ul>
 <div
-  *ngFor="let point of route | orderRoute"
-  class="timeline-item"
+  *ngFor="let point of route"
+  class="timeline-item hide-on-small-only"
   [ngClass]="{'active':isValidDate(point.date_from) && isValidDate(point.date_until) && dateBetween(point.date_from, point.date_until)}"
 >
   <p class="timeline-date">
-    {{isValidDate(point.date_from)?(point.date_from | autoMoment: 'YYYY-MM-DD'):'?'}} {{point.date_from !== point.date_until && isValidDate(point.date_until) ? ' - '+(point.date_until | autoMoment: 'YYYY-MM-DD'):''}}
+    {{isValidDate(point.date_from)?(point.date_from | moment: 'LL'):'?'}} {{point.date_from !== point.date_until &&
+    isValidDate(point.date_until) ? ' - '+(point.date_until | moment: 'LL'):''}}
   </p>
   <h5>
     {{point.destination?(point.destination | translate):'?'}}
   </h5>
 </div>
+<div class="center-align" *ngIf="!route.length">
+  {{'Нет информации о маршруте' | translate}}
+</div>
+

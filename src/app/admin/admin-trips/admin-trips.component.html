@@ -1,0 +1,89 @@
+<div class="row">
+  <div class="col l10 offset-l2 s12">
+    <h1 class="header">Пробеги</h1>
+  </div>
+  <div class="col s12">
+    <app-loader *ngIf="!isLoaded"></app-loader>
+    <ng-container *ngIf="isLoaded">
+      <a
+        class="waves-effect waves-light btn right blue"
+        [routerLink]="['new']"
+      >
+        <i class="material-icons left">add</i>{{"Создать новый"| translate}}
+      </a>
+      <div class="clearfix"></div>
+      <div class="card" *ngFor="let trip of trips">
+        <div class="card-content">
+          <div class="row">
+            <div class="col s12 m9">
+              <p class="flow-text">
+                <strong>
+                  <a [routerLink]="[trip.id]">
+                    {{trip.number?'№'+trip.number+":":''}} {{trip.name}}
+                  </a>
+                </strong>
+              </p>
+              <p>
+                {{trip.date_from | moment: 'YYYY-MM-DD'}} - {{trip.date_until | moment: 'YYYY-MM-DD'}}
+              </p>
+              <hr>
+              <p>
+                <a class="waves-effect waves-teal btn-flat" [routerLink]="[trip.id, 'route']">
+                  <i class="material-icons left">timeline</i>
+                  Маршрут
+                </a>
+                <a class="waves-effect waves-teal btn-flat" [routerLink]="[trip.id, 'members']">
+                  <i class="material-icons left">people</i>
+                  Экипажи пробега
+                </a>
+                <a class="waves-effect waves-teal btn-flat" [routerLink]="[trip.id, 'report']">
+                  <i class="material-icons left">description</i>
+                  Отчёт
+                </a>
+              </p>
+            </div>
+            <div class="col s12 m3">
+              <ul>
+                <li>
+                  <ng-container *ngIf="trip.type === 'real'">
+                    <i class="material-icons green-text left">assignment_turned_in</i>
+                    Пробег
+                  </ng-container>
+                  <ng-container *ngIf="trip.type === 'plan'">
+                    <i class="material-icons accent-3-text light-blue-text left">book</i>
+                    План
+                  </ng-container>
+                  <ng-container *ngIf="trip.type === 'draft'">
+                    <i class="material-icons red-text left">border_color</i>
+                    Черновик
+                  </ng-container>
+                </li>
+                <li>
+                  <i class="material-icons left">directions_car</i>
+                  Экипажей {{trip.members_number}}
+                </li>
+                <li>
+                  <ng-container *ngIf="trip.trip_report_posted">
+                    <i class="material-icons left green-text">chrome_reader_mode</i>
+                    Отчёт опубликован
+                  </ng-container>
+                  <ng-container *ngIf="!trip.trip_report_posted && trip.trip_report">
+                    <i class="material-icons left red-text">chrome_reader_mode</i>
+                    Отчёт сохранён как черновик
+                  </ng-container>
+                  <ng-container *ngIf="!trip.trip_report_posted && !trip.trip_report">
+                    <i class="material-icons left">chrome_reader_mode</i>
+                    Отчёт отсутствует
+                  </ng-container>
+                </li>
+              </ul>
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>
+

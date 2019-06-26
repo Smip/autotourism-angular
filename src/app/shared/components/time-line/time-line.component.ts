@@ -1,15 +1,18 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Route} from '../../models/route.model';
+// declare const moment: any;
 import * as moment from 'moment';
 
+// const Moment: any = (<any>moment).default || moment;
+
 @Component({
-  selector: 'autotourism-time-line',
+  selector: 'app-time-line',
   templateUrl: './time-line.component.html',
   styleUrls: ['./time-line.component.scss']
 })
 export class TimeLineComponent implements OnInit {
 
-  @Input() route: Route;
+  @Input() route: Route[];
 
   constructor() { }
 

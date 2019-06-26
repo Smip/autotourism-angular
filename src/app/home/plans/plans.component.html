@@ -1,0 +1,27 @@
+<div class="container">
+  <div class="row">
+    <div class="col m12">
+      <h2 class="center">{{"home.our_plans" | translate}}</h2>
+    </div>
+    <div class="col s12 m10 offset-m1 xl8 offset-xl2">
+      <app-loader *ngIf="!isLoaded"></app-loader>
+      <ng-container *ngIf="isLoaded">
+        <div *ngFor="let plan of plans">
+          <p class="flow-text">
+            <ng-container *ngIf="
+            dateHappened(plan.registration_open_from) &&
+            !dateHappened(plan.registration_open_to, 1) &&
+            plan.registration_open_from &&
+            plan.registration_open_to">
+              <span class="new badge right blue" [attr.data-badge-caption]="'Открыта регистрация' | translate"></span>
+            </ng-container>
+            <i class="material-icons medium circle left">explore</i>
+            {{plan.name| translate}}
+            <br>
+            <small>{{plan.date_from | moment: 'LL'}} - {{plan.date_until | moment: 'LL'}}</small>
+          </p>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>

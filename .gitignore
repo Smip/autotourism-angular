@@ -2,11 +2,17 @@
 
 # compiled output
 /dist
+/doc
 /tmp
 /out-tsc
+/dist-server
+/static
+server.js
+prerender.js
 
 # dependencies
 /node_modules
+package-lock.json
 
 # IDEs and editors
 /.idea
@@ -35,5 +41,7 @@ testem.log
 /typings
 
 # System Files
-.DS_Store
+**/.DS_Store
 Thumbs.db
+prerender.js.map
+server.js.map
