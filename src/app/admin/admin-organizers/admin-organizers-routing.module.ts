@@ -8,11 +8,11 @@ const routes: Routes = [
   },
   {
     path: 'new',
-    loadChildren: './edit-organizer/edit-organizer.module#EditOrganizerModule',
+    loadChildren: () => import('./edit-organizer/edit-organizer.module').then(m => m.EditOrganizerModule),
   },
   {
     path: ':id',
-    loadChildren: './edit-organizer/edit-organizer.module#EditOrganizerModule',
+    loadChildren: () => import('./edit-organizer/edit-organizer.module').then(m => m.EditOrganizerModule),
   },
 ];
 

@@ -8,23 +8,23 @@ const routes: Routes = [
   },
   {
     path: ':id/route',
-    loadChildren: './edit-route/edit-route.module#EditRouteModule',
+    loadChildren: () => import('./edit-route/edit-route.module').then(m => m.EditRouteModule),
   },
   {
     path: ':id/report',
-    loadChildren: './edit-report/edit-report.module#EditReportModule',
+    loadChildren: () => import('./edit-report/edit-report.module').then(m => m.EditReportModule),
   },
   {
     path: ':id/members',
-    loadChildren: './edit-members/edit-members.module#EditMembersModule',
+    loadChildren: () => import('./edit-members/edit-members.module').then(m => m.EditMembersModule),
   },
   {
     path: 'new',
-    loadChildren: './edit-trip/edit-trip.module#EditTripModule',
+    loadChildren: () => import('./edit-trip/edit-trip.module').then(m => m.EditTripModule),
   },
   {
     path: ':id',
-    loadChildren: './edit-trip/edit-trip.module#EditTripModule',
+    loadChildren: () => import('./edit-trip/edit-trip.module').then(m => m.EditTripModule),
   },
 ];
 

@@ -15,7 +15,7 @@ const authRoutes: Routes = [
     children: [
       {
         path: 'login',
-        loadChildren: './components/login/login.module#LoginModule',
+        loadChildren: () => import('./components/login/login.module').then(m => m.LoginModule),
       },
       // {
       //   path: 'registration',
