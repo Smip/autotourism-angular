@@ -54,4 +54,4 @@ const routes: Routes = [
   }
 ];
 // must use {initialNavigation: 'enabled'}) - for one load page, without reload
-export const AppRoutes = RouterModule.forRoot(routes, { initialNavigation: 'enabled' });
+export const AppRoutes = RouterModule.forRoot(routes, { initialNavigation: 'enabled', relativeLinkResolution: 'legacy' });
