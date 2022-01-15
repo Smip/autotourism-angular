@@ -11,6 +11,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "aot": true,
             "outputPath": "dist",
             "index": "src/index.html",
             "main": "src/main.browser.ts",
@@ -111,7 +112,7 @@
           "builder": "@angular-devkit/build-angular:server",
           "options": {
             "outputPath": "dist-server",
-            "main": "src/main.server.ts",
+            "main": "server.ts",
             "tsConfig": "src/tsconfig.server.json"
           },
           "configurations": {
@@ -121,11 +122,12 @@
                   "replace": "src/environments/environment.ts",
                   "with": "src/environments/server/environment.ts"
                 }
-              ]
+              ],
+              "optimization": true
             },
             "production": {
               "optimization": true,
-              "outputHashing": "all",
+              "outputHashing": "none",
               "sourceMap": false,
               "namedChunks": false,
               "extractLicenses": true,
@@ -138,42 +140,32 @@
             }
           }
         },
+        "serve-ssr": {
+          "builder": "@nguniversal/builders:ssr-dev-server",
+          "options": {
+            "browserTarget": "autotourism:build",
+            "serverTarget": "autotourism:server"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "autotourism:build:production",
+              "serverTarget": "autotourism:server:production"
+            },
+            "dev": {
+              "browserTarget": "autotourism:build:dev",
+              "serverTarget": "autotourism:server:dev"
+            }
+          }
+        },
         "prerender": {
           "builder": "@nguniversal/builders:prerender",
           "options": {
-            "browserTarget": "universal-demo:build:production",
-            "serverTarget": "universal-demo:server:production",
-            "routes": [
-              "/"
-            ]
+            "browserTarget": "autotourism:build:production",
+            "serverTarget": "autotourism:server:production",
+            "routesFile": "./prerender-routes.txt"
           },
           "configurations": {
             "production": {}
-          }
-        }
-      }
-    },
-    "autotourism-e2e": {
-      "root": "",
-      "sourceRoot": "",
-      "projectType": "application",
-      "architect": {
-        "e2e": {
-          "builder": "@angular-devkit/build-angular:protractor",
-          "options": {
-            "protractorConfig": "./protractor.conf.js",
-            "devServerTarget": "autotourism:serve"
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "e2e/tsconfig.e2e.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
           }
         }
       }

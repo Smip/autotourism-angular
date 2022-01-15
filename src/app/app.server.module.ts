@@ -1,15 +1,16 @@
 // angular
-import {NgModule} from '@angular/core';
-import {ServerModule, ServerTransferStateModule} from '@angular/platform-server';
-import {NoopAnimationsModule} from '@angular/platform-browser/animations';
+import { NgModule} from '@angular/core';
+import { ServerModule, ServerTransferStateModule } from '@angular/platform-server';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 // shared
-import {TranslatesServerModule} from '@shared/translates/translates-server';
+import { TranslatesServerModule } from '@shared/translates/translates-server';
 // components
-import {AppComponent} from './app.component';
-import {AppModule} from './app.module';
-import {InlineStyleComponent} from './inline-style/inline-style.component';
-import {InlineStyleModule} from './inline-style/inline-style.module';
-import {CookieBackendService, CookieService} from '@gorniv/ngx-universal';
+import { AppComponent } from './app.component';
+import { AppModule } from './app.module';
+import { InlineStyleComponent } from './inline-style/inline-style.component';
+import { InlineStyleModule } from './inline-style/inline-style.module';
+import { CookieService, CookieBackendService, NgxRequest, NgxResponse } from '@gorniv/ngx-universal';
+import { REQUEST, RESPONSE } from '@nguniversal/express-engine/tokens';
 
 @NgModule({
   imports: [
@@ -19,12 +20,27 @@ import {CookieBackendService, CookieService} from '@gorniv/ngx-universal';
     NoopAnimationsModule,
     ServerTransferStateModule,
     InlineStyleModule,
-    TranslatesServerModule,
+    TranslatesServerModule
   ],
   bootstrap: [AppComponent, InlineStyleComponent],
   providers: [
-    {provide: CookieService, useClass: CookieBackendService},
+    { provide: CookieService, useClass: CookieBackendService },
+    {
+      provide: REQUEST,
+      useValue: { cookie: '', headers: {} },
+    },
+    {
+      provide: RESPONSE,
+      useValue: {},
+    },
+    {
+      provide: NgxRequest,
+      useValue: { cookie: '', headers: {} },
+    },
+    {
+      provide: NgxResponse,
+      useValue: {},
+    },
   ],
 })
-export class AppServerModule {
-}
+export class AppServerModule {}

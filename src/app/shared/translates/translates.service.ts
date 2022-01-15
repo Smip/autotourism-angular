@@ -1,4 +1,4 @@
-import {Inject, Injectable, PLATFORM_ID} from '@angular/core';
+import { Inject, Injectable, Optional, PLATFORM_ID } from "@angular/core";
 import {DOCUMENT, isPlatformBrowser, isPlatformServer} from '@angular/common';
 import {REQUEST} from '@nguniversal/express-engine/tokens';
 import {MissingTranslationHandler, MissingTranslationHandlerParams, TranslateService as NGXTranslateService} from '@ngx-translate/core';
@@ -21,10 +21,9 @@ export class TranslatesService {
   constructor(
     @Inject(PLATFORM_ID) private _platformId: Object,
     @Inject(DOCUMENT) private _document: any,
-    @Inject(REQUEST) private _request: any,
+    @Optional() @Inject(REQUEST) private _request: any,
     @Inject(NGXTranslateService) private _translate: NGXTranslateService,
     @Inject(MetaService) private _meta: MetaService,
-    @Inject(REQUEST) private _req: any,
     @Inject(UniversalStorage) private _appStorage: Storage,
   ) {
   }
